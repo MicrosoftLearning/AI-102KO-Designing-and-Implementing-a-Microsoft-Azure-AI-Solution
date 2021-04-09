@@ -13,7 +13,7 @@ Azure Cognitive Service인 **Speech** 서비스에서는 다음과 같은 음성
 
 이 연습에서는 두 API를 모두 사용하여 음성으로 시간을 안내하는 시계 애플리케이션을 구현합니다.
 
-    > **참고**: 이 연습을 진행하려면 마이크와 스피커/헤드폰이 있는 컴퓨터를 사용해야 합니다.
+> **참고**: 이 연습을 진행하려면 마이크와 스피커/헤드폰이 있는 컴퓨터를 사용해야 합니다.
 
 ## 이 과정용 리포지토리 복제
 
@@ -45,7 +45,7 @@ Azure Cognitive Service인 **Speech** 서비스에서는 다음과 같은 음성
 
 이 연습에서는 Speech SDK를 사용해 음성을 인식하고 합성하는 부분 구현 클라이언트 애플리케이션을 완성합니다.
 
-    > **참고**: **C#** 또는 **Python**용 SDK 사용을 선택할 수 있습니다. 아래 단계에서 선호하는 언어에 적합한 작업을 수행하세요.
+> **참고**: **C#** 또는 **Python**용 SDK 사용을 선택할 수 있습니다. 아래 단계에서 선호하는 언어에 적합한 작업을 수행하세요.
 
 1. Visual Studio Code의 **탐색기** 창에서 **07-speech** 폴더를 찾은 다음 언어 기본 설정에 따라 **C-Sharp** 또는 **Python** 폴더를 확장합니다.
 2. **speaking-clock** 폴더를 마우스 오른쪽 단추로 클릭하고 통합 터미널을 엽니다. 그런 다음 언어 기본 설정에 적합한 명령을 실행하여 Speech SDK 패키지를 설치합니다.
@@ -275,7 +275,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
 
 음성 시계 애플리케이션은 기본 음성을 사용하는데, 이 음성을 변경할 수 있습니다. Speech 서비스에서는 광범위한 *표준* 음성은 물론 인간의 음성과 더욱 비슷한 *신경망* 음성도 지원합니다. *사용자 지정* 음성을 만들 수도 있습니다.
 
-    > **참고**: 신경망 음성과 표준 음성 목록을 확인하려면 Speech 서비스 설명서의 [언어 및 음성 지원](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support#text-    to-speech)을 참조하세요.  표준, 신경망 및 사용자 지정 음성 사용 가능 여부는 지역별로 다릅니다. 자세한 내용은 [Speech 서비스 지원 지역]    (https://docs.microsoft.com/azure/cognitive-services/speech-service/regions#standard-and-neural-voices)을 참조하세요.
+> **참고**: 신경망 음성과 표준 음성 목록을 확인하려면 Speech 서비스 설명서의 [언어 및 음성 지원](https://docs.microsoft.com/azure/cognitive-services/speech-service/language-support#text-    to-speech)을 참조하세요.  표준, 신경망 및 사용자 지정 음성 사용 가능 여부는 지역별로 다릅니다. 자세한 내용은 [Speech 서비스 지원 지역]    (https://docs.microsoft.com/azure/cognitive-services/speech-service/regions#standard-and-neural-voices)을 참조하세요.
 
 1. **TellTime** 함수의 **음성 합성 구성** 주석 아래에서 코드를 다음과 같이 수정하여 **SpeechSynthesizer** 클라이언트를 만들기 전에 대체 음성을 지정합니다.
 
