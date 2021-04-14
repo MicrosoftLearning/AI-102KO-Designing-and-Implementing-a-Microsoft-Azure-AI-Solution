@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: 'QnA 솔루션 만들기'
     module: '모듈 6 - QnA 솔루션 빌드'
