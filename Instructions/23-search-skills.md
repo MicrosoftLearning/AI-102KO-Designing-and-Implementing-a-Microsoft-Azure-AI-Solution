@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: 'Azure Cognitive Search용 사용자 지정 기술 만들기'
     module: '모듈 12 - 지식 마이닝 솔루션 만들기'
