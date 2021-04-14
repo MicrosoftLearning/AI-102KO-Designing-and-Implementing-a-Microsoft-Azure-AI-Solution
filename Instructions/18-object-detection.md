@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: 'Custom Vision을 사용하여 이미지의 개체 감지'
     module: '모듈 9 - Custom Vision 솔루션 개발'
