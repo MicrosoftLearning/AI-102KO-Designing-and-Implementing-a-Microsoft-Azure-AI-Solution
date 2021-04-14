@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: 'Language Understanding 클라이언트 애플리케이션 만들기'
     module: '모듈 5 - Language Understanding 솔루션 만들기'
