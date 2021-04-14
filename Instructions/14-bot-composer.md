@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: 'Bot Framework Composer를 사용하여 봇 만들기'
     module: '모듈 7 - 대화형 AI 및 Azure Bot Service'
