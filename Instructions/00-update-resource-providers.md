@@ -20,6 +20,6 @@ Azure 구독에는 몇 가지 리소스 공급자를 등록해야 합니다. 이
     - Microsoft.Storage
     - Microsoft.CognitiveServices
     - Microsoft.AlertsManagement
-    - microsoft.insights
+    - Microsoft.Insights
     - Microsoft.KeyVault
     - Microsoft.ContainerInstance
