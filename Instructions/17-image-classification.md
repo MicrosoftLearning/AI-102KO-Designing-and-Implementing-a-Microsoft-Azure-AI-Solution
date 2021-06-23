@@ -120,7 +120,7 @@ pip install azure-cognitiveservices-vision-customvision==3.1.0
 4. **train-classifier** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs
-    - **Python**: train-classifier&period;py
+    - **Python**: train-classifier.py
 
     코드 파일을 열고 포함되어 있는 코드를 검토하여 다음 세부 정보를 확인합니다.
     - 설치한 패키지의 네임스페이스를 가져왔습니다.
@@ -176,7 +176,7 @@ pip install azure-cognitiveservices-vision-customvision==3.1.0
 
 2. **test-classifier** 폴더를 확장하여 이 폴더에 포함되어 있는 파일을 확인합니다. 이러한 파일은 이미지 분류 모델용 테스트 클라이언트 애플리케이션을 구현하는 데 사용됩니다.
 3. 클라이언트 애플리케이션용 구성 파일(C#의 경우 *appsettings.json*, Python의 경우 *env*)을 열고 Custom Vision *예측* 리소스의 엔드포인트와 키, 분류 프로젝트의 프로젝트 ID, 그리고 게시한 모델의 이름(*fruit-classifier*)을 반영하여 해당 파일에 포함된 구성 값을 업데이트합니다. 변경 내용을 저장합니다.
-4. 클라이언트 애플리케이션의 코드 파일(C#의 경우 *Program.cs*, Python의 경우 *test-classification&period;py*)을 열고 포함되어 있는 코드를 검토하여 다음 세부 정보를 확인합니다.
+4. 클라이언트 애플리케이션의 코드 파일(C#의 경우 *Program.cs*, Python의 경우 *test-classification.py*)을 열고 포함되어 있는 코드를 검토하여 다음 세부 정보를 확인합니다.
     - 설치한 패키지의 네임스페이스를 가져왔습니다.
     - **Main** 함수가 구성 설정을 검색하며 키와 엔드포인트를 사용하여 인증된 **CustomVisionPredictionClient**를 만듭니다.
     - 예측 클라이언트 개체를 사용하여 각 요청에 대해 프로젝트 ID와 모델 이름을 지정해 **test-images** 폴더에 포함된 각 이미지의 클래스를 예측합니다. 각 예측에는 예측 가능한 각 클래스의 가능성이 포함되며, 가능성이 50%보다 높은 것으로 예측된 태그만 표시됩니다.
@@ -196,6 +196,6 @@ python test-classifier.py
 
 6. 각 예측의 레이블(태그) 및 가능성 점수를 확인합니다. **test-images** 폴더의 이미지를 표시하여 모델이 이미지를 올바르게 분류했음을 확인할 수 있습니다.
 
-## 추가 정보
+## 자세한 정보
 
 Custom Vision 서비스를 통한 이미지 분류에 대한 자세한 내용은 [Custom Vision 설명서](https://docs.microsoft.com/azure/cognitive-services/custom-vision-service/)를 참조하세요.

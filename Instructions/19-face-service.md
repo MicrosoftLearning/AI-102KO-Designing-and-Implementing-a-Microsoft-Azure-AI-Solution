@@ -43,46 +43,47 @@ lab:
 1. Visual Studio Code의 **탐색기** 창에서 **19-face** 폴더를 찾은 다음 언어 기본 설정에 따라 **C-Sharp** 또는 **Python** 폴더를 확장합니다.
 2. **computer-vision** 폴더를 마우스 오른쪽 단추로 클릭하고 통합 터미널을 엽니다. 그런 다음 언어 기본 설정에 적합한 명령을 실행하여 Computer Vision SDK 패키지를 설치합니다.
 
-**C#**
+    **C#**
 
-```
-dotnet add package Microsoft.Azure.CognitiveServices.Vision.ComputerVision --version 6.0.0
-```
+    ```
+    dotnet add package Microsoft.Azure.CognitiveServices.Vision.ComputerVision --version 6.0.0
+    ```
 
-**Python**
+    **Python**
 
-```
-pip install azure-cognitiveservices-vision-computervision==0.7.0
-```
+    ```
+    pip install azure-cognitiveservices-vision-computervision==0.7.0
+    ```
     
 3. **computer-vision** 폴더의 내용을 표시하여 구성 설정용 파일이 포함되어 있음을 확인합니다.
     - **C#**: appsettings.json
     - **Python**: .env
 
-    구성 파일을 열고 Cognitive Service 리소스용 **엔드포인트** 및 인증 **키**를 반영하여 해당 파일에 포함된 구성 값을 업데이트합니다. 변경 내용을 저장합니다.
-4. **computer-vision** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
+4. 구성 파일을 열고 Cognitive Service 리소스용 **엔드포인트** 및 인증 **키**를 반영하여 해당 파일에 포함된 구성 값을 업데이트합니다. 변경 내용을 저장합니다.
+
+5. **computer-vision** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs
-    - **Python**: detect-faces&period;py
+    - **Python**: detect-faces.py
 
-    코드 파일을 열고 파일 맨 윗부분의 기존 네임스페이스 참조 아래에 있는 **네임스페이스 가져오기** 주석을 찾습니다. 그런 다음 이 주석 아래에 다음 언어별 코드를 추가하여 Computer Vision SDK를 사용하는 데 필요한 네임스페이스를 가져옵니다.
+6. 코드 파일을 열고 파일 맨 윗부분의 기존 네임스페이스 참조 아래에 있는 **네임스페이스 가져오기** 주석을 찾습니다. 그런 다음 이 주석 아래에 다음 언어별 코드를 추가하여 Computer Vision SDK를 사용하는 데 필요한 네임스페이스를 가져옵니다.
 
-**C#**
+    **C#**
 
-```C#
-// 네임스페이스 가져오기
-using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
-using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
-```
+    ```C#
+    // 네임스페이스 가져오기
+    using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
+    using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
+    ```
 
-**Python**
+    **Python**
 
-```Python
-# 네임스페이스 가져오기
-from azure.cognitiveservices.vision.computervision import ComputerVisionClient
-from azure.cognitiveservices.vision.computervision.models import VisualFeatureTypes
-from msrest.authentication import CognitiveServicesCredentials
-```
+    ```Python
+    # 네임스페이스 가져오기
+    from azure.cognitiveservices.vision.computervision import ComputerVisionClient
+    from azure.cognitiveservices.vision.computervision.models import VisualFeatureTypes
+    from msrest.authentication import CognitiveServicesCredentials
+    ```
 
 ## 분석할 이미지 확인
 
@@ -95,48 +96,48 @@ from msrest.authentication import CognitiveServicesCredentials
 
 이제 SDK를 사용해 Computer Vision 서비스를 호출하고 이미지의 얼굴을 감지할 준비가 되었습니다.
 
-1. 클라이언트 애플리케이션용 코드 파일(**Program.cs** 또는 **detect-faces&period;py**)의 **Main** 함수에서 구성 설정 로드를 위한 코드가 제공되어 있음을 확인합니다. 그런 다음 **Computer Vision 클라이언트 인증** 주석을 찾습니다. 그 후에 이 주석 아래에 다음 언어별 코드를 추가하여 Computer Vision 클라이언트 개체를 만들고 인증합니다.
+1. 클라이언트 애플리케이션용 코드 파일(**Program.cs** 또는 **detect-faces.py**)의 **Main** 함수에서 구성 설정 로드를 위한 코드가 제공되어 있음을 확인합니다. 그런 다음 **Computer Vision 클라이언트 인증** 주석을 찾습니다. 그 후에 이 주석 아래에 다음 언어별 코드를 추가하여 Computer Vision 클라이언트 개체를 만들고 인증합니다.
 
-**C#**
+    **C#**
 
-```C#
-// Computer Vision 클라이언트 인증
-ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(cogSvcKey);
-cvClient = new ComputerVisionClient(credentials)
-{
-    Endpoint = cogSvcEndpoint
-};
-```
+    ```C#
+    // Computer Vision 클라이언트 인증
+    ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(cogSvcKey);
+    cvClient = new ComputerVisionClient(credentials)
+    {
+        Endpoint = cogSvcEndpoint
+    };
+    ```
 
-**Python**
+    **Python**
 
-```Python
-# Computer Vision 클라이언트 인증
-credential = CognitiveServicesCredentials(cog_key) 
-cv_client = ComputerVisionClient(cog_endpoint, credential)
-```
+    ```Python
+    # Computer Vision 클라이언트 인증
+    credential = CognitiveServicesCredentials(cog_key) 
+    cv_client = ComputerVisionClient(cog_endpoint, credential)
+    ```
 
 2. **Main** 함수의 방금 추가한 코드 아래에 있는 코드가 이미지 파일 경로를 지정한 다음 **AnalyzeFaces** 함수로 해당 이미지 경로를 전달함을 확인합니다. 이 함수는 아직 완전히 구현되지 않았습니다.
 
 3. **AnalyzeFaces** 함수의 **검색할 기능(얼굴) 지정** 주석 아래에 다음 코드를 추가합니다.
 
-**C#**
+    **C#**
 
-```C#
-// 검색할 기능(얼굴) 지정
-List<VisualFeatureTypes?> features = new List<VisualFeatureTypes?>()
-{
-    VisualFeatureTypes.Faces
-};
-```
+    ```C#
+    // 검색할 기능(얼굴) 지정
+    List<VisualFeatureTypes?> features = new List<VisualFeatureTypes?>()
+    {
+        VisualFeatureTypes.Faces
+    };
+    ```
 
-**Python**
+    **Python**
 
-```Python
-# 검색할 기능(얼굴) 지정
-features = [VisualFeatureTypes.faces]
-```
-    
+    ```Python
+    # 검색할 기능(얼굴) 지정
+    features = [VisualFeatureTypes.faces]
+    ```
+
 4. **AnalyzeFaces** 함수의 **이미지 분석 가져오기** 주석 아래에 다음 코드를 추가합니다.
 
 **C#**
@@ -211,20 +212,20 @@ with open(image_file, mode="rb") as image_data:
 
         print('Results saved in', outputfile)
 ```
-    
+
 5. 변경 내용을 저장하고 **computer-vision** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
-**C#**
+    **C#**
 
-```
-dotnet run
-```
+    ```
+    dotnet run
+    ```
 
-**Python**
+    **Python**
 
-```
-python detect-faces.py
-```
+    ```
+    python detect-faces.py
+    ```
 
 6. 출력을 살펴봅니다. 감지된 얼굴 수가 표시됩니다.
 7. 코드 파일과 같은 폴더에 생성된 **detected_faces.jpg** 파일을 표시하여 주석이 추가된 얼굴을 확인합니다. 여기서 코드는 얼굴 특성을 사용해 이미지에 나와 있는 각 사람의 연령을 추정했습니다. 그리고 경계 상자 좌표를 사용해 각 얼굴 주위에 사각형을 그렸습니다.
@@ -236,69 +237,70 @@ python detect-faces.py
 1. Visual Studio Code의 **탐색기** 창에서 **19-face** 폴더를 찾은 다음 언어 기본 설정에 따라 **C-Sharp** 또는 **Python** 폴더를 확장합니다.
 2. **face-api** 폴더를 마우스 오른쪽 단추로 클릭하고 통합 터미널을 엽니다. 그런 다음 언어 기본 설정에 적합한 명령을 실행하여 Face SDK 패키지를 설치합니다.
 
-**C#**
+    **C#**
 
-```
-dotnet add package Microsoft.Azure.CognitiveServices.Vision.Face --version 2.6.0-preview.1
-```
+    ```
+    dotnet add package Microsoft.Azure.CognitiveServices.Vision.Face --version 2.6.0-preview.1
+    ```
 
-**Python**
+    **Python**
 
-```
-pip install azure-cognitiveservices-vision-face==0.4.1
-```
+    ```
+    pip install azure-cognitiveservices-vision-face==0.4.1
+    ```
     
 3. **face-api** 폴더의 내용을 표시하여 구성 설정용 파일이 포함되어 있음을 확인합니다.
     - **C#**: appsettings.json
     - **Python**: .env
 
-    구성 파일을 열고 Cognitive Service 리소스용 **엔드포인트** 및 인증 **키**를 반영하여 해당 파일에 포함된 구성 값을 업데이트합니다. 변경 내용을 저장합니다.
-4. **face-api** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
+4. 구성 파일을 열고 Cognitive Service 리소스용 **엔드포인트** 및 인증 **키**를 반영하여 해당 파일에 포함된 구성 값을 업데이트합니다. 변경 내용을 저장합니다.
+
+5. **face-api** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs
-    - **Python**: analyze-faces&period;py
+    - **Python**: analyze-faces.py
 
-    코드 파일을 열고 파일 맨 윗부분의 기존 네임스페이스 참조 아래에 있는 **네임스페이스 가져오기** 주석을 찾습니다. 그런 다음 이 주석 아래에 다음 언어별 코드를 추가하여 Computer Vision SDK를 사용하는 데 필요한 네임스페이스를 가져옵니다.
+6. 코드 파일을 열고 파일 맨 윗부분의 기존 네임스페이스 참조 아래에 있는 **네임스페이스 가져오기** 주석을 찾습니다. 그런 다음 이 주석 아래에 다음 언어별 코드를 추가하여 Computer Vision SDK를 사용하는 데 필요한 네임스페이스를 가져옵니다.
 
-**C#**
+    **C#**
 
-```C#
-// 네임스페이스 가져오기
-using Microsoft.Azure.CognitiveServices.Vision.Face;
-using Microsoft.Azure.CognitiveServices.Vision.Face.Models;
-```
+    ```C#
+    // 네임스페이스 가져오기
+    using Microsoft.Azure.CognitiveServices.Vision.Face;
+    using Microsoft.Azure.CognitiveServices.Vision.Face.Models;
+    ```
 
-**Python**
+    **Python**
 
-```Python
-# 네임스페이스 가져오기
-from azure.cognitiveservices.vision.face import FaceClient
-from azure.cognitiveservices.vision.face.models import FaceAttributeType
-from msrest.authentication import CognitiveServicesCredentials
-```
+    ```Python
+    # 네임스페이스 가져오기
+    from azure.cognitiveservices.vision.face import FaceClient
+    from azure.cognitiveservices.vision.face.models import FaceAttributeType
+    from msrest.authentication import CognitiveServicesCredentials
+    ```
 
-5. **Main** 함수에서 구성 설정 로드를 위한 코드가 제공되어 있음을 확인합니다. 그런 다음 **Face 클라이언트 인증** 주석을 찾습니다. 그 후에 이 주석 아래에 다음 언어별 코드를 추가하여 **FaceClient** 개체를 만들고 인증합니다.
+7. **Main** 함수에서 구성 설정 로드를 위한 코드가 제공되어 있음을 확인합니다. 그런 다음 **Face 클라이언트 인증** 주석을 찾습니다. 그 후에 이 주석 아래에 다음 언어별 코드를 추가하여 **FaceClient** 개체를 만들고 인증합니다.
 
-**C#**
+    **C#**
 
-```C#
-// Face 클라이언트 인증
-ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(cogSvcKey);
-faceClient = new FaceClient(credentials)
-{
-    Endpoint = cogSvcEndpoint
-};
-```
+    ```C#
+    // Face 클라이언트 인증
+    ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(cogSvcKey);
+    faceClient = new FaceClient(credentials)
+    {
+        Endpoint = cogSvcEndpoint
+    };
+    ```
 
-**Python**
+    **Python**
 
-```Python
-# Face 클라이언트 인증
-credentials = CognitiveServicesCredentials(cog_key)
-face_client = FaceClient(cog_endpoint, credentials)
-```
+    ```Python
+    # Face 클라이언트 인증
+    credentials = CognitiveServicesCredentials(cog_key)
+    face_client = FaceClient(cog_endpoint, credentials)
+    ```
 
-6. **Main** 함수의 방금 추가한 코드 아래에 있는 코드가 메뉴를 표시함을 확인합니다. 이 메뉴를 사용하면 코드의 함수를 호출하여 Face 서비스 기능을 살펴볼 수 있습니다. 이 연습의 나머지 부분에서 이러한 함수를 구현합니다.
+8. **Main** 함수의 방금 추가한 코드 아래에 있는 코드가 메뉴를 표시함을 확인합니다. 이 메뉴를 사용하면 코드의 함수를 호출하여 Face 서비스 기능을 살펴볼 수 있습니다. 이 연습의 나머지 부분에서 이러한 함수를 구현합니다.
 
 ## 얼굴 감지 및 분석
 
@@ -307,26 +309,26 @@ Face 서비스의 가장 기본적인 기능 중 하나는 이미지의 얼굴�
 1. 애플리케이션용 코드 파일의 **Main** 함수에서 사용자가 메뉴 옵션 **1**을 선택하면 실행되는 코드를 살펴봅니다. 이 코드는 **DetectFaces** 함수를 호출하여 이미지 파일의 경로를 전달합니다.
 2. 코드 파일에서 **DetectFaces** 함수를 찾은 다음 **검색할 얼굴 기능 지정** 주석 아래에 다음 코드를 추가합니다.
 
-**C#**
+    **C#**
 
-```C#
-// 검색할 얼굴 기능 지정
-List<FaceAttributeType?> features = new List<FaceAttributeType?>
-{
-    FaceAttributeType.Age,
-    FaceAttributeType.Emotion,
-    FaceAttributeType.Glasses
-};
-```
+    ```C#
+    // 검색할 얼굴 기능 지정
+    List<FaceAttributeType?> features = new List<FaceAttributeType?>
+    {
+        FaceAttributeType.Age,
+        FaceAttributeType.Emotion,
+        FaceAttributeType.Glasses
+    };
+    ```
 
-**Python**
+    **Python**
 
-```Python
-# 검색할 얼굴 기능 지정
-features = [FaceAttributeType.age,
-            FaceAttributeType.emotion,
-            FaceAttributeType.glasses]
-```
+    ```Python
+    # 검색할 얼굴 기능 지정
+    features = [FaceAttributeType.age,
+                FaceAttributeType.emotion,
+                FaceAttributeType.glasses]
+    ```
 
 3. **DetectFaces** 함수의 방금 추가한 코드 아래에서 **얼굴 가져오기** 주석을 찾은 후 다음 코드를 추가합니다.
 
@@ -433,19 +435,19 @@ with open(image_file, mode="rb") as image_data:
 4. **DetectFaces** 함수에 추가한 코드를 살펴봅니다. 이 코드는 이미지 파일을 분석하여 해당 파일에 포함된 얼굴을 감지합니다. 이때 연령, 감정, 안경 유무 특성도 함께 감지합니다. 각 얼굴에 할당되는 고유 얼굴 식별자를 비롯한 각 얼굴의 세부 정보가 표시됩니다. 그리고 경계 상자를 사용하여 이미지상의 얼굴 위치가 표시됩니다.
 5. 변경 내용을 저장하고 **face-api** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
-**C#**
+    **C#**
 
-```
-dotnet run
-```
+    ```
+    dotnet run
+    ```
 
-*이제 C# 출력에 **await** 연산자를 사용하는 비동기 함수 관련 경고가 표시될 수 있습니다. 이러한 경고는 무시할 수 있습니다.*
+    *이제 C# 출력에 **await** 연산자를 사용하는 비동기 함수 관련 경고가 표시될 수 있습니다. 이러한 경고는 무시할 수 있습니다.*
 
-**Python**
+    **Python**
 
-```
-python analyze-faces.py
-```
+    ```
+    python analyze-faces.py
+    ```
 
 6. 메시지가 표시되면 **1**을 입력하고 출력을 살펴봅니다. 출력에는 감지된 각 얼굴의 ID와 특성이 포함되어 있습니다.
 7. 코드 파일과 같은 폴더에 생성된 **detected_faces.jpg** 파일을 표시하여 주석이 추가된 얼굴을 확인합니다.
@@ -580,19 +582,19 @@ with open(image_2, mode="rb") as image_data:
 3. **CompareFaces** 함수에 추가한 코드를 살펴봅니다. 이 코드는 이미지 1에서 얼굴을 찾은 다음 새 이미지 파일 **face_to_match.jpg**에서 얼굴에 주석을 추가합니다. 그런 후에 이미지 2에서 모든 얼굴을 찾은 다음 해당 얼굴 ID를 사용하여 이미지 1의 얼굴과 비슷한 얼굴을 찾습니다. 비슷한 얼굴은 주석이 추가되어 새 이미지 파일 **matched_faces.jpg**에 저장됩니다.
 4. 변경 내용을 저장하고 **face-api** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
-**C#**
+    **C#**
 
-```
-dotnet run
-```
+    ```
+    dotnet run
+    ```
 
-*이제 C# 출력에 **await** 연산자를 사용하는 비동기 함수 관련 경고가 표시될 수 있습니다. 이러한 경고는 무시할 수 있습니다.*
+    *이제 C# 출력에 **await** 연산자를 사용하는 비동기 함수 관련 경고가 표시될 수 있습니다. 이러한 경고는 무시할 수 있습니다.*
 
-**Python**
+    **Python**
 
-```
-python analyze-faces.py
-```
+    ```
+    python analyze-faces.py
+    ```
     
 5. 메시지가 표시되면 **2**을 입력하고 출력을 살펴봅니다. 그런 다음 코드 파일과 같은 폴더에 생성된 **face_to_match.jpg** 및 **matched_faces.jpg** 파일을 표시하여 일치하는 얼굴을 확인합니다.
 6. 메뉴 옵션 **2**를 선택하면 **person2.jpg**를 **people.jpg**에 비교하도록 **Main** 함수의 코드를 편집한 다음 프로그램을 다시 실행하여 결과를 확인합니다.
@@ -693,26 +695,26 @@ for person in people:
 ```
 
 4. **TrainModel** 함수에 추가한 코드를 살펴봅니다. 이 코드는 다음 작업을 수행합니다.
-    - 서비스에 등록된 **PersonGroup** 목록을 가져오고 그룹이 이미 있으면 지정된 그룹을 삭제합니다.
+    - 서비스에 등록된 **PersonGroup* 목록을 가져오고 그룹이 이미 있으면 지정된 그룹을 삭제합니다.
     - 지정된 ID와 이름으로 그룹을 만듭니다.
     - 각기 이름이 지정된 그룹에 직원을 추가하고 각 직원의 이미지를 여러 개 추가합니다.
     - 그룹에 추가한 이름이 지정된 직원과 해당 얼굴 이미지를 기반으로 하여 얼굴 인식 모델 학습을 진행합니다.
     - 그룹에 추가한 이름이 지정된 직원 목록을 검색하여 표시합니다.
 5. 변경 내용을 저장하고 **face-api** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
-**C#**
+    **C#**
 
-```
-dotnet run
-```
+    ```
+    dotnet run
+    ```
 
-*이제 C# 출력에 **await** 연산자를 사용하는 비동기 함수 관련 경고가 표시될 수 있습니다. 이러한 경고는 무시할 수 있습니다.*
+    *이제 C# 출력에 **await** 연산자를 사용하는 비동기 함수 관련 경고가 표시될 수 있습니다. 이러한 경고는 무시할 수 있습니다.*
 
-**Python**
+    **Python**
 
-```
-python analyze-faces.py
-```
+    ```
+    python analyze-faces.py
+    ```
 
 6. 메시지가 표시되면 **3**을 입력하고 출력을 살펴봅니다. **PersonGroup**은 직원 2명을 만들었습니다.
 
@@ -841,19 +843,19 @@ with open(image_file, mode="rb") as image_data:
 3. **RecognizeFaces** 함수에 추가한 코드를 살펴봅니다. 이 코드는 이미지에서 얼굴을 찾은 다음 얼굴 ID 목록을 만듭니다. 그런 다음 직원 그룹을 사용해 얼굴 ID 목록의 얼굴 식별을 시도합니다. 인식된 얼굴에는 식별된 사람의 이름으로 주석이 추가되며 결과는 **recognized_faces.jpg**에 저장됩니다.
 4. 변경 내용을 저장하고 **face-api** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
-**C#**
+    **C#**
 
-```
-dotnet run
-```
+    ```
+    dotnet run
+    ```
 
-*이제 C# 출력에 **await** 연산자를 사용하는 비동기 함수 관련 경고가 표시될 수 있습니다. 이러한 경고는 무시할 수 있습니다.*
+    *이제 C# 출력에 **await** 연산자를 사용하는 비동기 함수 관련 경고가 표시될 수 있습니다. 이러한 경고는 무시할 수 있습니다.*
 
-**Python**
+    **Python**
 
-```
-python analyze-faces.py
-```
+    ```
+    python analyze-faces.py
+    ```
 
 5. 메시지가 표시되면 **4**을 입력하고 출력을 살펴봅니다. 그런 다음 코드 파일과 같은 폴더에 생성된 **recognized_faces.jpg** 파일을 표시하여 식별된 직원을 확인합니다.
 6. 메뉴 옵션 **4**를 선택하면 **person2.jpg**의 얼굴을 인식하도록 **Main** 함수의 코드를 편집한 다음 프로그램을 다시 실행하여 결과를 확인합니다. 같은 직원이 인식되어야 합니다.
@@ -920,22 +922,22 @@ for person in people:
 3. **VerifyFaces** 함수에 추가한 코드를 살펴봅니다. 이 코드는 지정된 이름을 사용하여 그룹의 직원 ID를 조회합니다. 해당 직원이 있으면 코드는 이미지에 있는 첫 번째 얼굴의 얼굴 ID를 가져옵니다. 마지막으로 이미지에 얼굴이 있으면 코드는 지정된 직원의 ID와 해당 얼굴을 대조하여 확인합니다.
 4. 변경 내용을 저장하고 **face-api** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
-**C#**
+    **C#**
 
-```
-dotnet run
-```
+    ```
+    dotnet run
+    ```
 
-**Python**
+    **Python**
 
-```
-python analyze-faces.py
-```
+    ```
+    python analyze-faces.py
+    ```
 
 5. 메시지가 표시되면 **5**를 입력하고 결과를 살펴봅니다.
 6. **Main** 함수에서 메뉴 옵션 **5**를 선택하면 실행되는 코드를 편집하여 **person1.jpg** 및 **person2.jpg** 이미지와 이름의 다양한 조합으로 코드를 실행해 봅니다.
 
-## 추가 정보
+## 자세한 정보
 
 얼굴 감지에 **Computer Vision** 서비스를 사용하는 방법에 대한 자세한 내용은 [Computer Vision 설명서](https://docs.microsoft.com/azure/cognitive-services/computer-vision/concept-detecting-faces)를 참조하세요.
 

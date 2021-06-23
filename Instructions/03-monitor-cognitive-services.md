@@ -45,7 +45,7 @@ Cognitive Services 리소스의 활동을 감지할 수 있도록 경고 규칙�
 5. **신호 유형** 목록에서 **활동 로그**를 선택하고 필터링된 목록에서 **키 나열**을 선택합니다.
 6. 지난 6시간 동안의 활동을 검토하고 **완료**를 선택합니다.
 7. **경고 규칙 만들기** 페이지로 돌아옵니다. **작업** 아래에서 *작업 그룹*을 지정할 수 있습니다. 작업 그룹을 지정하면 경고 발생 시에 수행되는 전자 메일 알림 전송 등의 자동화된 작업을 구성할 수 있습니다. 이 연습에서는 자동화된 작업을 구성하지 않지만 프로덕션 환경에서는 이러한 작업을 구성하면 유용할 수 있습니다.
-8. **경고 정보** 섹션에서 **경고 규칙 이름**을 **주요 목록 경고**로 설정하고 **경고 규칙 만들기**를 클릭합니다. 경고 규칙이 생성될 때까지 기다립니다.
+8. **경고 규칙 정보** 섹션에서 **경고 규칙 이름**을 **주요 목록 경고**로 설정하고 **경고 규칙 만들기**를 클릭합니다. 경고 규칙이 생성될 때까지 기다립니다.
 9. Visual Studio Code에서 **03-monitor** 폴더를 마우스 오른쪽 단추로 클릭하고 통합 터미널을 엽니다. 그런 후에 다음 명령을 입력하여 Azure CLI를 사용해 Azure 구독에 로그인합니다.
 
     ```
@@ -60,13 +60,13 @@ Cognitive Services 리소스의 활동을 감지할 수 있도록 경고 규칙�
     > az account show
     > ```
     >
-    > 구독을 변경해야 하는 경우 *&lt;subscriptionName&gt;* 을 올바른 구독 이름으로 변경하여 다음 명령을 실행합니다.
+    > 구독을 변경해야 하는 경우 *&lt;subscriptionName&gt;*을 올바른 구독 이름으로 변경하여 다음 명령을 실행합니다.
     >
     > ```
     > az account set --subscription <subscriptionName>
     > ```
 
-10. 이제 다음 명령을 사용하여 Cognitive Services 키 목록을 가져올 수 있습니다. 명령에서 *&lt;resourceName&gt;* 은 Cognitive Services 리소스 이름으로, *&lt;resourceGroup&gt;* 은 해당 리소스를 만든 리소스 그룹 이름으로 바꾸세요.
+10. 이제 다음 명령을 사용하여 Cognitive Services 키 목록을 가져올 수 있습니다. 명령에서 *&lt;resourceName&gt;*은 Cognitive Services 리소스 이름으로, *&lt;resourceGroup&gt;*은 해당 리소스를 만든 리소스 그룹 이름으로 바꾸세요.
 
     ```
     az cognitiveservices account keys list --name <resourceName> --resource-group <resourceGroup>
@@ -84,7 +84,7 @@ Cognitive Services에서는 경고를 정의할 수 있을 뿐 아니라 Cogniti
 1. Azure Portal의 Cognitive Services 리소스 페이지에서 **메트릭**(**모니터링** 섹션에 있음)을 선택합니다.
 2. 기존 차트가 없으면 **+ 새 차트**를 선택합니다. 그런 다음 **메트릭** 목록에서 시각화할 수 있는 메트릭을 검토하고 **총 통화**를 선택합니다.
 3. **집계** 목록에서 **개수**를 선택합니다.  이렇게 하면 Cognitive Service 리소스에 대한 총 호출 수를 모니터링할 수 있습니다. 그러면 일정 기간 동안의 서비스 사용량을 확인하려는 경우 유용합니다.
-4. Cognitive Service에 대해 요청을 몇 개 생성하려는 경우 HTTP 요청용 명령줄 도구인 **curl**을 사용합니다. Visual Studio Code의 **03-monitor** 폴더에서 **rest-test.cmd**를 열고 이 파일에 포함되어 있는 **curl** 명령(아래에 나와 있음)을 편집합니다. Cognitive Services 리소스의 Text Analytics API를 사용하도록 명령의 *&lt;yourEndpoint&gt;* 및 *&lt;yourKey&gt;* 를 엔드포인트 URI와 **Key1** 키로 바꾸면 됩니다.
+4. Cognitive Service에 대해 요청을 몇 개 생성하려는 경우 HTTP 요청용 명령줄 도구인 **curl**을 사용합니다. Visual Studio Code의 **03-monitor** 폴더에서 **rest-test.cmd**를 열고 이 파일에 포함되어 있는 **curl** 명령(아래에 나와 있음)을 편집합니다. Cognitive Services 리소스의 Text Analytics API를 사용하도록 명령의 *&lt;yourEndpoint&gt;* 및 *&lt;yourKey&gt;*를 엔드포인트 URI와 **Key1** 키로 바꾸면 됩니다.
 
     ```
     curl -X POST "<yourEndpoint>/text/analytics/v3.0/languages?" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: <yourKey>" --data-ascii "{'documents':           [{'id':1,'text':'hello'}]}"

@@ -8,6 +8,8 @@ lab:
 
 Speech 서비스와 Language Understanding 서비스를 통합하면 음성 입력에서 사용자 의도를 지능형으로 확인할 수 있는 애플리케이션을 만들 수 있습니다.
 
+> **참고**: 이 연습은 마이크가 있는 경우에 가장 잘 작동합니다. 일부 호스트 가상 환경에서는 로컬 마이크로부터 오디오를 캡처할 수 있지만, 이 기능이 작동하지 않거나 마이크가 아예 없는 경우에는 제공된 오디오 파일을 음성 입력으로 사용할 수 있습니다. 마이크를 사용하는지 아니면 오디오 파일을 사용하는지에 따라 서로 다른 옵션을 선택해야 하므로 주의하여 지침을 따르세요.
+
 ## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
@@ -43,7 +45,7 @@ Azure 구독에 Language Understanding 작성 및 예측 리소스가 이미 포
 1. 새 브라우저 탭에서 Language Understanding 포털 `https://www.luis.ai`를 엽니다.
 2. Azure 구독과 연결된 Microsoft 계정으로 로그인합니다. Language Understanding 포털에 처음 로그인하는 경우 계정 세부 정보 액세스를 위한 몇 가지 권한을 앱에 부여해야 할 수 있습니다. 그런 후에 Azure 구독 및 방금 만든 작성 리소스를 선택하여 *시작* 단계를 완료합니다.
 3. **대화 앱** 페이지의 **&#65291;새 앱** 옆에 있는 드롭다운 목록을 확인한 후 **LU로 가져오기**를 선택합니다.
-프로젝트 폴더에서 이 연습용 랩 파일이 포함된 **11-luis-speech** 하위 폴더로 이동하여 **Clock&period;lu**를 선택합니다. 그런 다음 clock 앱의 고유한 이름을 지정합니다.
+프로젝트 폴더에서 이 연습용 랩 파일이 포함된 **11-luis-speech** 하위 폴더로 이동하여 **Clock.lu**를 선택합니다. 그런 다음 clock 앱의 고유한 이름을 지정합니다.
 4. 효율적인 Language Understanding 앱을 만들 수 있는 팁이 포함된 패널이 열리면 해당 패널을 닫습니다.
 
 ## *음성 프라이밍*을 사용하여 앱 학습 및 게시
@@ -51,116 +53,184 @@ Azure 구독에 Language Understanding 작성 및 예측 리소스가 이미 포
 1. 앱을 아직 학습시키지 않았으면 Language Understanding 포털 위쪽에서 **학습**을 선택하여 앱을 학습시킵니다.
 2. Language Understanding 포털의 오른쪽 위에서 **게시**를 선택합니다. 그런 다음 **프로덕션 슬롯**을 선택하고 설정을 변경하여 **음성 프라이밍**을 사용하도록 설정합니다(이렇게 하면 음성 인식 성능이 개선됨).
 3. 게시가 완료되면 Language Understanding 포털 위쪽에서 **관리**를 선택합니다.
-4. **설정** 페이지에서 **앱 ID**를 확인합니다. 클라이언트 애플리케이션이 앱을 사용하려면 이 ID가 필요합니다.
+4. **설정** 페이지에서 **앱 ID** 를 확인합니다. 클라이언트 애플리케이션이 앱을 사용하려면 이 ID가 필요합니다.
 5. **Azure 리소스** 페이지의 **예측 리소스** 아래에 예측 리소스가 나열되어 있지 않으면 Azure 구독의 예측 리소스를 추가합니다.
-6. 예측 리소스의 **기본 키**, **보조 키** 및 **위치**(엔드포인트 <u>아님</u>)를 확인합니다. Speech SDK 클라이언트 애플리케이션이 예측 리소스에 연결하여 인증을 하려면 위치와 키 중 하나가 필요합니다.
+6. 예측 리소스의 **기본 키**, **보조 키** 및 **위치** (엔드포인트 <u>아님</u>)를 확인합니다. Speech SDK 클라이언트 애플리케이션이 예측 리소스에 연결하여 인증을 하려면 위치와 키 중 하나가 필요합니다.
 
-## Speech SDK를 Language Understanding과 함께 사용하도록 준비
+## Language Understanding용 클라이언트 애플리케이션 구성
 
-이 연습에서는 Clock Language Understanding 앱을 사용하여 음성 사용자 입력에서 의도를 예측하는 부분 구현 클라이언트 애플리케이션을 완성합니다.
+이 연습에서는 음성 입력을 받아들이고 Language Understanding 앱을 사용하여 사용자의 의도를 예측하는 클라이언트 애플리케이션을 만듭니다.
 
-> **참고**: **C#** 또는 **Python**용 SDK 사용을 선택할 수 있습니다. 아래 단계에서 선호하는 언어에 적합한 작업을 수행하세요.
+> **참고**: 이 연습에서는 **C#** 또는 **Python**용 SDK 사용을 선택할 수 있습니다. 이어지는 단계에서 선호하는 언어에 적합한 작업을 수행하세요.
 
 1. Visual Studio Code의 **탐색기** 창에서 **11-luis-speech** 폴더를 찾은 다음 언어 기본 설정에 따라 **C-Sharp** 또는 **Python** 폴더를 확장합니다.
-2. **speaking-clock-client** 폴더를 마우스 오른쪽 단추로 클릭하고 통합 터미널을 엽니다. 그런 다음 언어 기본 설정에 적합한 명령을 실행하여 Language Understanding SDK 패키지를 설치합니다.
-
-**C#**
-
-```
-dotnet add package Microsoft.CognitiveServices.Speech --version 1.14.0
-```
-
-**Python**
-
-```
-pip install azure-cognitiveservices-speech==1.14.0
-```
-
-3. **speaking-clock-client** 폴더의 내용을 표시하여 구성 설정용 파일이 포함되어 있음을 확인합니다.
+2. **speaking-clock-client** 폴더의 내용을 표시하여 구성 설정용 파일이 포함되어 있음을 확인합니다.
     - **C#**: appsettings.json
     - **Python**: .env
 
-    구성 파일을 열고 파일에 포함되어 있는 구성 값을 업데이트하여 Language Understanding 앱의 **앱 ID**, **위치**(예: *eastus*. 전체 엔드포인트 <u>아님</u>), 그리고 예측 리소스의 **키** 중 하나를 포함합니다(Language Understanding 포털의 앱 **관리** 페이지에서 확인 가능).
+    구성 파일을 열고 파일에 포함되어 있는 구성 값을 업데이트하여 Language Understanding 앱의 **앱 ID**, **위치** (예: *eastus*. 전체 엔드포인트 <u>아님</u>), 그리고 예측 리소스의 **키** 중 하나를 포함합니다(Language Understanding 포털의 앱 **관리** 페이지에서 확인 가능).
 
-4. **speaking-clock-client** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
+## SDK 패키지 설치
+
+Speech SDK를 Language Understanding 서비스와 함께 사용하려면 프로그래밍 언어에 맞는 Speech SDK 패키지를 설치해야 합니다.
+
+1. Visual Studio에서는 **speaking-clock-client** 폴더를 마우스 오른쪽 단추로 클릭하고 통합 터미널을 엽니다. 그런 다음 언어 기본 설정에 적합한 명령을 실행하여 Language Understanding SDK 패키지를 설치합니다.
+
+    **C#**
+
+    ```
+    dotnet add package Microsoft.CognitiveServices.Speech --version 1.14.0
+    ```
+
+    **Python**
+
+    ```
+    pip install azure-cognitiveservices-speech==1.14.0
+    ```
+
+2. 또한 시스템에 작동하는 마이크가 <u>없는</u> 경우에는 오디오 파일을 사용하여 애플리케이션을 위한 음성 입력을 제공해야 합니다. 이 경우에는 프로그램이 오디오 파일을 재생할 수 있도록 다음 명령을 사용하여 추가 패키지를 설치하세요(마이크를 사용할 계획이면 이 단계를 건너뛸 수 있음).
+
+    **C#**
+
+    ```
+    dotnet add package System.Windows.Extensions --version 4.6.0 
+    ```
+
+    **Python**
+
+    ```
+    pip install playsound==1.2.2
+    ```
+
+3. **speaking-clock-client** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs
-    - **Python**: speaking-clock-client&period;py
+    - **Python**: speaking-clock-client.py
 
-    코드 파일을 열고 파일 맨 윗부분의 기존 네임스페이스 참조 아래에 있는 **네임스페이스 가져오기** 주석을 찾습니다. 그런 다음 이 주석 아래에 다음 언어별 코드를 추가하여 Speech SDK를 사용하는 데 필요한 네임스페이스를 가져옵니다.
+4. 코드 파일을 열고 파일 맨 윗부분의 기존 네임스페이스 참조 아래에 있는 **네임스페이스 가져오기** 주석을 찾습니다. 그런 다음 이 주석 아래에 다음 언어별 코드를 추가하여 Speech SDK를 사용하는 데 필요한 네임스페이스를 가져옵니다.
 
-**C#**
+    **C#**
 
-```C#
-// 네임스페이스 가져오기
-using Microsoft.CognitiveServices.Speech;
-using Microsoft.CognitiveServices.Speech.Intent;
-```
+    ```C#
+    // 네임스페이스 가져오기
+    using Microsoft.CognitiveServices.Speech;
+    using Microsoft.CognitiveServices.Speech.Audio;
+    using Microsoft.CognitiveServices.Speech.Intent;
+    ```
 
-**Python**
+    **Python**
 
-```Python
-# 네임스페이스 가져오기
-import azure.cognitiveservices.speech as speech_sdk
-```
-    
+    ```Python
+    # 네임스페이스 가져오기
+    import azure.cognitiveservices.speech as speech_sdk
+    ```
+
+5. 또한 시스템에 작동하는 마이크가 <u>없는</u> 경우에는 기존 네임스페이스 가져오기 아래에서 다음 코드를 추가하여 오디오 파일을 재생하는 데 사용할 라이브러리를 가져옵니다.
+
+    **C#**
+
+    ```C#
+    using System.Media;
+    ```
+
+    **Python**
+
+    ```Python
+    from playsound import playsound
+    ```
+
+## *IntentRecognizer* 만들기
+
+**IntentRecognizer** 클래스는 음성 입력으로부터 Language Understanding 예측을 가져오는 데 사용할 수 있는 클라이언트 개체를 제공합니다.
+
+1. **Main** 함수에서 구성 파일의 앱 ID, 예측 지역 및 키를 로드하는 코드가 이미 제공되어 있음을 확인합니다. 그런 다음에 **Speech 서비스를 구성하고 의도 인식기 가져오기** 주석을 찾고, 마이크르 사용할 것인지 아니면 음성 입력용 오디오 파일을 사용할 것인지에 따라 다음 코드를 추가합니다.
+
+    ### **작동하는 마이크가 있는 경우:**
+
+    **C#**
+
+    ```C#
+    // Speech 서비스를 구성하고 의도 인식기 가져오기
+    SpeechConfig speechConfig = SpeechConfig.FromSubscription(predictionKey, predictionRegion);
+    AudioConfig audioConfig = AudioConfig.FromDefaultMicrophoneInput();
+    IntentRecognizer recognizer = new IntentRecognizer(speechConfig, audioConfig);
+    ```
+
+    **Python**
+
+    ```Python
+    # Speech 서비스를 구성하고 의도 인식기 가져오기
+    speech_config = speech_sdk.SpeechConfig(subscription=lu_prediction_key, region=lu_prediction_region)
+    audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
+    recognizer = speech_sdk.intent.IntentRecognizer(speech_config, audio_config)
+    ```
+
+    ### **오디오 파일을 사용해야 하는 경우:**
+
+    **C#**
+
+    ```C#
+    // Speech 서비스를 구성하고 의도 인식기 가져오기
+    string audioFile = "time-in-london.wav";
+    SoundPlayer wavPlayer = new SoundPlayer(audioFile);
+    wavPlayer.Play();
+    System.Threading.Thread.Sleep(2000);
+    SpeechConfig speechConfig = SpeechConfig.FromSubscription(predictionKey, predictionRegion);
+    AudioConfig audioConfig = AudioConfig.FromWavFileInput(audioFile);
+    IntentRecognizer recognizer = new IntentRecognizer(speechConfig, audioConfig);
+    ```
+
+    **Python**
+
+    ```Python
+    # Speech 서비스를 구성하고 의도 인식기 가져오기
+    audioFile = 'time-in-london.wav'
+    playsound(audioFile)
+    speech_config = speech_sdk.SpeechConfig(subscription=lu_prediction_key, region=lu_prediction_region)
+    audio_config = speech_sdk.AudioConfig(filename=audioFile)
+    recognizer = speech_sdk.intent.IntentRecognizer(speech_config, audio_config)
+    ```
+
 ## 음성 입력에서 예측한 의도 가져오기
 
 이제 Speech SDK를 사용하여 음성 입력에서 예측한 의도를 가져오는 코드를 구현할 수 있습니다.
 
-1. **Main** 함수에서 구성 파일의 앱 ID, 예측 지역 및 키를 로드하는 코드가 이미 제공되어 있음을 확인합니다. 그런 후 **Speech 서비스를 구성하고 의도 인식기 가져오기** 주석을 찾아서 다음 코드를 추가하여 Language Understanding 예측 리소스 세부 정보를 사용해 Speech SDK **SpeechConfig** 및 **IntentRecognizer**를 만듭니다.
+1. **Main** 함수의 방금 추가한 코드 바로 아래에서 **AppID에서 모델을 가져온 다음 사용할 의도 추가** 주석을 찾은 후 다음 코드를 추가하여 Language Understanding 모델(앱 ID 기준)을 가져오고 인식기가 식별하도록 할 의도를 지정합니다.
 
-**C#**
+    **C#**
 
-```C#
-// Speech 서비스를 구성하고 의도 인식기 가져오기
-SpeechConfig speechConfig = SpeechConfig.FromSubscription(predictionKey, predictionRegion);
-IntentRecognizer recognizer = new IntentRecognizer(speechConfig);
-```
+    ```C#
+    // AppID에서 모델을 가져온 다음 사용할 의도 추가
+    var model = LanguageUnderstandingModel.FromAppId(luAppId);
+    recognizer.AddIntent(model, "GetTime", "time");
+    recognizer.AddIntent(model, "GetDate", "date");
+    recognizer.AddIntent(model, "GetDay", "day");
+    recognizer.AddIntent(model, "None", "none");
+    ```
 
-**Python**
+    *각 의도에는 문자열 기반 ID를 지정할 수 있습니다.*
 
-```Python
-# Speech 서비스를 구성하고 의도 인식기 가져오기
-speech_config = speech_sdk.SpeechConfig(subscription=lu_prediction_key, region=lu_prediction_region)
-recognizer = speech_sdk.intent.IntentRecognizer(speech_config)
-```
-    
-2. 방금 추가한 코드 바로 아래에서 **AppID에서 모델을 가져온 다음 사용할 의도 추가** 주석을 찾은 후 다음 코드를 추가하여 Language Understanding 모델(앱 ID 기준)을 가져오고 인식기가 식별하도록 할 의도를 지정합니다.
+    **Python**
 
-**C#**
+    ```Python
+    # AppID에서 모델을 가져온 다음 사용할 의도 추가
+    model = speech_sdk.intent.LanguageUnderstandingModel(app_id=lu_app_id)
+    intents = [
+        (model, "GetTime"),
+        (model, "GetDate"),
+        (model, "GetDay"),
+        (model, "None")
+    ]
+    recognizer.add_intents(intents)
+    ```
 
-```C#
-// AppID에서 모델을 가져온 다음 사용할 의도 추가
-var model = LanguageUnderstandingModel.FromAppId(luAppId);
-recognizer.AddIntent(model, "GetTime", "time");
-recognizer.AddIntent(model, "GetDate", "date");
-recognizer.AddIntent(model, "GetDay", "day");
-recognizer.AddIntent(model, "None", "none");
-```
+2. **음성 입력 처리** 주석 아래에서 다음 코드를 추가합니다. 이 코드는 인식기를 사용해 음성 입력으로 Language Understanding 서비스를 비동기 호출한 다음 응답을 검색합니다. 응답에 예측한 의도가 포함되어 있으면 음성 쿼리, 예측한 의도 및 전체 JSON 응답이 표시됩니다. 그렇지 않은 경우에는 코드가 반환된 이유를 기반으로 응답을 처리합니다.
 
-*각 의도에는 문자열 기반 ID를 지정할 수 있습니다.*
-
-**Python**
-
-```Python
-# AppID에서 모델을 가져온 다음 사용할 의도 추가
-model = speech_sdk.intent.LanguageUnderstandingModel(app_id=lu_app_id)
-intents = [
-    (model, "GetTime"),
-    (model, "GetDate"),
-    (model, "GetDay"),
-    (model, "None")
-]
-recognizer.add_intents(intents)
-```
-
-3. **Main**의 코드는 사용자가 "stop"이라고 말할 때까지 계속 반복 실행됩니다. 이 반복 실행 코드 내에서 **음성 입력 처리** 주석을 찾아 다음 코드를 추가합니다. 이 코드는 인식기를 사용해 음성 입력으로 Language Understanding 서비스를 비동기 호출한 다음 응답을 검색합니다. 응답에 예측한 의도가 포함되어 있으면 음성 쿼리, 예측한 의도 및 전체 JSON 응답이 표시됩니다. 그렇지 않은 경우에는 코드가 반환된 이유를 기반으로 응답을 처리합니다.
-    
 **C#**
 
 ```C
 // 음성 입력 처리
+string intent = "";
 var result = await recognizer.RecognizeOnceAsync().ConfigureAwait(false);
 if (result.Reason == ResultReason.RecognizedIntent)
 {
@@ -192,7 +262,6 @@ else if (result.Reason == ResultReason.Canceled)
     // 문제 발생
     var cancellation = CancellationDetails.FromResult(result);
     Console.WriteLine($"CANCELED: Reason={cancellation.Reason}");
-
     if (cancellation.Reason == CancellationReason.Error)
     {
         Console.WriteLine($"CANCELED: ErrorCode={cancellation.ErrorCode}");
@@ -205,6 +274,7 @@ else if (result.Reason == ResultReason.Canceled)
 
 ```Python
 # 음성 입력 처리
+intent = ''
 result = recognizer.recognize_once_async().get()
 if result.reason == speech_sdk.ResultReason.RecognizedIntent:
     intent = result.intent_id
@@ -230,10 +300,10 @@ elif result.reason == speech_sdk.ResultReason.Canceled:
     if result.cancellation_details.reason == speech_sdk.CancellationReason.Error:
         print("Error details: {}".format(result.cancellation_details.error_details))
 ```
-    
+
 지금까지 추가한 코드는 *의도*는 식별하지만 일부 의도는 *엔터티*를 참조할 수도 있으므로, 서비스에서 반환된 JSON에서 엔터티 정보를 추출하는 코드를 추가해야 합니다.
 
-4. 방금 추가한 코드에서 **첫 번째 엔터티 가져오기(있는 경우)** 주석을 찾아 그 아래에 다음 코드를 추가합니다.
+3. 방금 추가한 코드에서 **첫 번째 엔터티 가져오기(있는 경우)** 주석을 찾아 그 아래에 다음 코드를 추가합니다.
 
 **C#**
 
@@ -262,10 +332,10 @@ if len(json_response["entities"]) > 0:
     entity_value = json_response["entities"][0]["entity"]
     print(entity_type + ': ' + entity_value)
 ```
-        
+    
 이제 코드는 Language Understanding 앱을 사용하여 의도뿐 아니라 입력 발화에서 감지된 엔터티도 예측합니다. 이제 클라이언트 애플리케이션은 해당 예측을 사용하여 적절한 작업을 결정한 다음 수행해야 합니다.
 
-5. 방금 추가한 코드 아래에서 **적절한 작업 적용** 주석을 찾은 후 다음 코드를 추가합니다. 이 코드는 애플리케이션에서 지원하는 의도(**GetTime**, **GetDate** 및 **GetDay**)를 확인한 다음 관련 엔터티가 감지되었는지를 확인합니다. 그런 후에 기존 함수를 호출하여 적절한 응답을 생성합니다.
+4. 방금 추가한 코드 아래에서 **적절한 작업 적용** 주석을 찾은 후 다음 코드를 추가합니다. 이 코드는 애플리케이션에서 지원하는 의도(**GetTime**, **GetDate** 및 **GetDay**)를 확인한 다음 관련 엔터티가 감지되었는지를 확인합니다. 그런 후에 기존 함수를 호출하여 적절한 응답을 생성합니다.
 
 **C#**
 
@@ -362,21 +432,23 @@ else:
         print('Try asking me for the time, the day, or the date.')
 ```
 
-6. 변경 내용을 저장하고 **speaking-clock-client** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
+## 클라이언트 애플리케이션 실행
 
-**C#**
+1. 변경 내용을 저장하고 **speaking-clock-client** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
-```
-dotnet run
-```
+    **C#**
 
-**Python**
+    ```
+    dotnet run
+    ```
 
-```
-python speaking-clock-client.py
-```
+    **Python**
 
-7. 메시지가 표시되면 발화를 크게 말하여 애플리케이션을 테스트합니다. 예를 들어 다음 문장을 말해 봅니다.
+    ```
+    python speaking-clock-client.py
+    ```
+
+2. 마이크를 사용하는 경우 큰 목소리로 말하여 애플리케이션을 테스트합니다. 예를 들어 다음을 시도합니다(매번 프로그램 재실행).
 
     *What's the time?*
     
@@ -390,10 +462,8 @@ python speaking-clock-client.py
 
     *What date is Sunday?*
 
-    > **참고**: 여기서는 애플리케이션에 의도적으로 단순한 논리가 사용되었으며 몇 가지 제한이 적용되었습니다. 하지만 이 애플리케이션으로도 Language Understanding 모델이 Speech SDK를 사용하여 음성 입력에서 의도를 예측하는 기능은 충분히 테스트할 수 있습니다. *MM/DD/YYYY* 형식으로 날짜를 말하기가 어려워서 특정 날짜 엔터티로 **GetDay** 의도를 인식하기가 어려울 수는 있습니다.
+> **참고**: 여기서는 애플리케이션에 의도적으로 단순한 논리가 사용되었으며 몇 가지 제한이 적용되었습니다. 하지만 이 애플리케이션으로도 Language Understanding 모델이 Speech SDK를 사용하여 음성 입력에서 의도를 예측하는 기능은 충분히 테스트할 수 있습니다. *MM/DD/YYYY* 형식으로 날짜를 말하기가 어려워서 특정 날짜 엔터티로 **GetDay** 의도를 인식하기가 어려울 수는 있습니다.
 
-8. 테스트를 완료한 후 "stop"이라고 말합니다.
-
-## 추가 정보
+## 자세한 정보
 
 Speech와 Language Understanding의 통합에 대해 자세히 알아보려면 [Speech 설명서](https://docs.microsoft.com/azure/cognitive-services/speech-service/quickstarts/intent-recognition)를 참조하세요.

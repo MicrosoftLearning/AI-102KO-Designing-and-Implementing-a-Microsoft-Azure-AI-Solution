@@ -66,7 +66,7 @@ lab:
 4. **text-analysis** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs
-    - **Python**: text-analysis&period;py
+    - **Python**: text-analysis.py
 
     코드 파일을 열고 파일 맨 윗부분의 기존 네임스페이스 참조 아래에 있는 **네임스페이스 가져오기** 주석을 찾습니다. 그런 다음 이 주석 아래에 다음 언어별 코드를 추가하여 Text Analytics SDK를 사용하는 데 필요한 네임스페이스를 가져옵니다.
 

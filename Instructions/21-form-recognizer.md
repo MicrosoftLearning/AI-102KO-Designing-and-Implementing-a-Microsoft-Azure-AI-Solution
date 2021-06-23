@@ -137,7 +137,7 @@ pip install azure-ai-formrecognizer==3.0.0
 5. **train-model** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs
-    - **Python**: train-model&period;py
+    - **Python**: train-model.py
 
     코드 파일을 열고 포함되어 있는 코드를 검토하여 다음 세부 정보를 확인합니다.
     - 설치한 패키지의 네임스페이스를 가져왔습니다.
@@ -190,7 +190,7 @@ pip install azure-ai-formrecognizer==3.0.0
     - Form Recognizer 키
     - 모델을 학습시킬 때 생성된 모델 ID(**train-model** 폴더의 **cmd** 콘솔로 터미널을 다시 전환하면 이 ID를 확인할 수 있음)
 
-5. **test-model** 폴더에서 클라이언트 애플리케이션의 코드 파일(C#의 경우 *Program.cs*, Python의 경우 *test-model&period;py*)을 열고 포함되어 있는 코드를 검토하여 다음 세부 정보를 확인합니다.
+5. **test-model** 폴더에서 클라이언트 애플리케이션의 코드 파일(C#의 경우 *Program.cs*, Python의 경우 *test-model.py*)을 열고 포함되어 있는 코드를 검토하여 다음 세부 정보를 확인합니다.
     - 설치한 패키지의 네임스페이스를 가져왔습니다.
     - **Main** 함수가 구성 설정을 검색하며 키와 엔드포인트를 사용하여 인증된 **클라이언트**를 만듭니다.
     - 클라이언트를 사용하여 **test1.jpg** 이미지의 값과 양식 필드를 추출합니다.
@@ -219,12 +219,12 @@ python test-model.py
 2. **Form_1.jpg.labels.json**을 열고 이 파일에 포함된 JSON을 검토합니다. 이 파일은 **Form_1.jpg** 학습 문서에서 이름이 지정된 필드의 위치와 값을 식별합니다.
 3. **Form_1.jpg.ocr.json**을 열고 이 파일에 포함된 JSON을 검토합니다. 이 파일에는 양식에 있는 모든 텍스트 영역의 위치를 비롯한 **Form_1.jpg** 텍스트 레이아웃의 JSON 표현이 포함되어 있습니다.
 
-    *이 연습에서는 필드 정보 파일이 제공되어 있습니다. 실제 프로젝트에서는 이러한 파일을 수동으로 만들거나 [샘플 레이블 지정 도구](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/quickstarts/label-tool)를 사용할 수 있습니다.*
+    *이 연습에서는 필드 정보 파일이 제공되어 있습니다. 실제 프로젝트에서는 [샘플 레이블 지정 도구](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/quickstarts/label-tool)를 사용하여 이러한 파일을 만들 수 있습니다. 도구를 사용할 때 필드 정보 파일이 자동으로 만들어지고 연결된 스토리지 계정에 저장됩니다.*
 
 4. **train-model** 폴더에서 학습 애플리케이션용 코드 파일을 엽니다.
 
     - **C#**: Program.cs
-    - **Python**: train-model&period;py
+    - **Python**: train-model.py
 
 5. **Main** 함수에서 **모델 학습** 주석을 찾은 후 다음과 같이 변경하여 레이블이 사용되도록 학습 프로세스를 변경합니다.
 
@@ -281,8 +281,8 @@ python test-model.py
     
 3. 새 모델의 출력을 확인하면, 레이블 **없이** 학습시킨 모델의 출력과는 달리 레이블을 **포함**하여 학습시킨 모델의 출력에서는 "CompanyPhoneNumber", "DatedAs" 등의 필드 이름이 제공됨을 확인할 수 있습니다. 이전 모델에서는 field-1, field-2 등의 출력이 생성되었습니다.  
 
-레이블을 포함하여 모델을 학습시키는 프로그램 코드는 레이블 없이 모델을 학습시키는 코드와 크게 다르지 않을 수도 있습니다. 하지만 둘 중 어떤 코드를 선택하는지에 따라 프로젝트 기간이 크게 달라질 수도 있습니다. 예를 들어 레이블이 지정된 양식을 사용하는 경우에는 문서에 레이블을 지정해야 합니다(이 연습에서는 문서 레이블 지정에 대해 다루지 않았지만 [이 페이지에서 샘플 레이블 지정 도구를 사용](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/quickstarts/label-tool?tabs=v2-0)하여 해당 방법을 살펴볼 수 있음). 선택하는 모델은 모델이 반환하는 필드, 그리고 반환되는 값의 신뢰도에 따라 다운스트림 프로세스에도 영향을 줍니다.  
+레이블을 _포함_하여 모델을 학습시키는 프로그램 코드는 레이블 _없이_ 모델을 학습시키는 코드와 크게 다르지 않을 수도 있습니다. 하지만 둘 중 어떤 코드를 선택하는지에 따라 프로젝트 계획 요구가 _크게_ 달라집니다. 레이블을 학습시키려면 [레이블이 지정된 파일을 만들어야](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/quickstarts/label-tool?tabs=v2-0) 합니다. 선택하는 학습 프로세스에 따라 서로 다른 모델이 생성될 수도 있으며, 이는 모델이 반환하는 필드, 그리고 반환되는 값의 신뢰도에 따라 다운스트림 프로세스에도 영향을 줍니다. 
 
-## 추가 정보
+## 자세한 정보
 
 Form Recognizer 서비스를 사용하는 방법에 대한 자세한 내용은 [Form Recognizer 설명서](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/)를 참조하세요.
