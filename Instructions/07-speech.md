@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '음성 인식 및 합성'
     module: '모듈 4 - 음성 지원 애플리케이션 빌드'
@@ -20,7 +20,7 @@ Azure Cognitive Service인 **Speech** 서비스에서는 다음과 같은 음성
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 아직 복제하지 않았다면 다음 단계에 따라 리포지토리를 지금 복제합니다. 리포지토리를 복제한 경우에는 Visual Studio Code에서 복제한 폴더를 엽니다.
 
 1. Visual Studio Code를 시작합니다.
-2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
+2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102KO-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
 3. 리포지토리가 복제되면 Visual Studio Code에서 폴더를 엽니다.
 4. 리포지토리의 C# 코드 프로젝트를 지원하는 추가 파일이 설치되는 동안 기다립니다.
 
@@ -148,6 +148,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
     speech_recognizer = speech_sdk.SpeechRecognizer(speech_config, audio_config)
     print('Speak now...')
+<<<<<<< Updated upstream
     ```
 
 3. 이제 아래의 **필사된 명령을 처리하기 위한 코드 추가** 섹션으로 넘어갑니다.
@@ -182,6 +183,42 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     from playsound import playsound
     ```
 
+=======
+    ```
+
+3. 이제 아래의 **필사된 명령을 처리하기 위한 코드 추가** 섹션으로 넘어갑니다.
+
+### 또는 파일에서 오디오 입력 사용
+
+1. 터미널 차에서 다음 명령을 입력하여 오디오 파일을 재생하는 데 사용할 수 있는 라이브러리를 설치합니다.
+
+    **C#**
+
+    ```
+    dotnet add package System.Windows.Extensions --version 4.6.0 
+    ```
+
+    **Python**
+
+    ```
+    pip install playsound==1.2.2
+    ```
+
+2. 프로그램의 코드 파일에서, 기존 네임스페이스 가져오기 아래에 다음 코드를 추가하여 방금 설치한 라이브러리를 가져옵니다.
+
+    **C#**
+
+    ```C#
+    using System.Media;
+    ```
+
+    **Python**
+
+    ```Python
+    from playsound import playsound
+    ```
+
+>>>>>>> Stashed changes
 3. **Main** 함수에서 코드가 **TranscribeCommand** 함수를 사용해 음성 입력을 수락함을 확인합니다. 그런 다음에 **TranscribeCommand** 함수의 **음성 인식 구성** 주석 아래에 다음의 적절한 코드를 추가하여 **SpeechRecognizer** 클라이언트를 만듭니다. 이 클라이언트를 사용하면 오디오 파일로부터 음성을 인식하고 필사할 수 있습니다.
 
     **C#**

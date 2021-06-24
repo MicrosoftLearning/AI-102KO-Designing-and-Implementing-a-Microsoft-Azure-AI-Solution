@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Azure Cognitive Search 솔루션 만들기'
     module: '모듈 12 - 지식 마이닝 솔루션 만들기'
@@ -17,7 +17,7 @@ Margie's Travel은 이 문제를 해결하기 위해 Azure Cognitive Search를 �
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 아직 복제하지 않았다면 다음 단계에 따라 리포지토리를 지금 복제합니다. 리포지토리를 복제한 경우에는 Visual Studio Code에서 복제한 폴더를 엽니다.
 
 1. Visual Studio Code를 시작합니다.
-2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
+2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102KO-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
 3. 리포지토리가 복제되면 Visual Studio Code에서 폴더를 엽니다.
 4. 리포지토리의 C# 코드 프로젝트를 지원하는 추가 파일이 설치되는 동안 기다립니다.
 
@@ -158,7 +158,7 @@ Margie's Travel용으로 만들 솔루션에는 Azure 구독의 다음 리소스
 이제 인덱스가 생성되었으므로 해당 인덱스를 검색할 수 있습니다.
 
 1. Azure Cognitive Search 리소스의 **개요** 페이지 위쪽에서 **검색 탐색기**를 선택합니다.
-2. 검색 탐색기의 **쿼리 문자열** 상자에 `*`(별표 하나)를 입력한 다음 **검색**을 선택합니다.
+2. 검색 탐색기의 **쿼리 문자열** 상자에 `*` (별표 하나)를 입력한 다음 **검색**을 선택합니다.
 
     이 쿼리는 인덱스에서 JSON 형식의 모든 문서를 검색합니다. 결과에서 각 문서의 필드를 살펴봅니다. 이러한 필드에는 문서 콘텐츠, 메타데이터, 그리고 선택한 인식 기술이 추출한 보강된 데이터가 포함되어 있습니다.
 
@@ -413,7 +413,11 @@ Azure Portal을 사용하여 검색 솔루션을 만들고 수정할 수도 있�
     flask run
     ```
 
+<<<<<<< Updated upstream
 2. 앱이 정상적으로 시작되면 표시되는 메시지에서 실행 중인 웹 애플리케이션의 링크(*http://localhost:5000/* 또는 *http://127.0.0.1:5000/*)를 따라 이동하여 웹 브라우저에서 Margie's Travel 사이트를 엽니다.
+=======
+2. 앱이 정상적으로 시작되면 표시되는 메시지에서 실행 중인 웹 애플리케이션의 링크(*http://localhost:5000/* 또는 *http://127.0.0.1:5000/*) 를 따라 이동하여 웹 브라우저에서 Margie's Travel 사이트를 엽니다.
+>>>>>>> Stashed changes
 3. Margie's Travel 웹 사이트의 검색 상자에 **London hotel**을 입력하고 **검색**을 클릭합니다.
 4. 검색 결과를 검토합니다. 검색 결과에는 파일 이름(파일 URL의 하이퍼링크 포함), 검색 용어(*London* 및 *hotel*)가 강조 표시된 파일 콘텐츠 추출 내용, 그리고 인덱스 필드에서 가져온 파일의 기타 특성이 포함되어 있습니다.
 5. 결과 페이지에는 결과를 상세 검색하는 데 사용할 수 있는 몇 가지 사용자 인터페이스 요소가 포함되어 있습니다. 이러한 요소는 다음과 같습니다.

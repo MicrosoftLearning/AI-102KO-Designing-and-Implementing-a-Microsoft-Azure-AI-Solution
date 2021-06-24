@@ -1,7 +1,14 @@
+<<<<<<< Updated upstream
 ---
 랩:
     제목: 'QnA 솔루션 만들기'
     모듈: '모듈 6 - QnA 솔루션 빌드'
+=======
+﻿---
+lab:
+    title: 'QnA 솔루션 만들기'
+    module: '모듈 6 - QnA 솔루션 빌드'
+>>>>>>> Stashed changes
 ---
 
 # QnA 솔루션 만들기
@@ -11,9 +18,15 @@
 QnA Maker는 자연어 입력을 사용하여 쿼리할 수 있는 질문과 대답 기술 자료를 만들 수 있는 Cognitive Service입니다. 또한 사용자가 제출한 질문의 대답을 조회하기 위해 봇이 사용할 수 있는 리소스로 가장 많이 사용되는 서비스이기도 합니다.
 
 이 랩에서는 Text Analytics 안에 있는 기능인 관리형 QnA Maker를 사용할 것입니다. 
+<<<<<<< Updated upstream
 
 ## Text Analytics 리소스 만들기 
 
+=======
+
+## Text Analytics 리소스 만들기 
+
+>>>>>>> Stashed changes
 관리형 QnA Maker를 사용하여 기술 자료를 만들고 호스트하려면 Azure 구독의 Text Analytics 리소스가 필요합니다.
 
 1. Azure Portal `https://portal.azure.com`을 열고 Azure 구독과 연결된 Microsoft 계정을 사용하여 로그인합니다.
@@ -80,8 +93,13 @@ Text Analytics 리소스에서 기술 자료를 만들려는 경우 QnA Maker �
 1. 페이지 오른쪽 위에서 **저장 및 학습**을 클릭하여 기술 자료 학습을 진행합니다.
 2. 학습이 완료되면 **&larr; 테스트**를 클릭하여 테스트 창을 엽니다.
 3. 테스트 창의 상단에서 *짧은 대답 표시* 상자를 *선택 취소*합니다. 그런 다음 아래쪽에 *Hello*라는 메시지를 입력합니다. 적절한 응답이 반환되어야 합니다.
+<<<<<<< Updated upstream
 4. 테스트 창 아래쪽에 *What is Microsoft Learn?*이라는 메시지를 입력합니다. FAQ에서 적절한 응답이 반환되어야 합니다.
 5. *That makes me happy!*라는 메시지를 입력합니다. 적절한 잡담 응답이 반환되어야 합니다.
+=======
+4. 테스트 창 아래쪽에 *What is Microsoft Learn?* 이라는 메시지를 입력합니다. FAQ에서 적절한 응답이 반환되어야 합니다.
+5. *That makes me happy!* 라는 메시지를 입력합니다. 적절한 잡담 응답이 반환되어야 합니다.
+>>>>>>> Stashed changes
 6. *Tell me about certification*라는 메시지를 입력합니다. 앞에서 작성한 대답이 반환되고 후속 프롬프트 단추가 표시되어야 합니다.
 7. **Learn more about certification** 후속 질문 단추를 선택합니다. 인증 페이지 링크가 포함된 후속 질문의 대답이 반환되어야 합니다.
 8. 기술 자료 테스트가 완료되면 **&rarr; 테스트**를 클릭하여 테스트 창을 닫습니다.

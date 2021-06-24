@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Speech 및 Language Understanding 서비스 사용'
     module: '모듈 5 - Language Understanding 솔루션 만들기'
@@ -15,7 +15,7 @@ Speech 서비스와 Language Understanding 서비스를 통합하면 음성 입�
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
 1. Visual Studio Code를 시작합니다.
-2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
+2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102KO-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
 3. 리포지토리가 복제되면 Visual Studio Code에서 폴더를 엽니다.
 4. 리포지토리의 C# 코드 프로젝트를 지원하는 추가 파일이 설치되는 동안 기다립니다.
 
@@ -95,6 +95,7 @@ Speech SDK를 Language Understanding 서비스와 함께 사용하려면 프로�
     ```
     dotnet add package System.Windows.Extensions --version 4.6.0 
     ```
+<<<<<<< Updated upstream
 
     **Python**
 
@@ -102,6 +103,15 @@ Speech SDK를 Language Understanding 서비스와 함께 사용하려면 프로�
     pip install playsound==1.2.2
     ```
 
+=======
+
+    **Python**
+
+    ```
+    pip install playsound==1.2.2
+    ```
+
+>>>>>>> Stashed changes
 3. **speaking-clock-client** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs
