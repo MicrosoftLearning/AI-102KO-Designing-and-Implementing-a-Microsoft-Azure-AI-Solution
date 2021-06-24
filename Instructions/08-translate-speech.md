@@ -8,14 +8,14 @@ lab:
 
 **Speech** 서비스에 포함된 **Speech Translation** API를 사용하면 음성 언어를 번역할 수 있습니다. 예를 들어 현지어를 모르는 곳을 여행할 때 사용할 수 있는 번역기 애플리케이션을 개발하려는 등의 경우에 이 API를 사용할 수 있습니다. 이러한 애플리케이션에서는 "역은 어디 있나요?", "약국을 찾아야 돼요" 등의 구를 자신의 모국어로 말하여 현지어로 번역할 수 있습니다.
 
-> **참고**: 이 연습을 진행하려면 마이크와 스피커/헤드폰이 있는 컴퓨터를 사용해야 합니다.
+**참고**: 이 연습을 진행하려면 스피커/헤드폰이 있는 컴퓨터를 사용해야 합니다. 최상의 경험을 위해서는 마이크도 필요합니다. 일부 호스트 가상 환경에서는 로컬 마이크로부터 오디오를 캡처할 수 있지만, 이 기능이 작동하지 않거나 마이크가 아예 없는 경우에는 제공된 오디오 파일을 음성 입력으로 사용할 수 있습니다. 마이크를 사용하는지 아니면 오디오 파일을 사용하는지에 따라 서로 다른 옵션을 선택해야 하므로 주의하여 지침을 따르세요.
 
 ## 이 과정용 리포지토리 복제
 
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
 1. Visual Studio Code를 시작합니다.
-2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
+2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102KO-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
 3. 리포지토리가 복제되면 Visual Studio Code에서 폴더를 엽니다.
 4. 리포지토리의 C# 코드 프로젝트를 지원하는 추가 파일이 설치되는 동안 기다립니다.
 
@@ -65,7 +65,7 @@ lab:
 4. **translator** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs
-    - **Python**: translator&period;py
+    - **Python**: translator.py
 
     코드 파일을 열고 파일 맨 윗부분의 기존 네임스페이스 참조 아래에 있는 **네임스페이스 가져오기** 주석을 찾습니다. 그런 다음 이 주석 아래에 다음 언어별 코드를 추가하여 Speech SDK를 사용하는 데 필요한 네임스페이스를 가져옵니다.
 
@@ -92,7 +92,7 @@ lab:
     ```C#
     // 번역 구성
     translationConfig = SpeechTranslationConfig.FromSubscription(cogSvcKey, cogSvcRegion);
-    translationConfig.SpeechRecognitionLanguage = "ko-kr";
+    translationConfig.SpeechRecognitionLanguage = "en-US";
     translationConfig.AddTargetLanguage("fr");
     translationConfig.AddTargetLanguage("es");
     translationConfig.AddTargetLanguage("hi");
@@ -104,7 +104,7 @@ lab:
     ```Python
     # 번역 구성
     translation_config = speech_sdk.translation.SpeechTranslationConfig(cog_key, cog_region)
-    translation_config.speech_recognition_language = 'ko-kr'
+    translation_config.speech_recognition_language = 'en-US'
     translation_config.add_target_language('fr')
     translation_config.add_target_language('es')
     translation_config.add_target_language('hi')
@@ -141,16 +141,16 @@ lab:
     python translator.py
     ```
 
-8. C#을 사용 중인 경우 비동기 메서드의 **await** 연산자 사용 관련 경고는 무시해도 됩니다. 뒷부분에서 해당 부분을 수정할 것입니다. 이 코드는 ko-kr 텍스트를 번역할 수 있다는 메시지를 표시합니다. ENTER 키를 눌러 프로그램을 종료합니다.
+8. C#을 사용 중인 경우 비동기 메서드의 **await** 연산자 사용 관련 경고는 무시해도 됩니다. 뒷부분에서 해당 부분을 수정할 것입니다. 이 코드는 en-US 텍스트를 번역할 수 있다는 메시지를 표시합니다. ENTER 키를 눌러 프로그램을 종료합니다.
 
 ## 음성 번역 구현
 
 Cognitive Services 리소스에서 Speech 서비스용 **SpeechTranslationConfig**를 만들었으므로 **Speech Translation** API를 사용하여 음성을 인식한 다음 번역할 수 있습니다.
 
+### 작동하는 마이크가 있는 경우
+
 1. 프로그램의 **Main** 함수에서 코드가 **Translate** 함수를 사용해 음성 입력을 번역함을 확인합니다.
 2. **Translate** 함수의 **음성 번역** 주석 아래에 다음 코드를 추가하여 **TranslationRecognizer** 클라이언트를 만듭니다. 이 클라이언트를 사용하면 입력용 기본 시스템 마이크를 사용해 음성을 인식하고 번역할 수 있습니다.
-
-    > **참고**: *파일 경로를 참조하도록 **AudioConfig** 개체를 수정하여 오디오 파일에서 음성 입력을 번역할 수도 있습니다.*
 
     **C#**
     
@@ -181,7 +181,77 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechTranslationConfig
 
     > **참고**: 애플리케이션의 코드를 한 번만 호출하면 입력이 3개 언어로 번역됩니다. 출력에는 특정 언어의 번역만 표시되지만 결과의 **translations** 컬렉션에서 대상 언어 코드를 지정하면 원하는 번역을 검색할 수 있습니다.
 
-3. 변경 내용을 저장하고 **translator** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
+3. 이제 아래의 **프로그램 실행** 섹션으로 넘어갑니다.
+
+### 또는 파일에서 오디오 입력 사용
+
+1. 터미널 차에서 다음 명령을 입력하여 오디오 파일을 재생하는 데 사용할 수 있는 라이브러리를 설치합니다.
+
+    **C#**
+
+    ```
+    dotnet add package System.Windows.Extensions --version 4.6.0 
+    ```
+
+    **Python**
+
+    ```
+    pip install playsound==1.2.2
+    ```
+
+2. 프로그램의 코드 파일에서, 기존 네임스페이스 가져오기 아래에 다음 코드를 추가하여 방금 설치한 라이브러리를 가져옵니다.
+
+    **C#**
+
+    ```C#
+    using System.Media;
+    ```
+
+    **Python**
+
+    ```Python
+    from playsound import playsound
+    ```
+
+3. 프로그램의 **Main** 함수에서 코드가 **Translate** 함수를 사용해 음성 입력을 번역함을 확인합니다. 그런 다음에 **Translate** 함수의 **음성 번역** 주석 아래에 다음 코드를 추가하여 **TranslationRecognizer** 클라이언트를 만듭니다. 이 클라이언트를 사용하면 파일로부터 음성을 인식하고 번역할 수 있습니다.
+
+    **C#**
+    
+    ```C#
+    // 음성 번역
+    string audioFile = "station.wav";
+    SoundPlayer wavPlayer = new SoundPlayer(audioFile);
+    wavPlayer.Play();
+    using AudioConfig audioConfig = AudioConfig.FromWavFileInput(audioFile);
+    using TranslationRecognizer translator = new TranslationRecognizer(translationConfig, audioConfig);
+    Console.WriteLine("Getting speech from file...");
+    TranslationRecognitionResult result = await translator.RecognizeOnceAsync();
+    Console.WriteLine($"Translating '{result.Text}'");
+    translation = result.Translations[targetLanguage];
+    Console.OutputEncoding = Encoding.UTF8;
+    Console.WriteLine(translation);
+    ```
+    
+    **Python**
+    
+    ```Python
+    # 음성 번역
+    audioFile = 'station.wav'
+    playsound(audioFile)
+    audio_config = speech_sdk.AudioConfig(filename=audioFile)
+    translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config)
+    print("Getting speech from file...")
+    result = translator.recognize_once_async().get()
+    print('Translating "{}"'.format(result.text))
+    translation = result.translations[targetLanguage]
+    print(translation)
+    ```
+
+    > **참고**: 애플리케이션의 코드를 한 번만 호출하면 입력이 3개 언어로 번역됩니다. 출력에는 특정 언어의 번역만 표시되지만 결과의 **translations** 컬렉션에서 대상 언어 코드를 지정하면 원하는 번역을 검색할 수 있습니다.
+
+### 프로그램 실행
+
+1. 변경 내용을 저장하고 **translator** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
     **C#**
     
@@ -195,7 +265,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechTranslationConfig
     python translator.py
     ```
 
-4. 메시지가 표시되면 유효한 언어 코드(*fr*, *es* 또는 *hi*)를 입력한 후 "역은 어디 있나요?" 또는 해외 여행 시에 사용할 수 있는 다른 구를 마이크에 또박또박 말합니다. 그러면 프로그램이 음성 입력을 필사한 다음 지정한 언어(프랑스어, 스페인어 또는 힌디어)로 번역합니다. 이 프로세스를 반복하여 음성을 애플리케이션이 지원하는 각 언어로 번역해 봅니다. 프로세스를 완료한 후 Enter 키를 눌러 프로그램을 종료합니다.
+2. 메시지가 표시되면 유효한 언어 코드(*fr*, *es* 또는 *hi*)를 입력한 후, 마이크를 사용하는 경우 "역은 어디 있나요?" 또는 해외 여행 시에 사용할 수 있는 다른 구를 또박또박 말합니다. 그러면 프로그램이 음성 입력을 필사한 다음 지정한 언어(프랑스어, 스페인어 또는 힌디어)로 번역합니다. 이 프로세스를 반복하여 음성을 애플리케이션이 지원하는 각 언어로 번역해 봅니다. 프로세스를 완료한 후 Enter 키를 눌러 프로그램을 종료합니다.
 
     > **참고**: TranslationRecognizer에서는 말할 수 있는 시간이 약 5초입니다. 이 시간 동안 음성 입력이 감지되지 않으면 "No match" 결과가 생성됩니다.
     >
@@ -260,6 +330,6 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechTranslationConfig
 
     > **참고** *이 예제에서는 **SpeechTranslationConfig**를 사용하여 음성을 텍스트로 번역한 다음 **SpeechConfig**를 사용하여 번역을 음성으로 합성했습니다. 실제로는 **SpeechTranslationConfig**를 사용해 번역을 직접 합성할 수 있습니다. 하지만 이 방식은 한 가지 언어로 번역할 때만 사용 가능하며, 음성 번역은 오디오 스트림으로 생성되어 스피커에서 바로 재생되는 대신 대개 파일로 저장됩니다.*
 
-## 추가 정보
+## 자세한 정보
 
 **Speech Translation** API를 사용하는 방법에 대한 자세한 내용은 [Speech Translation 설명서](https://docs.microsoft.com/azure/cognitive-services/speech-service/index-speech-translation)를 참조하세요.

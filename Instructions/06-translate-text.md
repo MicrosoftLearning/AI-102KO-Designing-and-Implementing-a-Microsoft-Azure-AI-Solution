@@ -15,7 +15,7 @@ lab:
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
 1. Visual Studio Code를 시작합니다.
-2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
+2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102KO-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
 3. 리포지토리가 복제되면 Visual Studio Code에서 폴더를 엽니다.
 4. 리포지토리의 C# 코드 프로젝트를 지원하는 추가 파일이 설치되는 동안 기다립니다.
 
@@ -47,11 +47,11 @@ lab:
     - **C#**: appsettings.json
     - **Python**: .env
 
-    구성 파일을 열고 Cognitive Services 리소스용 인증 **키**와 해당 리소스를 배포한 **위치**(엔드포인트 <u>아님</u>)를 포함하도록 해당 파일에 포함된 구성 값을 업데이트합니다. 변경 내용을 저장합니다.
+    구성 파일을 열고 Cognitive Services 리소스용 인증 **키**와 해당 리소스를 배포한 **위치**(엔드포인트 <u>아님</u>)를 포함하도록 해당 파일에 포함된 구성 값을 업데이트합니다. Cognitive Services 리소스의 **키 및 엔드포인트** 페이지에서 둘 다 복사해야 합니다. 변경 내용을 저장합니다.
 3. **text-translation** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs
-    - **Python**: text-translation&period;py
+    - **Python**: text-translation.py
 
     코드 파일을 열고 포함되어 있는 코드를 살펴봅니다.
 
@@ -79,65 +79,65 @@ Translator 서비스는 번역할 텍스트의 원본 언어를 자동 감지할
 1. 코드 파일에서 **GetLanguage** 함수를 찾습니다. 이 함수는 현재 모든 텍스트 값에 대해 "en"을 반환합니다.
 2. **GetLanguage** 함수의 **Translator 감지 기능 사용** 주석 아래에 다음 코드를 추가하여 Translator REST API를 사용해 지정된 텍스트의 언어를 감지합니다. 이때 언어를 반환하는 함수 끝부분의 코드를 바꾸지 않도록 주의하세요.
 
-    **C#**
-    
-    ```C
-    // Translator 감지 기능 사용
-    object[] body = new object[] { new { Text = text } };
-    var requestBody = JsonConvert.SerializeObject(body);
-    using (var client = new HttpClient())
-    {
-        using (var request = new HttpRequestMessage())
-        {
-            // 요청 빌드
-            string path = "/detect?api-version=3.0";
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(translatorEndpoint + path);
-            request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-            request.Headers.Add("Ocp-Apim-Subscription-Key", cogSvcKey);
-            request.Headers.Add("Ocp-Apim-Subscription-Region", cogSvcRegion);
-    
-            // 요청 보내기 및 응답 가져오기
-            HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
-            // 응답을 문자열로 읽기
-            string responseContent = await response.Content.ReadAsStringAsync();
-    
-            // JSON 배열을 구문 분석하고 언어 가져오기
-            JArray jsonResponse = JArray.Parse(responseContent);
-            language = (string)jsonResponse[0]["language"]; 
-        }
-    }
-    ```
-    
-    **Python**
+**C#**
 
-    ```Python
-    # Translator 감지 기능 사용
-    path = '/detect'
-    url = translator_endpoint + path
-    
-    # 요청 빌드
-    params = {
-        'api-version': '3.0'
+```C#
+// Translator 감지 기능 사용
+object[] body = new object[] { new { Text = text } };
+var requestBody = JsonConvert.SerializeObject(body);
+using (var client = new HttpClient())
+{
+    using (var request = new HttpRequestMessage())
+    {
+        // 요청 빌드
+        string path = "/detect?api-version=3.0";
+        request.Method = HttpMethod.Post;
+        request.RequestUri = new Uri(translatorEndpoint + path);
+        request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+        request.Headers.Add("Ocp-Apim-Subscription-Key", cogSvcKey);
+        request.Headers.Add("Ocp-Apim-Subscription-Region", cogSvcRegion);
+
+        // 요청 보내기 및 응답 가져오기
+        HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
+        // 응답을 문자열로 읽기
+        string responseContent = await response.Content.ReadAsStringAsync();
+
+        // JSON 배열을 구문 분석하고 언어 가져오기
+        JArray jsonResponse = JArray.Parse(responseContent);
+        language = (string)jsonResponse[0]["language"]; 
     }
-    
-    headers = {
-    'Ocp-Apim-Subscription-Key': cog_key,
-    'Ocp-Apim-Subscription-Region': cog_region,
-    'Content-type': 'application/json'
-    }
-    
-    body = [{
-        'text': text
-    }]
-    
-    # 요청 보내기 및 응답 가져오기
-    request = requests.post(url, params=params, headers=headers, json=body)
-    response = request.json()
-    
-    # JSON 배열을 구문 분석하고 언어 가져오기
-    language = response[0]["language"]
-    ```
+}
+```
+
+**Python**
+
+```Python
+# Translator 감지 기능 사용
+path = '/detect'
+url = translator_endpoint + path
+
+# 요청 빌드
+params = {
+    'api-version': '3.0'
+}
+
+headers = {
+'Ocp-Apim-Subscription-Key': cog_key,
+'Ocp-Apim-Subscription-Region': cog_region,
+'Content-type': 'application/json'
+}
+
+body = [{
+    'text': text
+}]
+
+# 요청 보내기 및 응답 가져오기
+request = requests.post(url, params=params, headers=headers, json=body)
+response = request.json()
+
+# JSON 배열을 구문 분석하고 언어 가져오기
+language = response[0]["language"]
+```
 
 3. 변경 내용을 저장하고 **text-translation** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 
@@ -162,67 +162,67 @@ Translator 서비스는 번역할 텍스트의 원본 언어를 자동 감지할
 1. 코드 파일에서 **Translate** 함수를 찾습니다. 이 함수는 현재 모든 텍스트 값에 대해 빈 문자열을 반환합니다.
 2. **Translate** 함수의 **Translator 번역 기능 사용** 주석 아래에 다음 코드를 추가하여 Translator REST API를 사용해 지정된 텍스트를 원본 언어에서 영어로 번역합니다. 이때 번역을 반환하는 함수 끝부분의 코드를 바꾸지 않도록 주의하세요.
 
-    **C#**
+**C#**
 
-    ```C
-    // Translator 번역 기능 사용
-    object[] body = new object[] { new { Text = text } };
-    var requestBody = JsonConvert.SerializeObject(body);
-    using (var client = new HttpClient())
+```C#
+// Translator 번역 기능 사용
+object[] body = new object[] { new { Text = text } };
+var requestBody = JsonConvert.SerializeObject(body);
+using (var client = new HttpClient())
+{
+    using (var request = new HttpRequestMessage())
     {
-        using (var request = new HttpRequestMessage())
-        {
-            // 요청 빌드
-            string path = "/translate?api-version=3.0&from=" + sourceLanguage + "&to=en" ;
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(translatorEndpoint + path);
-            request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-            request.Headers.Add("Ocp-Apim-Subscription-Key", cogSvcKey);
-            request.Headers.Add("Ocp-Apim-Subscription-Region", cogSvcRegion);
-    
-            // 요청 보내기 및 응답 가져오기
-            HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
-            // 응답을 문자열로 읽기
-            string responseContent = await response.Content.ReadAsStringAsync();
-    
-            // JSON 배열을 구문 분석하고 번역 가져오기
-            JArray jsonResponse = JArray.Parse(responseContent);
-            translation = (string)jsonResponse[0]["translations"][0]["text"];  
-        }
-    }
-    ```
+        // 요청 빌드
+        string path = "/translate?api-version=3.0&from=" + sourceLanguage + "&to=en" ;
+        request.Method = HttpMethod.Post;
+        request.RequestUri = new Uri(translatorEndpoint + path);
+        request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+        request.Headers.Add("Ocp-Apim-Subscription-Key", cogSvcKey);
+        request.Headers.Add("Ocp-Apim-Subscription-Region", cogSvcRegion);
 
-    **Python**
-    
-    ```Python
-    # Translator 번역 기능 사용
-    path = '/translate'
-    url = translator_endpoint + path
-    
-    # 요청 빌드
-    params = {
-        'api-version': '3.0',
-        'from': source_language,
-        'to': ['en']
+        // 요청 보내기 및 응답 가져오기
+        HttpResponseMessage response = await client.SendAsync(request).ConfigureAwait(false);
+        // 응답을 문자열로 읽기
+        string responseContent = await response.Content.ReadAsStringAsync();
+
+        // JSON 배열을 구문 분석하고 번역 가져오기
+        JArray jsonResponse = JArray.Parse(responseContent);
+        translation = (string)jsonResponse[0]["translations"][0]["text"];  
     }
-    
-    headers = {
-        'Ocp-Apim-Subscription-Key': cog_key,
-        'Ocp-Apim-Subscription-Region': cog_region,
-        'Content-type': 'application/json'
-    }
-    
-    body = [{
-        'text': text
-    }]
-    
-    # 요청 보내기 및 응답 가져오기
-    request = requests.post(url, params=params, headers=headers, json=body)
-    response = request.json()
-    
-    # JSON 배열을 구문 분석하고 번역 가져오기
-    translation = response[0]["translations"][0]["text"]
-    ```
+}
+```
+
+**Python**
+
+```Python
+# Translator 번역 기능 사용
+path = '/translate'
+url = translator_endpoint + path
+
+# 요청 빌드
+params = {
+    'api-version': '3.0',
+    'from': source_language,
+    'to': ['en']
+}
+
+headers = {
+    'Ocp-Apim-Subscription-Key': cog_key,
+    'Ocp-Apim-Subscription-Region': cog_region,
+    'Content-type': 'application/json'
+}
+
+body = [{
+    'text': text
+}]
+
+# 요청 보내기 및 응답 가져오기
+request = requests.post(url, params=params, headers=headers, json=body)
+response = request.json()
+
+# JSON 배열을 구문 분석하고 번역 가져오기
+translation = response[0]["translations"][0]["text"]
+```
 
 3. 변경 내용을 저장하고 **text-translation** 폴더의 통합 터미널로 돌아와서 다음 명령을 입력하여 프로그램을 실행합니다.
 

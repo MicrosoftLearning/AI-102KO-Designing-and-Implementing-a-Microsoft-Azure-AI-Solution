@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Computer Vision을 사용하여 이미지 분석'
-    module: '모듈 8 ? Computer Vision 시작'
+    module: '모듈 8 - Computer Vision 시작'
 ---
 
 # Computer Vision을 사용하여 이미지 분석
@@ -13,7 +13,7 @@ Computer Vision은 소프트웨어 시스템이 이미지를 분석하여 시각
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 아직 복제하지 않았다면 다음 단계에 따라 리포지토리를 지금 복제합니다. 리포지토리를 복제한 경우에는 Visual Studio Code에서 복제한 폴더를 엽니다.
 
 1. Visual Studio Code를 시작합니다.
-2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
+2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102KO-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
 3. 리포지토리가 복제되면 Visual Studio Code에서 폴더를 엽니다.
 4. 리포지토리의 C# 코드 프로젝트를 지원하는 추가 파일이 설치되는 동안 기다립니다.
 
@@ -63,7 +63,7 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
 4. **image-analysis** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs
-    - **Python**: image-analysis&period;py
+    - **Python**: image-analysis.py
 
     코드 파일을 열고 파일 맨 윗부분의 기존 네임스페이스 참조 아래에 있는 **네임스페이스 가져오기** 주석을 찾습니다. 그런 다음 이 주석 아래에 다음 언어별 코드를 추가하여 Computer Vision SDK를 사용하는 데 필요한 네임스페이스를 가져옵니다.
 
@@ -95,7 +95,7 @@ from msrest.authentication import CognitiveServicesCredentials
 
 이제 SDK를 사용해 Computer Vision 서비스를 호출하고 이미지를 분석할 준비가 되었습니다.
 
-1. 클라이언트 애플리케이션용 코드 파일(**Program.cs** 또는 **image-analysis&period;py**)의 **Main** 함수에서 구성 설정 로드를 위한 코드가 제공되어 있음을 확인합니다. 그런 다음 **Computer Vision 클라이언트 인증** 주석을 찾습니다. 그 후에 이 주석 아래에 다음 언어별 코드를 추가하여 Computer Vision 클라이언트 개체를 만들고 인증합니다.
+1. 클라이언트 애플리케이션용 코드 파일(**Program.cs** 또는 **image-analysis.py**)의 **Main** 함수에서 구성 설정 로드를 위한 코드가 제공되어 있음을 확인합니다. 그런 다음 **Computer Vision 클라이언트 인증** 주석을 찾습니다. 그 후에 이 주석 아래에 다음 언어별 코드를 추가하여 Computer Vision 클라이언트 개체를 만들고 인증합니다.
 
 **C#**
 
@@ -538,7 +538,7 @@ print('Thumbnail saved in.', thumbnail_file_name)
     
 2. 변경 내용을 저장한 다음 **images** 이미지 폴더의 각 이미지 파일별로 프로그램을 한 번씩 실행합니다. 프로그램을 실행할 때마다 **Main** 함수의 파일 이름을 변경하고, 각 이미지에 대해 코드 파일과 같은 폴더에 생성되는 **thumbnail.jpg** 파일을 엽니다.
 
-## 추가 정보
+## 자세한 정보
 
 이 연습에서는 Computer Vision 서비스의 몇 가지 이미지 분석 및 조작 기능을 살펴보았습니다. 이 서비스에는 텍스트 읽기, 얼굴 감지 및 기타 Computer Vision 작업용 기능도 포함되어 있습니다.
 

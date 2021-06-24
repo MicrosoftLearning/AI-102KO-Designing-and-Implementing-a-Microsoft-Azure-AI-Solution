@@ -10,43 +10,47 @@ lab:
 
 QnA Maker는 자연어 입력을 사용하여 쿼리할 수 있는 질문과 대답 기술 자료를 만들 수 있는 Cognitive Service입니다. 또한 사용자가 제출한 질문의 대답을 조회하기 위해 봇이 사용할 수 있는 리소스로 가장 많이 사용되는 서비스이기도 합니다.
 
-## QnA Maker 리소스 만들기
+이 랩에서는 Text Analytics 안에 있는 기능인 관리형 QnA Maker를 사용할 것입니다. 
 
-기술 자료를 만들고 호스트하려면 Azure 구독의 QnA Maker 리소스가 필요합니다.
+## Text Analytics 리소스 만들기 
+
+관리형 QnA Maker를 사용하여 기술 자료를 만들고 호스트하려면 Azure 구독의 Text Analytics 리소스가 필요합니다.
 
 1. Azure Portal `https://portal.azure.com`을 열고 Azure 구독과 연결된 Microsoft 계정을 사용하여 로그인합니다.
-2. **65291;리소스 만들기** 단추를 선택하고 *QnA*를 검색한 후에 다음 설정을 사용하여 **QnA Maker** 리소스를 만듭니다.
-    - **관리형**: 선택
+2. **&#65291;리소스 만들기** 단추를 선택하고 *Text Analytics*를 검색한 후에 **Text Analytics** 리소스를 만듭니다. 
+3. **맞춤형 질의응답(미리 보기)** 블록에서 **선택**을 클릭합니다. 그런 다음에 **계속해서 리소스 만들기**를 클릭합니다. 다음 설정을 입력해야 합니다.
+    
     - **구독**: *사용자의 Azure 구독*
     - **리소스 그룹**: *리소스 그룹 선택 또는 만들기(제한된 구독을 사용 중이라면 새 리소스 그룹을 만들 권한이 없을 수도 있으므로 제공된 리소스 그룹 사용)*
+    - **지역**: *사용 가능한 아무 위치나 선택*
     - **이름**: *고유한 이름 입력*
-    - **위치**: *사용 가능한 아무 위치나 선택*
-    - **가격 책정 계층**: 표준 S0
+    - **가격 책정 계층**: 표준 S
     - **Azure Search 위치**\*: *QnA Maker 리소스와 같은 지역의 위치 선택*
     - **Azure Search 가격 책정 계층**: 무료(F)(*이 계층을 사용할 수 없으면 기본(B) 선택*)
+    - **약관**: _동의_ 
+    - **담당 AI 알림**: _동의_
+    
+    \*맞춤형 질의응답은 Azure Search를 사용해 질문과 대답 기술 자료를 인덱싱 및 쿼리합니다.
 
-    \*QnA Maker는 Azure Search를 사용해 질문과 대답 기술 자료를 인덱싱 및 쿼리합니다.
-
-3. 약관 체크박스를 선택하고 리소스를 만듭니다.
 4. 배포가 완료될 때까지 기다렸다가 배포 세부 정보를 확인합니다.
 
 ## 기술 자료 만들기
 
-QnA Maker 리소스에서 기술 자료를 만들려는 경우 QnA Maker 포털을 사용할 수 있습니다. 여기서는 [Microsoft Learn](https://docs.microsoft.com/learn) 관련 질문과 대답이 포함된 기술 자료를 만듭니다.
+Text Analytics 리소스에서 기술 자료를 만들려는 경우 QnA Maker 포털을 사용할 수 있습니다. 여기서는 [Microsoft Learn](https://docs.microsoft.com/learn) 관련 질문과 대답이 포함된 기술 자료를 만듭니다.
 
 1. 새 브라우저 탭에서 QnA Maker 포털 `https://qnamaker.ai`로 이동한 다음 Azure 구독과 연결된 Microsoft 계정을 사용하여 로그인합니다.
 2. 포털 위쪽에서 **기술 자료 만들기**를 선택합니다.
 3. QnA Maker 리소스는 이미 만들었으므로 1단계는 건너뛰면 됩니다. **2단계** 섹션에서 다음 설정을 선택합니다.
     - **Microsoft Azure Directory ID**: 구독이 포함된 Azure 디렉터리
     - **Azure 구독 이름**: Azure 구독.
-    - **Azure QnA 서비스**: 이전에 만든 QnA Maker 리소스
+    - **Azure QnA 서비스**: 이전에 만든 Text Analytics 리소스.
     - **언어**: 영어(*기본적으로는 처음 만드는 기술 자료에만 이 옵션을 사용할 수 있음*)
 4. **3단계** 섹션에서 기술 자료 이름으로 **Learn FAQ**를 입력합니다.
 
     기술 자료를 처음부터 만들어도 되지만 일반적으로는 기존 FAQ 페이지나 문서에서 질문과 대답을 가져오는 작업부터 시작합니다.
 
 5. **4단계** 섹션에서 다음 작업을 수행합니다.
-    - **URL** 상자에 `https://docs.microsoft.com/ko-kr/learn/support/faq`를 입력하고 **65291; URL 추가**를 클릭합니다.
+    - **URL** 상자에 `https://docs.microsoft.com/ko-kr/learn/support/faq`를 입력하고 **&#65291; URL 추가**를 클릭합니다.
     - **잡담** 섹션에서 **약식**을 선택합니다.
 6. **5단계** 섹션에서 **KB 만들기**를 선택하고 기술 자료가 작성될 때까지 기다립니다.
 
@@ -56,12 +60,12 @@ QnA Maker 리소스에서 기술 자료를 만들려는 경우 QnA Maker 포털�
 
 1. 기술 자료에서 **&#65291; QnA 쌍 추가**를 선택합니다.
 2. **질문** 상자에 `What is Microsoft certification?`을 입력합니다.
-3. **65291; 대체 구 추가**를 선택하고 `How can I demonstrate my Microsoft technology skills?`를 입력합니다.
+3. **&#65291; 대체 구 추가**를 선택하고 `How can I demonstrate my Microsoft technology skills?`를 입력합니다.
 4. **대답** 상자에 `The Microsoft Certified Professional program enables you to validate and prove your skills with Microsoft technologies.`를 입력합니다.
 
     사용자가 대답을 확인한 후 추가 작업으로 *멀티 턴* 대화를 작성하면 효율적인 경우도 있습니다. 그러면 사용자가 질문을 여러 번 구체화하여 필요한 대답을 확인할 수 있습니다.
 
-5. 인증 관련 질문에 입력한 대답 아래에서 **65291; 후속 프롬프트 추가**를 선택합니다.
+5. 인증 관련 질문에 입력한 대답 아래에서 **&#65291; 후속 프롬프트 추가**를 선택합니다.
 6. **후속 프롬프트** 대화 상자에서 다음 설정을 입력합니다.
     - **표시 텍스트**: `Learn more about certification.`
     - **QnA 링크**\*: `You can learn more about certification on the [Microsoft certification page](https://docs.microsoft.com/learn/certifications/).`
@@ -74,13 +78,13 @@ QnA Maker 리소스에서 기술 자료를 만들려는 경우 QnA Maker 포털�
 이제 기술 자료를 만들었으므로 QnA Maker 포털에서 테스트할 수 있습니다.
 
 1. 페이지 오른쪽 위에서 **저장 및 학습**을 클릭하여 기술 자료 학습을 진행합니다.
-2. 학습이 완료되면 **larr; 테스트**를 클릭하여 테스트 창을 엽니다.
-3. 테스트 창 아래쪽에 *Hello*라는 메시지를 입력합니다. 적절한 응답이 반환되어야 합니다.
+2. 학습이 완료되면 **&larr; 테스트**를 클릭하여 테스트 창을 엽니다.
+3. 테스트 창의 상단에서 *짧은 대답 표시* 상자를 *선택 취소*합니다. 그런 다음 아래쪽에 *Hello*라는 메시지를 입력합니다. 적절한 응답이 반환되어야 합니다.
 4. 테스트 창 아래쪽에 *What is Microsoft Learn?* 이라는 메시지를 입력합니다. FAQ에서 적절한 응답이 반환되어야 합니다.
 5. *That makes me happy!* 라는 메시지를 입력합니다. 적절한 잡담 응답이 반환되어야 합니다.
 6. *Tell me about certification*라는 메시지를 입력합니다. 앞에서 작성한 대답이 반환되고 후속 프롬프트 단추가 표시되어야 합니다.
 7. **Learn more about certification** 후속 질문 단추를 선택합니다. 인증 페이지 링크가 포함된 후속 질문의 대답이 반환되어야 합니다.
-8. 기술 자료 테스트가 완료되면 **rarr; 테스트**를 클릭하여 테스트 창을 닫습니다.
+8. 기술 자료 테스트가 완료되면 **&rarr; 테스트**를 클릭하여 테스트 창을 닫습니다.
 
 ## 기술 자료 게시
 
@@ -105,7 +109,7 @@ QnA Maker 리소스에서 기술 자료를 만들려는 경우 QnA Maker 포털�
   - **봇 핸들**: *봇의 고유한 이름*
   - **구독**: *사용자의 Azure 구독*
   - **리소스 그룹**: *QnA Maker 리소스가 포함된 리소스 그룹*
-  - **위치**: *QnA Maker 서비스와 같은 위치*
+  - **위치**: *Text Analytics 서비스와 같은 위치*
   - **가격 책정 계층**: F0
   - **앱 이름**: ***봇 핸들**과 같은 이름. *azurewebsites.net*이 자동 추가됨
   - **SDK 언어**: *C# 또는 Node.js 선택*

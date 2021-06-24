@@ -15,7 +15,7 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
 1. Visual Studio Code를 시작합니다.
-2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
+2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102KO-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
 3. 리포지토리가 복제되면 Visual Studio Code에서 폴더를 엽니다.
 4. 리포지토리의 C# 코드 프로젝트를 지원하는 추가 파일이 설치되는 동안 기다립니다.
 
@@ -26,7 +26,7 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
 구독에 **Cognitive Services** 리소스가 아직 없으면 리소스를 프로비전해야 합니다.
 
 1. Azure Portal `https://portal.azure.com`을 열고 Azure 구독과 연결된 Microsoft 계정을 사용하여 로그인합니다.
-2. **&#65291;리소스 만들기** 단추를 선택하고 *cognitive services*를 검색한 후에 다음 설정을 사용하여 **Cognitive Services** 리소스를 만듭니다.
+2. **&#65291;리소스 만들기** 단추를 선택하고 *cognitive services* 를 검색한 후에 다음 설정을 사용하여 **Cognitive Services** 리소스를 만듭니다.
     - **구독**: *사용자의 Azure 구독*
     - **리소스 그룹**: *리소스 그룹 선택 또는 만들기(제한된 구독을 사용 중이라면 새 리소스 그룹을 만들 권한이 없을 수도 있으므로 제공된 리소스 그룹 사용)*
     - **지역**: *사용 가능한 아무 지역이나 선택*
@@ -40,7 +40,7 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
 
 흔히 사용되는 대다수 Cognitive Services API는 컨테이너 이미지에서 제공됩니다. 전체 API 목록은 [Cognitive Services 설명서](https://docs.microsoft.com/azure/cognitive-services/cognitive-services-container-support#container-availability-in-azure-cognitive-services)에서 확인할 수 있습니다. 이 연습에서는 Text Analytics *언어 감지* API용 컨테이너 이미지를 사용하지만 사용 가능한 모든 이미지에는 동일한 원칙이 적용됩니다.
 
-1. Azure Portal **홈** 페이지에서 **&#65291;리소스 만들기** 단추를 선택하고 *container instances*를 검색한 후에 다음 설정을 사용하여 **Container Instances** 리소스를 만듭니다.
+1. Azure Portal **홈** 페이지에서 **&#65291;리소스 만들기** 단추를 선택하고 *container instances* 를 검색한 후에 다음 설정을 사용하여 **Container Instances** 리소스를 만듭니다.
 
     - **기본 사항**:
         - **구독**: *사용자의 Azure 구독*
@@ -82,7 +82,7 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
     > docker run --rm -it -p 5000:5000 --memory 4g --cpus 1 mcr.microsoft.com/azure-cognitive-services/textanalytics/language Eula=accept Billing=<yourEndpoint> ApiKey=<yourKey>
     > ```
     >
-    > 이 명령은 로컬 컴퓨터에서 이미지를 찾은 후 이미지가 없으면 *mcr&period;microsoft&period;com* 이미지 레지스트리에서 이미지를 끌어와 Docker 인스턴스에 배포합니다. 배포가 완료되면 컨테이너가 시작되어 포트 5000에서 들어오는 요청을 수신 대기합니다.
+    > 이 명령은 로컬 컴퓨터에서 이미지를 찾은 후 이미지가 없으면 *mcr.microsoft.com* 이미지 레지스트리에서 이미지를 끌어와 Docker 인스턴스에 배포합니다. 배포가 완료되면 컨테이너가 시작되어 포트 5000에서 들어오는 요청을 수신 대기합니다.
 
 ## 컨테이너 사용
 

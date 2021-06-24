@@ -13,7 +13,7 @@ Language Understanding 서비스에서는 언어 모델을 캡슐화하는 앱�
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
 1. Visual Studio Code를 시작합니다.
-2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
+2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102KO-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
 3. 리포지토리가 복제되면 Visual Studio Code에서 폴더를 엽니다.
 4. 리포지토리의 C# 코드 프로젝트를 지원하는 추가 파일이 설치되는 동안 기다립니다.
 
@@ -43,7 +43,7 @@ Azure 구독에 Language Understanding 작성 및 예측 리소스가 이미 포
 1. 새 브라우저 탭에서 Language Understanding 포털 `https://www.luis.ai`를 엽니다.
 2. Azure 구독과 연결된 Microsoft 계정으로 로그인합니다. Language Understanding 포털에 처음 로그인하는 경우 계정 세부 정보 액세스를 위한 몇 가지 권한을 앱에 부여해야 할 수 있습니다. 그런 후에 Azure 구독 및 방금 만든 작성 리소스를 선택하여 *시작* 단계를 완료합니다.
 3. **대화 앱** 페이지의 **&#65291;새 앱** 옆에 있는 드롭다운 목록을 확인한 후 **LU로 가져오기**를 선택합니다.
-프로젝트 폴더에서 이 연습용 랩 파일이 포함된 **10-luis-client** 하위 폴더로 이동하여 **Clock&period;lu**를 선택합니다. 그런 다음 clock 앱의 고유한 이름을 지정합니다.
+프로젝트 폴더에서 이 연습용 랩 파일이 포함된 **10-luis-client** 하위 폴더로 이동하여 **Clock.lu**를 선택합니다. 그런 다음 clock 앱의 고유한 이름을 지정합니다.
 4. 효율적인 Language Understanding 앱을 만들 수 있는 팁이 포함된 패널이 열리면 해당 패널을 닫습니다.
 5. Language Understanding 포털 위쪽에서 **학습**을 선택하여 앱을 학습시킵니다.
 6. Language Understanding 포털 오른쪽 위에서 **게시**를 선택하여 **프로덕션 슬롯**에 앱을 게시합니다.
@@ -86,7 +86,7 @@ pip install azure-cognitiveservices-language-luis==0.7.0
 4. **clock-client** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs
-    - **Python**: clock-client&period;py
+    - **Python**: clock-client.py
 
     코드 파일을 열고 파일 맨 윗부분의 기존 네임스페이스 참조 아래에 있는 **네임스페이스 가져오기** 주석을 찾습니다. 그런 다음 이 주석 아래에 다음 언어별 코드를 추가하여 Language Understanding 예측 SDK를 사용하는 데 필요한 네임스페이스를 가져옵니다.
 
@@ -158,7 +158,7 @@ print('Entities: {}'.format (entities))
 print('-----------------\n{}'.format(prediction_response.query))
 ```
 
- Language Understanding 앱을 호출하면 예측이 반환됩니다. 이 예측에는 상위(가장 가능성이 높은) 의도, 그리고 입력 발화에서 감지된 모든 엔터티가 포함됩니다. 이제 클라이언트 애플리케이션은 해당 예측을 사용하여 적절한 작업을 결정한 다음 수행해야 합니다.
+Language Understanding 앱을 호출하면 예측이 반환됩니다. 이 예측에는 상위(가장 가능성이 높은) 의도, 그리고 입력 발화에서 감지된 모든 엔터티가 포함됩니다. 이제 클라이언트 애플리케이션은 해당 예측을 사용하여 적절한 작업을 결정한 다음 수행해야 합니다.
 
 3. **적절한 작업 적용** 주석을 찾은 후 다음 코드를 추가합니다. 이 코드는 애플리케이션에서 지원하는 의도(**GetTime**, **GetDate** 및 **GetDay**)를 확인한 다음 관련 엔터티가 감지되었는지를 확인합니다. 그런 후에 기존 함수를 호출하여 적절한 응답을 생성합니다.
 
@@ -316,6 +316,6 @@ python clock-client.py
 
 6. 테스트를 완료한 후 *quit*을 입력합니다.
 
-## 추가 정보
+## 자세한 정보
 
 Language Understanding 클라이언트 만들기에 대해 자세히 알아보려면 [개발자 설명서](https://docs.microsoft.com/azure/cognitive-services/luis/developer-reference-resource)를 참조하세요.

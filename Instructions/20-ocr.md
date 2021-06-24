@@ -13,7 +13,7 @@ OCR(광학 인식)은 이미지와 문서에서 텍스트 읽기를 처리하는
 이 과정용 코드 리포지토리를 아직 복제하지 않았으면 복제해야 합니다.
 
 1. Visual Studio Code를 시작합니다.
-2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
+2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102KO-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
 3. 리포지토리가 복제되면 Visual Studio Code에서 폴더를 엽니다.
 4. 리포지토리의 C# 코드 프로젝트를 지원하는 추가 파일이 설치되는 동안 기다립니다.
 
@@ -63,7 +63,7 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
 4. **read-text** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs
-    - **Python**: read-text&period;py
+    - **Python**: read-text.py
 
     코드 파일을 열고 파일 맨 윗부분의 기존 네임스페이스 참조 아래에 있는 **네임스페이스 가져오기** 주석을 찾습니다. 그런 다음 이 주석 아래에 다음 언어별 코드를 추가하여 Computer Vision SDK를 사용하는 데 필요한 네임스페이스를 가져옵니다.
 
@@ -317,6 +317,6 @@ python read-text.py
 
 4. 메시지가 표시되면 **3**를 입력하고 출력을 살펴봅니다. 출력은 문서에서 추출된 텍스트입니다.
 
-## 추가 정보
+## 자세한 정보
 
 **Computer Vision** 서비스를 사용하여 텍스트를 읽는 방법에 대한 자세한 내용은 [Computer Vision 설명서](https://docs.microsoft.com/azure/cognitive-services/computer-vision/concept-recognizing-text)를 참조하세요.

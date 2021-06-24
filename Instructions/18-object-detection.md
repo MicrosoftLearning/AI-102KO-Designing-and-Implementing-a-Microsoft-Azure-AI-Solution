@@ -13,7 +13,7 @@ lab:
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
 1. Visual Studio Code를 시작합니다.
-2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
+2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102KO-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
 3. 리포지토리가 복제되면 Visual Studio Code에서 폴더를 엽니다.
 4. 리포지토리의 C# 코드 프로젝트를 지원하는 추가 파일이 설치되는 동안 기다립니다.
 
@@ -120,7 +120,7 @@ pip install azure-cognitiveservices-vision-customvision==3.1.0
 9. **train-detector** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs
-    - **Python**: train-detector&period;py
+    - **Python**: train-detector.py
 
     코드 파일을 열고 포함되어 있는 코드를 검토하여 다음 세부 정보를 확인합니다.
     - 설치한 패키지의 네임스페이스를 가져왔습니다.
@@ -183,7 +183,7 @@ pip install azure-cognitiveservices-vision-customvision==3.1.0
 > **참고**: Python SDK 패키지에는 학습 패키지와 예측 패키지가 모두 포함되어 있으며, 이러한 패키지가 이미 설치되어 있을 수도 있습니다.
 
 3. 클라이언트 애플리케이션용 구성 파일(C#의 경우 *appsettings.json*, Python의 경우 *env*)을 열고 Custom Vision *예측* 리소스의 엔드포인트와 키, 개체 감지 프로젝트의 프로젝트 ID, 그리고 게시한 모델의 이름(*fruit-detector*)을 반영하여 해당 파일에 포함된 구성 값을 업데이트합니다. 변경 내용을 저장합니다.
-4. 클라이언트 애플리케이션의 코드 파일(C#의 경우 *Program.cs*, Python의 경우 *test-detector&period;py*)을 열고 포함되어 있는 코드를 검토하여 다음 세부 정보를 확인합니다.
+4. 클라이언트 애플리케이션의 코드 파일(C#의 경우 *Program.cs*, Python의 경우 *test-detector.py*)을 열고 포함되어 있는 코드를 검토하여 다음 세부 정보를 확인합니다.
     - 설치한 패키지의 네임스페이스를 가져왔습니다.
     - **Main** 함수가 구성 설정을 검색하며 키와 엔드포인트를 사용하여 인증된 **CustomVisionPredictionClient**를 만듭니다.
     - 예측 클라이언트 개체를 사용하여 요청에서 프로젝트 ID와 모델 이름을 지정해 **produce.jpg** 이미지에 대한 개체 감지 예측을 가져옵니다. 이미지에서 예측된 태그 지정 영역을 그리고 결과를 **recognized_faces.jpg**로 저장합니다.
@@ -203,6 +203,6 @@ python test-detector.py
 
 6. 프로그램 실행이 완료되면 생성된 **output.jpg** 파일을 표시하여 이미지에서 감지된 개체를 확인합니다.
 
-## 추가 정보
+## 자세한 정보
 
 Custom Vision 서비스를 통한 개체 감지에 대한 자세한 내용은 [Custom Vision 설명서](https://docs.microsoft.com/azure/cognitive-services/custom-vision-service/)를 참조하세요.

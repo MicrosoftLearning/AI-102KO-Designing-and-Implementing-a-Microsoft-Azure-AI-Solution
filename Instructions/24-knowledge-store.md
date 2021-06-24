@@ -19,7 +19,7 @@ Azure Cognitive Search에서는 인식 기술 보강 파이프라인을 사용�
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 이미 복제했다면 Visual Studio Code에서 해당 리포지토리를 열고, 그렇지 않으면 다음 단계에 따라 리포지토리를 지금 복제합니다.
 
 1. Visual Studio Code를 시작합니다.
-2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
+2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102KO-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
 3. 리포지토리가 복제되면 Visual Studio Code에서 폴더를 엽니다.
 4. 리포지토리의 C# 코드 프로젝트를 지원하는 추가 파일이 설치되는 동안 기다립니다.
 
@@ -27,9 +27,9 @@ Azure Cognitive Search에서는 인식 기술 보강 파이프라인을 사용�
 
 ## Azure 리소스 만들기
 
-> **참고**: **Azure Cognitive Search 솔루션 만들기(22-azure-search.md)** 연습을 이전에 완료했으며 구독에 해당 연습의 Azure 리소스가 아직 남아 있으면 이 섹션을 건너뛰고 **검색 솔루션 만들기** 섹션부터 시작하면 됩니다. 그렇지 않은 경우에는 아래 단계에 따라 필요한 Azure 리소스를 프로비전합니다.
+> **참고**: **[Azure Cognitive Search 솔루션 만들기](22-azure-search.md)** 연습을 이전에 완료했으며 구독에 해당 연습의 Azure 리소스가 아직 남아 있으면 이 섹션을 건너뛰고 **검색 솔루션 만들기** 섹션부터 시작하면 됩니다. 그렇지 않은 경우에는 아래 단계에 따라 필요한 Azure 리소스를 프로비전합니다.
 
-1. Azure Portal `https://portal.azure.com`을 열고 Azure 구독과 연결된 Microsoft 계정을 사용하여 로그인합니다.
+1. 웹 브라우저에서 Azure Portal `https://portal.azure.com`을 열고 Azure 구독과 연결된 Microsoft 계정을 사용하여 로그인합니다.
 2. 구독의 **리소스 그룹**을 확인합니다.
 3. 제한된 구독을 사용 중이어서 리소스 그룹이 제공되어 있다면 해당 리소스 그룹을 선택하여 속성을 확인합니다. 그렇지 않은 경우에는 원하는 이름으로 새 리소스 그룹을 만들고 그룹이 만들어지면 해당 그룹으로 이동합니다.
 4. 리소스 그룹의 **개요** 페이지에서 **구독 ID** 및 **위치**를 확인합니다. 후속 단계에서 이러한 값과 리소스 그룹의 이름이 필요합니다.
@@ -214,6 +214,6 @@ Margie's Travel 기술 세트에 정의되어 있는 *개체* 프로젝션은 �
 
 *테이블* 프로젝션을 만드는 기능을 활용하면 Microsoft Power BI 등을 사용하여 관계형 스키마를 쿼리하는 분석 및 보고 솔루션을 빌드할 수 있습니다. 자동 생성된 키 열을 사용하여 쿼리의 테이블을 조인할 수 있습니다. 예를 들어 특정 문서에서 언급된 모든 문서를 반환하도록 테이블을 조인할 수 있습니다.
 
-## 추가 정보
+## 자세한 정보
 
 Azure Cognitive Search를 사용하여 지식 저장소를 만드는 방법에 대한 자세한 내용은 [Azure Cognitive Search 설명서](https://docs.microsoft.com/azure/search/knowledge-store-concept-intro)를 참조하세요.

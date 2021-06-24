@@ -17,7 +17,7 @@ Margie's Travel은 이 문제를 해결하기 위해 Azure Cognitive Search를 �
 이 랩에서 작업을 수행 중인 환경에 **AI-102-AIEngineer** 코드 리포지토리를 아직 복제하지 않았다면 다음 단계에 따라 리포지토리를 지금 복제합니다. 리포지토리를 복제한 경우에는 Visual Studio Code에서 복제한 폴더를 엽니다.
 
 1. Visual Studio Code를 시작합니다.
-2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102-AIEngineer` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
+2. 팔레트를 열고(Shift+Ctrl+P 누르기) **Git: Clone** 명령을 실행하여 `https://github.com/MicrosoftLearning/AI-102KO-Designing-and-Implementing-a-Microsoft-Azure-AI-Solution` 리포지토리를 로컬 폴더(아무 폴더나 관계없음)에 복제합니다.
 3. 리포지토리가 복제되면 Visual Studio Code에서 폴더를 엽니다.
 4. 리포지토리의 C# 코드 프로젝트를 지원하는 추가 파일이 설치되는 동안 기다립니다.
 
@@ -35,7 +35,7 @@ Margie's Travel용으로 만들 솔루션에는 Azure 구독의 다음 리소스
 
 ### Azure Cognitive Search 리소스 만들기
 
-1. Azure Portal `https://portal.azure.com`을 열고 Azure 구독과 연결된 Microsoft 계정을 사용하여 로그인합니다.
+1. 웹 브라우저에서 Azure Portal `https://portal.azure.com`을 열고 Azure 구독과 연결된 Microsoft 계정을 사용하여 로그인합니다.
 2. **&#65291;리소스 만들기** 단추를 선택하고 *search*를 검색한 후에 다음 설정을 사용하여 **Azure Cognitive Search** 리소스를 만듭니다.
     - **구독**: *사용자의 Azure 구독*
     - **리소스 그룹**: *새 리소스 그룹 만들기(제한된 구독을 사용 중이라면 새 리소스 그룹을 만들 권한이 없을 수도 있으므로 제공된 리소스 그룹 사용)*
@@ -63,9 +63,9 @@ Margie's Travel용으로 만들 솔루션에는 Azure 구독의 다음 리소스
 
 1. Azure Portal 홈 페이지로 돌아와서 **&#65291;리소스 만들기** 단추를 선택하고 *storage account*를 검색한 후에 다음 설정을 사용하여 **스토리지 계정** 리소스를 만듭니다.
     - **구독**: *사용자의 Azure 구독*
-    - **리소스 그룹**: *Azure Cognitive Search 및 Cognitive Services 리소스와 동일한 리소스 그룹*
+    - **리소스 그룹**: **Azure Cognitive Search 및 Cognitive Services 리소스와 동일한 리소스 그룹*
     - **스토리지 계정 이름**: *고유한 이름 입력*
-    - **위치**: *사용 가능한 아무 위치나 선택*
+    - **지역**: *사용 가능한 아무 지역이나 선택*
     - **성능**: 표준
     - **계정 종류**: Storage V2
     - **복제**: LRS(로컬 중복 스토리지)
@@ -79,7 +79,7 @@ Margie's Travel용으로 만들 솔루션에는 Azure 구독의 다음 리소스
 
 이제 필요한 리소스가 준비되었으므로 Azure Storage 계정에 문서 몇 개를 업로드할 수 있습니다.
 
-1. Visual Studio Code의 **탐색기** 창에서 **22-create-a-search-solution** 폴더를 확장하고 **UploadFiles.cmd**를 선택합니다.
+1. Visual Studio Code의 **탐색기** 창에서 **22-create-a-search-solution** 폴더를 확장하고 **UploadDocs.cmd**를 선택합니다.
 2. 배치 파일을 편집하여 **YOUR_SUBSCRIPTION_ID**, **YOUR_AZURE_STORAGE_ACCOUNT_NAME** 및 **YOUR_AZURE_STORAGE_KEY** 자리 표시자를 각각 해당하는 구독 ID, Azure Storage 계정 이름, 그리고 앞에서 만든 스토리지 계정의 Azure Storage 계정 키 값으로 바꿉니다.
 3. 변경 내용을 저장한 후 **22-create-a-search-solution** 폴더를 마우스 오른쪽 단추로 클릭하고 통합 터미널을 엽니다.
 4. 다음 명령을 입력하여 Azure CLI를 통해 Azure 구독에 로그인합니다.
@@ -126,7 +126,7 @@ Margie's Travel용으로 만들 솔루션에는 Azure 구독의 다음 리소스
         | 핵심 구 추출 | | keyphrases |
         | 언어 감지 | | language |
         | 이미지에서 태그 생성 | | imageTags |
-        | 이미지에서 캡션 생성 | | imageCaptions |
+        | 이미지에서 캡션 생성 | | imageCaption |
 
 6. 선택 항목을 다시 확인합니다(나중에 선택 항목을 변경하기는 어려울 수 있음). 그런 후에 다음 단계(*대상 인덱스 사용자 지정*)를 진행합니다.
 7. **인덱스 이름**을 **margies-index**로 변경합니다.
@@ -158,7 +158,7 @@ Margie's Travel용으로 만들 솔루션에는 Azure 구독의 다음 리소스
 이제 인덱스가 생성되었으므로 해당 인덱스를 검색할 수 있습니다.
 
 1. Azure Cognitive Search 리소스의 **개요** 페이지 위쪽에서 **검색 탐색기**를 선택합니다.
-2. 검색 탐색기의 **쿼리 문자열** 상자에 `*`(별표 하나)를 입력한 다음 **검색**을 선택합니다.
+2. 검색 탐색기의 **쿼리 문자열** 상자에 `*` (별표 하나)를 입력한 다음 **검색**을 선택합니다.
 
     이 쿼리는 인덱스에서 JSON 형식의 모든 문서를 검색합니다. 결과에서 각 문서의 필드를 살펴봅니다. 이러한 필드에는 문서 콘텐츠, 메타데이터, 그리고 선택한 인식 기술이 추출한 보강된 데이터가 포함되어 있습니다.
 
@@ -172,7 +172,7 @@ Margie's Travel용으로 만들 솔루션에는 Azure 구독의 다음 리소스
     search=*&$count=true&$select=metadata_storage_name,metadata_author,locations
     ```
 
-    이번에는 결과에 파일 이름, 작성자 및 문서 콘텐츠에서 언급된 위치만 포함됩니다. 파일 이름과 작성자는 각각 원본 문서에서 추출된 **metadata_content_name** 및 **metadata_author** 필드에 포함되어 있습니다. **locations** 필드는 인식 기술을 통해 생성된 것입니다.
+    이번에는 결과에 파일 이름, 작성자 및 문서 콘텐츠에서 언급된 위치만 포함됩니다. 파일 이름과 작성자는 각각 원본 문서에서 추출된 **metadata_storage_name** 및 **metadata_author** 필드에 포함되어 있습니다. **locations** 필드는 인식 기술을 통해 생성된 것입니다.
 
 5. 이번에는 다음 쿼리 문자열을 사용해 봅니다.
 
@@ -304,7 +304,7 @@ Azure Portal을 사용하여 검색 솔루션을 만들고 수정할 수도 있�
     modify-search
     ```
 
-3. 스크립트 실행이 완료되면 Azure Portal의 Azure Cognitive Search 리소스 **개요** 페이지 로 돌아와 **인덱서** 페이지를 표시합니다. 그런 다음 주기적으로 **새로 고침**을 선택하여 인덱싱 작업 진행률을 추적합니다. 인덱싱이 완료되려면 1분 정도 걸릴 수 있습니다.
+3. 스크립트 실행이 완료되면 Azure Portal의 Azure Cognitive Search 리소스 **개요** 페이지로 돌아와 **인덱서** 페이지를 표시합니다. 그런 다음 주기적으로 **새로 고침**을 선택하여 인덱싱 작업 진행률을 추적합니다. 인덱싱이 완료되려면 1분 정도 걸릴 수 있습니다.
 
     *너무 커서 감정을 평가할 수 없는 일부 문서의 경우 경고가 표시될 수 있습니다. 감정 분석은 전체 문서가 아닌 페이지 또는 문장 수준에서 수행되는 경우가 많습니다. 하지만 이 사례에 해당하는 시나리오에서는 대다수 문서(특히 호텔 리뷰)가 짧으므로 유용한 문서 수준 감정 점수를 평가할 수 있습니다.*
 
@@ -359,11 +359,11 @@ Azure Portal을 사용하여 검색 솔루션을 만들고 수정할 수도 있�
 
 ### 인덱스를 검색하는 코드 살펴보기
 
-**margies-travel** 폴더에는 검색 기능이 포함된 웹 애플리케이션(Microsoft C# *ASP&period;NET Razor* 웹 애플리케이션 또는 Python *Flask* 애플리케이션)용 코드 파일이 들어 있습니다.
+**margies-travel** 폴더에는 검색 기능이 포함된 웹 애플리케이션(Microsoft C# *ASP.NET Razor* 웹 애플리케이션 또는 Python *Flask* 애플리케이션)용 코드 파일이 들어 있습니다.
 
 1. 선택한 프로그래밍 언어에 따라 웹 애플리케이션에서 다음 코드 파일을 엽니다.
     - **C#**:Pages/Index.cshtml.cs
-    - **Python**: app&period;py
+    - **Python**: app.py
 2. 코드 파일 맨 위에서 **검색 네임스페이스 가져오기** 주석을 찾은 다음 Azure Cognitive Search SDK 사용을 위해 가져온 네임스페이스를 확인합니다.
 3. **search_query** 함수에서 **검색 클라이언트 만들기** 주석을 찾은 다음 코드가 Azure Cognitive Search 리소스용 엔드포인트와 쿼리 키를 사용하여 **SearchClient** 개체를 만든다는 것을 확인합니다.
 4. **search_query** 함수에서 **검색 쿼리 제출** 주석을 찾은 다음 코드가 다음 옵션을 사용하여 지정된 텍스트의 검색을 제출하는 방식을 검토합니다.
@@ -381,9 +381,9 @@ Azure Portal을 사용하여 검색 솔루션을 만들고 수정할 수도 있�
 
 1. 선택한 프로그래밍 언어에 따라 웹 애플리케이션에서 다음 코드 파일을 엽니다.
     - **C#**:Pages/Index.cshtml
-    - **Python**: templates/search&period;html
+    - **Python**: templates/search.html
 2. 검색 결과가 표시되는 페이지를 렌더링하는 코드를 살펴봅니다. 다음과 같은 부분을 확인하세요.
-    - 페이지의 시작 부분에는 검색 양식이 표시됩니다. 사용자는 이 검색 양식을 통해 새 검색을 제출할 수 있습니다(Python 버전 애플리케이션에서는 **base&period;html** 템플릿에 이 양식이 정의되어 있음). 그러면 페이지 시작 부분에서 새로 제출된 검색을 참조합니다.
+    - 페이지의 시작 부분에는 검색 양식이 표시됩니다. 사용자는 이 검색 양식을 통해 새 검색을 제출할 수 있습니다(Python 버전 애플리케이션에서는 **base.html** 템플릿에 이 양식이 정의되어 있음). 그러면 페이지 시작 부분에서 새로 제출된 검색을 참조합니다.
     - 그러고 나면 두 번째 양식이 렌더링되므로 사용자가 검색 결과를 상세 검색할 수 있습니다. 이 양식의 코드는 다음 작업을 수행합니다.
         - 검색 결과에서 문서 개수를 검색하여 표시합니다.
         - **metadata_author** 필드의 패싯 값을 검색하여 필터링용 옵션 목록으로 표시합니다.
@@ -413,7 +413,7 @@ Azure Portal을 사용하여 검색 솔루션을 만들고 수정할 수도 있�
     flask run
     ```
 
-2. 앱이 정상적으로 시작되면 표시되는 메시지에서 실행 중인 웹 애플리케이션의 링크(*http://localhost:5000/* 또는 *http://127.0.0.1:5000/* ) 를 따라 이동하여 웹 브라우저에서 Margie's Travel 사이트를 엽니다.
+2. 앱이 정상적으로 시작되면 표시되는 메시지에서 실행 중인 웹 애플리케이션의 링크(*http://localhost:5000/* 또는 *http://127.0.0.1:5000/*) 를 따라 이동하여 웹 브라우저에서 Margie's Travel 사이트를 엽니다.
 3. Margie's Travel 웹 사이트의 검색 상자에 **London hotel**을 입력하고 **검색**을 클릭합니다.
 4. 검색 결과를 검토합니다. 검색 결과에는 파일 이름(파일 URL의 하이퍼링크 포함), 검색 용어(*London* 및 *hotel*)가 강조 표시된 파일 콘텐츠 추출 내용, 그리고 인덱스 필드에서 가져온 파일의 기타 특성이 포함되어 있습니다.
 5. 결과 페이지에는 결과를 상세 검색하는 데 사용할 수 있는 몇 가지 사용자 인터페이스 요소가 포함되어 있습니다. 이러한 요소는 다음과 같습니다.
