@@ -95,7 +95,6 @@ Speech SDK를 Language Understanding 서비스와 함께 사용하려면 프로�
     ```
     dotnet add package System.Windows.Extensions --version 4.6.0 
     ```
-<<<<<<< Updated upstream
 
     **Python**
 
@@ -103,15 +102,6 @@ Speech SDK를 Language Understanding 서비스와 함께 사용하려면 프로�
     pip install playsound==1.2.2
     ```
 
-=======
-
-    **Python**
-
-    ```
-    pip install playsound==1.2.2
-    ```
-
->>>>>>> Stashed changes
 3. **speaking-clock-client** 폴더에는 클라이언트 애플리케이션용 코드 파일이 포함되어 있습니다.
 
     - **C#**: Program.cs

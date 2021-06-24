@@ -76,7 +76,7 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
     - **IP 주소**: Container Instances에 액세스하는 데 사용할 수 있는 공용 IP 주소입니다.
     - **FQDN**: Container Instances 리소스의 *정규화된 도메인 이름*입니다. IP 주소 대신 이 이름을 사용하여 Container Instances에 액세스할 수 있습니다.
 
-    > **참고**: 이 연습에서는 ACI(Azure Container Instances) 리소스에 텍스트 번역용 Cognitive Services 컨테이너 이미지를 배포했습니다. 비슷한 방식을 통해 개인 컴퓨터나 네트워크의 *[Docker](https://www.docker.com/products/docker-desktop)* 호스트에 이미지를 배포할 수도 있습니다. 이렇게 하려면 다음 명령(한 줄)을 실행하여 로컬 Docker 인스턴스에 언어 감지 컨테이너를 배포합니다. 이때 *&lt;yourEndpoint&gt;* 및 *&lt;yourKey&gt;*는 각각 Cognitive Serivces 리소스의 엔드포인트 URI와 키 중 하나로 바꿉니다.
+    > **참고**: 이 연습에서는 ACI(Azure Container Instances) 리소스에 텍스트 번역용 Cognitive Services 컨테이너 이미지를 배포했습니다. 비슷한 방식을 통해 개인 컴퓨터나 네트워크의 *[Docker](https://www.docker.com/products/docker-desktop)* 호스트에 이미지를 배포할 수도 있습니다. 이렇게 하려면 다음 명령(한 줄)을 실행하여 로컬 Docker 인스턴스에 언어 감지 컨테이너를 배포합니다. 이때 *&lt;yourEndpoint&gt;* 및 *&lt;yourKey&gt;* 는 각각 Cognitive Serivces 리소스의 엔드포인트 URI와 키 중 하나로 바꿉니다.
     >
     > ```
     > docker run --rm -it -p 5000:5000 --memory 4g --cpus 1 mcr.microsoft.com/azure-cognitive-services/textanalytics/language Eula=accept Billing=<yourEndpoint> ApiKey=<yourKey>
@@ -86,7 +86,7 @@ Azure에서 호스트되는 Cognitive Services를 사용하는 애플리케이�
 
 ## 컨테이너 사용
 
-1. Visual Studio Code의 **04-containers** 폴더에서 **rest-test.cmd**를 열고 이 파일에 포함되어 있는 **curl** 명령(아래에 나와 있음)을 편집합니다. *&lt;your_ACI_IP_address_or_FQDN&gt;*을 컨테이너의 IP 주소나 FQDN으로 바꾸면 됩니다.
+1. Visual Studio Code의 **04-containers** 폴더에서 **rest-test.cmd**를 열고 이 파일에 포함되어 있는 **curl** 명령(아래에 나와 있음)을 편집합니다. *&lt;your_ACI_IP_address_or_FQDN&gt;* 을 컨테이너의 IP 주소나 FQDN으로 바꾸면 됩니다.
 
     ```
     curl -X POST "http://<your_ACI_IP_address_or_FQDN>:5000/text/analytics/v3.0/languages?" -H "Content-Type: application/json" --data-ascii "{'documents':[{'id':1,'text':'Hello world.'},{'id':2,'text':'Salut tout le monde.'}]}"

@@ -57,7 +57,7 @@ Cognitive Services 리소스를 만들면 인증 키 2개가 생성됩니다. �
     > az account show
     > ```
     >
-    > 구독을 변경해야 하는 경우 *&lt;Your_Subscription_Id&gt;*를 올바른 구독 ID로 변경하여 다음 명령을 실행합니다.
+    > 구독을 변경해야 하는 경우 *&lt;Your_Subscription_Id&gt;* 를 올바른 구독 ID로 변경하여 다음 명령을 실행합니다.
     >
     > ```
     > az account set --subscription <Your_Subscription_Id>
@@ -65,7 +65,7 @@ Cognitive Services 리소스를 만들면 인증 키 2개가 생성됩니다. �
     >
     > 이후에 실행하는 각 Azure CLI 명령에서 명시적으로 구독 ID를 *--subscription* 매개 변수로 지정할 수도 있습니다.
 
-3. 이제 다음 명령을 사용하여 Cognitive Services 키 목록을 가져올 수 있습니다. 명령에서 *&lt;resourceName&gt;*은 Cognitive Services 리소스 이름으로, *&lt;resourceGroup&gt;*은 해당 리소스를 만든 리소스 그룹 이름으로 바꾸세요.
+3. 이제 다음 명령을 사용하여 Cognitive Services 키 목록을 가져올 수 있습니다. 명령에서 *&lt;resourceName&gt;* 은 Cognitive Services 리소스 이름으로, *&lt;resourceGroup&gt;* 은 해당 리소스를 만든 리소스 그룹 이름으로 바꾸세요.
 
     ```
     az cognitiveservices account keys list --name <resourceName> --resource-group <resourceGroup>
@@ -73,7 +73,7 @@ Cognitive Services 리소스를 만들면 인증 키 2개가 생성됩니다. �
 
 이 명령은 Cognitive Services 리소스의 키 목록을 반환합니다. 목록에는 **key1** 및 **key2**의 2개 키가 포함되어 있습니다.
 
-4. Cognitive Service를 테스트하려는 경우 HTTP 요청용 명령줄 도구인 **curl**을 사용하면 됩니다. **02-cognitive-security** 폴더에서 **rest-test.cmd**를 열고 이 파일에 포함되어 있는 **curl** 명령(아래에 나와 있음)을 편집합니다. Cognitive Services 리소스의 Text Analytics API를 사용하도록 명령의 *&lt;yourEndpoint&gt;* 및 *&lt;yourKey&gt;*를 엔드포인트 URI와 **Key1** 키로 바꾸면 됩니다.
+4. Cognitive Service를 테스트하려는 경우 HTTP 요청용 명령줄 도구인 **curl**을 사용하면 됩니다. **02-cognitive-security** 폴더에서 **rest-test.cmd**를 열고 이 파일에 포함되어 있는 **curl** 명령(아래에 나와 있음)을 편집합니다. Cognitive Services 리소스의 Text Analytics API를 사용하도록 명령의 *&lt;yourEndpoint&gt;* 및 *&lt;yourKey&gt;* 를 엔드포인트 URI와 **Key1** 키로 바꾸면 됩니다.
 
     ```
     curl -X POST "<yourEndpoint>/text/analytics/v3.0/languages?" -H "Content-Type: application/json" -H "Ocp-Apim-Subscription-Key: <yourKey>" --data-ascii "{'documents':[{'id':1,'text':'hello'}]}"
@@ -87,7 +87,7 @@ Cognitive Services 리소스를 만들면 인증 키 2개가 생성됩니다. �
 
 이 명령은 입력 데이터에서 감지된 언어(영어) 관련 정보가 포함된 JSON 문서를 반환합니다.
 
-6. 키가 손상되었거나 키를 소유한 개발자가 더 이상 리소스에 액세스할 필요가 없는 경우 Azure Portal에서 Azure CLI를 사용하여 키를 다시 생성할 수 있습니다. 다음 명령을 실행하여 **key1** 키를 다시 생성합니다(*&lt;resourceName&gt;* 및 *&lt;resourceGroup&gt;*은 리소스 관련 정보로 바꿔야 함).
+6. 키가 손상되었거나 키를 소유한 개발자가 더 이상 리소스에 액세스할 필요가 없는 경우 Azure Portal에서 Azure CLI를 사용하여 키를 다시 생성할 수 있습니다. 다음 명령을 실행하여 **key1** 키를 다시 생성합니다(*&lt;resourceName&gt;* 및 *&lt;resourceGroup&gt;* 은 리소스 관련 정보로 바꿔야 함).
 
     ```
     az cognitiveservices account keys regenerate --name <resourceName> --resource-group <resourceGroup> --key-name key1
@@ -126,11 +126,7 @@ Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마�
 
 키 자격 증명 모음의 비밀에 액세스하려면 애플리케이션이 비밀 액세스 권한이 있는 서비스 주체를 사용해야 합니다. 여기서는 Azure CLI(명령줄 인터페이스)를 사용하여 서비스 주체를 만든 다음 Azure Vault의 비밀 액세스 권한을 부여합니다.
 
-<<<<<<< Updated upstream
-1. Visual Studio Code로 돌아와 **02-cognitive-security** 폴더의 통합 터미널에서 다음 Azure CLI 명령을 실행합니다. 이때 *&lt;spName&gt;*은 애플리케이션 ID에 적합한 이름(예: *ai-app*)으로 바꿉니다. 그리고 *&lt;subscriptionId&gt;* 및 *&lt;resourceGroup&gt;*도 구독 ID, 그리고 Cognitive Services 및 키 자격 증명 모음 리소스가 포함된 리소스 그룹의 올바른 값으로 바꿉니다.
-=======
 1. Visual Studio Code로 돌아와 **02-cognitive-security** 폴더의 통합 터미널에서 다음 Azure CLI 명령을 실행합니다. 이때 *&lt;spName&gt;* 은 애플리케이션 ID에 적합한 이름(예: *ai-app*)으로 바꿉니다. 그리고 *&lt;subscriptionId&gt;* 및 *&lt;resourceGroup&gt;* 도 구독 ID, 그리고 Cognitive Services 및 키 자격 증명 모음 리소스가 포함된 리소스 그룹의 올바른 값으로 바꿉니다.
->>>>>>> Stashed changes
 
     > **팁**: 구독 ID를 모르는 경우 **az account show** 명령을 실행하여 구독 정보를 검색합니다. 출력의 **id** 특성이 구독 ID입니다.
 
@@ -152,7 +148,7 @@ Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마�
 
 **appId**, **password** 및 **tenant** 값은 뒷부분에서 필요하므로 적어 두세요(이 터미널을 닫으면 암호를 검색할 수가 없으므로 값을 지금 적어 두어야 합니다. 나중에 필요한 값을 찾을 수 있도록 Visual Studio Code에서 새 텍스트 파일에 출력을 붙여넣을 수 있습니다).
 
-2. 새 서비스 주체에 Key Vault의 비밀 액세스 권한을 할당하려면 다음 Azure CLI 명령을 실행합니다. 이때 *&lt;keyVaultName&gt;*은 Azure Key Vault 리소스의 이름으로, *&lt;spName&gt;*은 서비스 주체를 만들 때 제공한 것과 같은 값으로 바꿉니다.
+2. 새 서비스 주체에 Key Vault의 비밀 액세스 권한을 할당하려면 다음 Azure CLI 명령을 실행합니다. 이때 *&lt;keyVaultName&gt;* 은 Azure Key Vault 리소스의 이름으로, *&lt;spName&gt;* 은 서비스 주체를 만들 때 제공한 것과 같은 값으로 바꿉니다.
 
     ```
     az keyvault set-policy -n <keyVaultName> --spn "https://<spName>" --secret-permissions get list
