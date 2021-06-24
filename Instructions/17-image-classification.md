@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: 'Custom Vision을 사용하여 이미지 분류'
     module: '모듈 9 - Custom Vision 솔루션 개발'
