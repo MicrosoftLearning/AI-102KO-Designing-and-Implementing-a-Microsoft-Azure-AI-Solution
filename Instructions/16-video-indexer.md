@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: 'Video Analyzer를 사용하여 비디오 분석'
     module: '모듈 8 – Computer Vision 시작'
