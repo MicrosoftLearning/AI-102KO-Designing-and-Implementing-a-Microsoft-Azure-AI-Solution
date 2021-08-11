@@ -219,7 +219,7 @@ python test-model.py
 2. **Form_1.jpg.labels.json**을 열고 이 파일에 포함된 JSON을 검토합니다. 이 파일은 **Form_1.jpg** 학습 문서에서 이름이 지정된 필드의 위치와 값을 식별합니다.
 3. **Form_1.jpg.ocr.json**을 열고 이 파일에 포함된 JSON을 검토합니다. 이 파일에는 양식에 있는 모든 텍스트 영역의 위치를 비롯한 **Form_1.jpg** 텍스트 레이아웃의 JSON 표현이 포함되어 있습니다.
 
-    *이 연습에서는 필드 정보 파일이 제공되어 있습니다. 실제 프로젝트에서는 [샘플 레이블 지정 도구](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/quickstarts/label-tool)를 사용하여 이러한 파일을 만들 수 있습니다. 도구를 사용할 때 필드 정보 파일이 자동으로 만들어지고 연결된 스토리지 계정에 저장됩니다.*
+    *이 연습에서는 필드 정보 파일이 제공되어 있습니다. 실제 프로젝트에서는 [샘플 레이블 지정 도구](https://docs.microsoft.com/azure/cognitive-services/form-recognizer/label-tool)를 사용하여 이러한 파일을 만들 수 있습니다. 도구를 사용할 때 필드 정보 파일이 자동으로 만들어지고 연결된 스토리지 계정에 저장됩니다.*
 
 4. **train-model** 폴더에서 학습 애플리케이션용 코드 파일을 엽니다.
 
