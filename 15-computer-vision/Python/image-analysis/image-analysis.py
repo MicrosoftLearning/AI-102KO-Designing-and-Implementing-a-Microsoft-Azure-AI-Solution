@@ -21,7 +21,7 @@ def main():
 
         # Get image
         image_file = 'images/street.jpg'
-        if len(sys.argv) > 1:
+        if len(sys.argv) > 0:
             image_file = sys.argv[1]
 
         # Authenticate Computer Vision client

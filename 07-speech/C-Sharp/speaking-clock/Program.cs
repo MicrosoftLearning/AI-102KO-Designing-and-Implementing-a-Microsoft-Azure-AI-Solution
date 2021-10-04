@@ -23,14 +23,15 @@ namespace speaking_clock
                 // Configure speech service
 
 
-                // Get spoken input
                 string command = "";
-                command = await TranscribeCommand();
-                if (command.ToLower()=="what time is it?")
+                while (command.ToLower() != "stop.")
                 {
-                    await TellTime();
+                    command = await TranscribeCommand();
+                    if (command.ToLower()=="what time is it?")
+                    {
+                        await TellTime();
+                    }
                 }
-
             }
             catch (Exception ex)
             {
@@ -40,7 +41,7 @@ namespace speaking_clock
 
         static async Task<string> TranscribeCommand()
         {
-            string command = "";
+            string command = "stop.";
             
             // Configure speech recognition
 

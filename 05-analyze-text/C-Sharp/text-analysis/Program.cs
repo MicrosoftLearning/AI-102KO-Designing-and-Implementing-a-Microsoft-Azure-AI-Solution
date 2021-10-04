@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using Microsoft.Extensions.Configuration;
 
 // Import namespaces
@@ -19,10 +18,6 @@ namespace text_analysis
                 IConfigurationRoot configuration = builder.Build();
                 string cogSvcEndpoint = configuration["CognitiveServicesEndpoint"];
                 string cogSvcKey = configuration["CognitiveServiceKey"];
-
-                // Set console encoding to unicode
-                Console.InputEncoding = Encoding.Unicode;
-                Console.OutputEncoding = Encoding.Unicode;
 
                 // Create client using endpoint and key
 

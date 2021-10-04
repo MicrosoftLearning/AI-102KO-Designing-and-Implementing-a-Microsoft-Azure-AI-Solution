@@ -1,7 +1,6 @@
 ﻿using System;
 using Azure;
 using Microsoft.Extensions.Configuration;
-using System.Text;
 using Azure.AI.TextAnalytics;
 
 namespace sdk_client
@@ -20,10 +19,6 @@ namespace sdk_client
                 IConfigurationRoot configuration = builder.Build();
                 cogSvcEndpoint = configuration["CognitiveServicesEndpoint"];
                 cogSvcKey = configuration["CognitiveServiceKey"];
-
-                // Set console encoding to unicode
-                Console.InputEncoding = Encoding.Unicode;
-                Console.OutputEncoding = Encoding.Unicode;
 
                 // Get user input (until they enter "quit")
                 string userText = "";

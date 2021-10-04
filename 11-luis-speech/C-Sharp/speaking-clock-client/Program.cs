@@ -28,8 +28,16 @@ namespace speaking_clock_client
                 // Get the model from the AppID and add the intents we want to use
 
 
-                // Process speech input
+                // Loop until stopped
+                string intent = "";
+                while (intent.ToLower().Replace(".", "") != "stop")
+                {
+                    Console.WriteLine("\nSay something...");
 
+                    // Process speech input
+                    
+                    
+                }
 
             }
             catch (Exception ex)
