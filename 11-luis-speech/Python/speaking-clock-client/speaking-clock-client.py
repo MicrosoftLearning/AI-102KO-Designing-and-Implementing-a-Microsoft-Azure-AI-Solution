@@ -22,7 +22,12 @@ def main():
         # Get the model from the AppID and add the intents we want to use
 
 
-        # Process speech input
+         # Loop until stopped
+        intent =''
+        while intent.lower().replace('.', '') != 'stop':
+            print ('\nSay something...')
+
+            # Process speech input
 
 
     except Exception as ex:
