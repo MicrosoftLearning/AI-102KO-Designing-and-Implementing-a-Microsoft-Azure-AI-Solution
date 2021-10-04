@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Bot Framework SDK를 사용하여 봇 만들기'
     module: '모듈 7 - 대화형 AI 및 Azure Bot Service'
@@ -227,7 +227,7 @@ az account set --subscription "<YOUR_SUBSCRIPTION_ID>"
 3. 다음 명령을 입력하여 암호를 **Super$ecretPassw0rd**로 지정해 **TimeBot**용 애플리케이션 등록을 만듭니다(원하는 경우 다른 표시 이름과 암호를 사용해도 되지만, 뒷부분에서 해당 정보가 필요하므로 적어 두어야 함).
 
 ```
-az ad app create --display-name "TimeBot" --password "Super$ecretPassw0rd" --available-to-other-tenants
+az ad app create --display-name "TimeBot" --password 'Super$ecretPassw0rd' --available-to-other-tenants
 ```
 
 4. 명령 실행이 완료되면 대형 JSON 응답이 표시됩니다. 이 응답에서 **appId** 값을 찾아서 적어 둡니다. 다음 절차에서 필요합니다.

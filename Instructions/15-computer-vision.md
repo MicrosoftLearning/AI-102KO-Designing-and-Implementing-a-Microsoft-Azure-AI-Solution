@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Computer Vision을 사용하여 이미지 분석'
     module: '모듈 8 - Computer Vision 시작'
@@ -70,7 +70,7 @@ pip install azure-cognitiveservices-vision-computervision==0.7.0
 **C#**
 
 ```C#
-// 네임스페이스 가져오기
+// import namespaces
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 ```
@@ -78,7 +78,7 @@ using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
 **Python**
 
 ```Python
-# 네임스페이스 가져오기
+# import namespaces
 from azure.cognitiveservices.vision.computervision import ComputerVisionClient
 from azure.cognitiveservices.vision.computervision.models import VisualFeatureTypes
 from msrest.authentication import CognitiveServicesCredentials
@@ -100,7 +100,7 @@ from msrest.authentication import CognitiveServicesCredentials
 **C#**
 
 ```C#
-// Computer Vision 클라이언트 인증
+// Authenticate Computer Vision client
 ApiKeyServiceClientCredentials credentials = new ApiKeyServiceClientCredentials(cogSvcKey);
 cvClient = new ComputerVisionClient(credentials)
 {
@@ -111,7 +111,7 @@ cvClient = new ComputerVisionClient(credentials)
 **Python**
 
 ```Python
-# Computer Vision 클라이언트 인증
+# Authenticate Computer Vision client
 credential = CognitiveServicesCredentials(cog_key) 
 cv_client = ComputerVisionClient(cog_endpoint, credential)
 ```
@@ -123,7 +123,7 @@ cv_client = ComputerVisionClient(cog_endpoint, credential)
 **C#**
 
 ```C#
-// 검색할 기능 지정
+// Specify features to be retrieved
 List<VisualFeatureTypes?> features = new List<VisualFeatureTypes?>()
 {
     VisualFeatureTypes.Description,
@@ -138,7 +138,7 @@ List<VisualFeatureTypes?> features = new List<VisualFeatureTypes?>()
 **Python**
 
 ```Python
-# 검색할 기능 지정
+# Specify features to be retrieved
 features = [VisualFeatureTypes.description,
             VisualFeatureTypes.tags,
             VisualFeatureTypes.categories,
@@ -152,30 +152,30 @@ features = [VisualFeatureTypes.description,
 **C#**
 
 ```C
-// 이미지 분석 가져오기
+// Get image analysis
 using (var imageData = File.OpenRead(imageFile))
 {    
     var analysis = await cvClient.AnalyzeImageInStreamAsync(imageData, features);
 
-    // 이미지 캡션 가져오기
+    // get image captions
     foreach (var caption in analysis.Description.Captions)
     {
         Console.WriteLine($"Description: {caption.Text} (confidence: {caption.Confidence.ToString("P")})");
     }
 
-    // 이미지 태그 가져오기
+    // Get image tags
 
 
-    // 이미지 범주 가져오기
+    // Get image categories
 
 
-    // 이미지에서 브랜드 가져오기
+    // Get brands in the image
 
 
-    // 이미지에서 개체 가져오기
+    // Get objects in the image
 
 
-    // 조정 등급 가져오기
+    // Get moderation ratings
     
 
 }            
@@ -184,27 +184,27 @@ using (var imageData = File.OpenRead(imageFile))
 **Python**
 
 ```Python
-# 이미지 분석 가져오기
+# Get image analysis
 with open(image_file, mode="rb") as image_data:
     analysis = cv_client.analyze_image_in_stream(image_data , features)
 
-# 이미지 설명 가져오기
+# Get image description
 for caption in analysis.description.captions:
     print("Description: '{}' (confidence: {:.2f}%)".format(caption.text, caption.confidence * 100))
 
-# 이미지 태그 가져오기
+# Get image tags
 
 
-# 이미지 범주 가져오기 
+# Get image categories 
 
 
-# 이미지에서 브랜드 가져오기
+# Get brands in the image
 
 
-# 이미지에서 개체 가져오기
+# Get objects in the image
 
 
-# 조정 등급 가져오기
+# Get moderation ratings
 
 ```
     
@@ -235,7 +235,7 @@ python image-analysis.py images/street.jpg
 **C#**
 
 ```C
-// 이미지 태그 가져오기
+// Get image tags
 if (analysis.Tags.Count > 0)
 {
     Console.WriteLine("Tags:");
@@ -249,14 +249,14 @@ if (analysis.Tags.Count > 0)
 **Python**
 
 ```Python
-# 이미지 태그 가져오기
+# Get image tags
 if (len(analysis.tags) > 0):
     print("Tags: ")
     for tag in analysis.tags:
         print(" -'{}' (confidence: {:.2f}%)".format(tag.name, tag.confidence * 100))
 ```
 
-2. 변경 내용을 저장한 다음 **images** 이미지 폴더의 각 이미지 파일별로 프로그램을 한 번씩 실행합니다. 프로그램을 실행할 때마다 **Main** 함수의 파일 이름을 변경하여 이미지 캡션 외에 추천 태그 목록도 표시됨을 확인합니다.
+2. 변경 내용을 저장한 다음 **images** 이미지 폴더의 각 이미지 파일별로 프로그램을 한 번씩 실행합니다. 프로그램을 실행할 때마다 이미지 캡션 외에 추천 태그 목록도 표시됨을 확인합니다.
 
 ## 이미지 범주 가져오기
 
@@ -267,16 +267,16 @@ Computer Vision 서비스는 이미지 *범주*를 추천할 수 있으며 각 �
 **C#**
 
 ```C
-// 이미지 범주 가져오기(유명인 및 주요 건물 포함)
+// Get image categories (including celebrities and landmarks)
 List<LandmarksModel> landmarks = new List<LandmarksModel> {};
 List<CelebritiesModel> celebrities = new List<CelebritiesModel> {};
 Console.WriteLine("Categories:");
 foreach (var category in analysis.Categories)
 {
-    // 범주 인쇄
+    // Print the category
     Console.WriteLine($" -{category.Name} (confidence: {category.Score.ToString("P")})");
 
-    // 이 범주의 주요 건물 가져오기
+    // Get landmarks in this category
     if (category.Detail?.Landmarks != null)
     {
         foreach (LandmarksModel landmark in category.Detail.Landmarks)
@@ -288,7 +288,7 @@ foreach (var category in analysis.Categories)
         }
     }
 
-    // 이 범주의 유명인 가져오기
+    // Get celebrities in this category
     if (category.Detail?.Celebrities != null)
     {
         foreach (CelebritiesModel celebrity in category.Detail.Celebrities)
@@ -301,7 +301,7 @@ foreach (var category in analysis.Categories)
     }
 }
 
-// 주요 건물이 있으면 해당 목록 표시
+// If there were landmarks, list them
 if (landmarks.Count > 0)
 {
     Console.WriteLine("Landmarks:");
@@ -311,7 +311,7 @@ if (landmarks.Count > 0)
     }
 }
 
-// 유명인이 있으면 해당 목록 표시
+// If there were celebrities, list them
 if (celebrities.Count > 0)
 {
     Console.WriteLine("Celebrities:");
@@ -325,34 +325,34 @@ if (celebrities.Count > 0)
 **Python**
 
 ```Python
-# 이미지 범주 가져오기(유명인 및 주요 건물 포함)
+# Get image categories (including celebrities and landmarks)
 if (len(analysis.categories) > 0):
     print("Categories:")
     landmarks = []
     celebrities = []
     for category in analysis.categories:
-        # 범주 인쇄
+        # Print the category
         print(" -'{}' (confidence: {:.2f}%)".format(category.name, category.score * 100))
         if category.detail:
-            # 이 범주의 주요 건물 가져오기
+            # Get landmarks in this category
             if category.detail.landmarks:
                 for landmark in category.detail.landmarks:
                     if landmark not in landmarks:
                         landmarks.append(landmark)
 
-            # 이 범주의 유명인 가져오기
+            # Get celebrities in this category
             if category.detail.celebrities:
                 for celebrity in category.detail.celebrities:
                     if celebrity not in celebrities:
                         celebrities.append(celebrity)
 
-    # 주요 건물이 있으면 해당 목록 표시
+    # If there were landmarks, list them
     if len(landmarks) > 0:
         print("Landmarks:")
         for landmark in landmarks:
             print(" -'{}' (confidence: {:.2f}%)".format(landmark.name, landmark.confidence * 100))
 
-    # 유명인이 있으면 해당 목록 표시
+    # If there were celebrities, list them
     if len(celebrities) > 0:
         print("Celebrities:")
         for celebrity in celebrities:
@@ -360,7 +360,7 @@ if (len(analysis.categories) > 0):
 
 ```
     
-2. 변경 내용을 저장한 다음 **images** 이미지 폴더의 각 이미지 파일별로 프로그램을 한 번씩 실행합니다. 프로그램을 실행할 때마다 **Main** 함수의 파일 이름을 변경하여 이미지 캡션과 태그 외에 추천 범주 목록, 그리고 인식된 주요 건물이나 유명인도 표시됨을 확인합니다(특히 **building.jpg** 및 **person.jpg** 이미지의 경우).
+2. 변경 내용을 저장한 다음 **images** 이미지 폴더의 각 이미지 파일별로 프로그램을 한 번씩 실행합니다. 프로그램을 실행할 때마다 이미지 캡션과 태그 외에 추천 범주 목록, 그리고 인식된 주요 건물이나 유명인도 표시됨을 확인합니다(특히 **building.jpg** 및 **person.jpg** 이미지의 경우).
 
 ## 이미지에서 브랜드 가져오기
 
@@ -371,7 +371,7 @@ if (len(analysis.categories) > 0):
 **C#**
 
 ```C
-// 이미지에서 브랜드 가져오기
+// Get brands in the image
 if (analysis.Brands.Count > 0)
 {
     Console.WriteLine("Brands:");
@@ -385,14 +385,14 @@ if (analysis.Brands.Count > 0)
 **Python**
 
 ```Python
-# 이미지에서 브랜드 가져오기
+# Get brands in the image
 if (len(analysis.brands) > 0):
     print("Brands: ")
     for brand in analysis.brands:
         print(" -'{}' (confidence: {:.2f}%)".format(brand.name, brand.confidence * 100))
 ```
     
-2. 변경 내용을 저장한 다음 **images** 이미지 폴더의 각 이미지 파일별로 프로그램을 한 번씩 실행합니다. 프로그램을 실행할 때마다 **Main** 함수의 파일 이름을 변경하여 식별된 브랜드를 살펴봅니다(특히 **person.jpg** 이미지의 경우).
+2. 변경 내용을 저장한 다음 **images** 이미지 폴더의 각 이미지 파일별로 프로그램을 한 번씩 실행합니다. 프로그램을 실행할 때마다 식별된 브랜드를 살펴봅니다(특히 **person.jpg** 이미지의 경우).
 
 ## 이미지에서 개체 감지 및 찾기
 
@@ -403,12 +403,12 @@ if (len(analysis.brands) > 0):
 **C#**
 
 ```C
-// 이미지에서 개체 가져오기
+// Get objects in the image
 if (analysis.Objects.Count > 0)
 {
     Console.WriteLine("Objects in image:");
 
-    // 드로잉용 이미지 준비
+    // Prepare image for drawing
     Image image = Image.FromFile(imageFile);
     Graphics graphics = Graphics.FromImage(image);
     Pen pen = new Pen(Color.Cyan, 3);
@@ -417,17 +417,17 @@ if (analysis.Objects.Count > 0)
 
     foreach (var detectedObject in analysis.Objects)
     {
-        // 개체 이름 인쇄
+        // Print object name
         Console.WriteLine($" -{detectedObject.ObjectProperty} (confidence: {detectedObject.Confidence.ToString("P")})");
 
-        // 개체 경계 상자 그리기
+        // Draw object bounding box
         var r = detectedObject.Rectangle;
         Rectangle rect = new Rectangle(r.X, r.Y, r.W, r.H);
         graphics.DrawRectangle(pen, rect);
         graphics.DrawString(detectedObject.ObjectProperty,font,brush,r.X, r.Y);
 
     }
-    // 주석을 추가한 이미지 저장
+    // Save annotated image
     String output_file = "objects.jpg";
     image.Save(output_file);
     Console.WriteLine("  Results saved in " + output_file);   
@@ -437,33 +437,33 @@ if (analysis.Objects.Count > 0)
 **Python**
 
 ```Python
-# 이미지에서 개체 가져오기
+# Get objects in the image
 if len(analysis.objects) > 0:
     print("Objects in image:")
 
-    # 드로잉용 이미지 준비
+    # Prepare image for drawing
     fig = plt.figure(figsize=(8, 8))
     plt.axis('off')
     image = Image.open(image_file)
     draw = ImageDraw.Draw(image)
     color = 'cyan'
     for detected_object in analysis.objects:
-        개체 이름 인쇄
+        # Print object name
         print(" -{} (confidence: {:.2f}%)".format(detected_object.object_property, detected_object.confidence * 100))
         
-        # 개체 경계 상자 그리기
+        # Draw object bounding box
         r = detected_object.rectangle
         bounding_box = ((r.x, r.y), (r.x + r.w, r.y + r.h))
         draw.rectangle(bounding_box, outline=color, width=3)
         plt.annotate(detected_object.object_property,(r.x, r.y), backgroundcolor=color)
-    # 주석을 추가한 이미지 저장
+    # Save annotated image
     plt.imshow(image)
     outputfile = 'objects.jpg'
     fig.savefig(outputfile)
     print('  Results saved in', outputfile)
 ```
     
-2. 변경 내용을 저장한 다음 **images** 이미지 폴더의 각 이미지 파일별로 프로그램을 한 번씩 실행합니다. 프로그램을 실행할 때마다 **Main** 함수의 파일 이름을 변경하여 감지된 개체를 살펴봅니다. 각 실행 후에는 코드 파일과 같은 폴더에 생성된 **objects.jpg** 파일을 표시하여 주석이 추가된 개체를 확인합니다.
+2. 변경 내용을 저장한 다음 **images** 이미지 폴더의 각 이미지 파일별로 프로그램을 한 번씩 실행합니다. 프로그램을 실행할 때마다 감지된 개체를 살펴봅니다. 각 실행 후에는 코드 파일과 같은 폴더에 생성된 **objects.jpg** 파일을 표시하여 주석이 추가된 개체를 확인합니다.
 
 ## 이미지의 조정 등급 가져오기
 
@@ -474,7 +474,7 @@ if len(analysis.objects) > 0:
 **C#**
 
 ```C
-// 조정 등급 가져오기
+// Get moderation ratings
 string ratings = $"Ratings:\n -Adult: {analysis.Adult.IsAdultContent}\n -Racy: {analysis.Adult.IsRacyContent}\n -Gore: {analysis.Adult.IsGoryContent}";
 Console.WriteLine(ratings);
 ```
@@ -482,14 +482,14 @@ Console.WriteLine(ratings);
 **Python**
 
 ```Python
-# 조정 등급 가져오기
+# Get moderation ratings
 ratings = 'Ratings:\n -Adult: {}\n -Racy: {}\n -Gore: {}'.format(analysis.adult.is_adult_content,
                                                                     analysis.adult.is_racy_content,
                                                                     analysis.adult.is_gory_content)
 print(ratings)
 ```
     
-2. 변경 내용을 저장한 다음 **images** 이미지 폴더의 각 이미지 파일별로 프로그램을 한 번씩 실행합니다. 프로그램을 실행할 때마다 **Main** 함수의 파일 이름을 변경하여 각 이미지의 등급을 살펴봅니다.
+2. 변경 내용을 저장한 다음 **images** 이미지 폴더의 각 이미지 파일별로 프로그램을 한 번씩 실행합니다. 프로그램을 실행할 때마다 각 이미지의 등급을 살펴봅니다.
 
 > **참고**: 이전 작업에서는 메서드 하나를 사용해 이미지를 분석한 다음 코드를 계속 추가하여 결과를 구문 분석하고 표시했습니다. SDK에서는 캡션 추천, 태그 식별, 개체 감지 등에 사용할 수 있는 개별 메서드도 제공하므로 가장 적절한 메서드를 사용하여 필요한 정보만 반환할 수 있습니다. 그러면 반환해야 하는 데이터 페이로드 크기가 줄어듭니다. 자세한 내용은 [.NET SDK 설명서](https://docs.microsoft.com/dotnet/api/overview/azure/cognitiveservices/client/computervision?view=azure-dotnet) 또는 [Python SDK 설명서](https://docs.microsoft.com/python/api/overview/azure/cognitiveservices/computervision?view=azure-python)를 참조하세요.
 
@@ -502,13 +502,13 @@ print(ratings)
 **C#**
 
 ```C
-// 썸네일 생성
+// Generate a thumbnail
 using (var imageData = File.OpenRead(imageFile))
 {
-    // 썸네일 데이터 가져오기
+    // Get thumbnail data
     var thumbnailStream = await cvClient.GenerateThumbnailInStreamAsync(100, 100,imageData, true);
 
-    // 썸네일 이미지 저장
+    // Save thumbnail image
     string thumbnailFileName = "thumbnail.png";
     using (Stream thumbnailFile = File.Create(thumbnailFileName))
     {
@@ -522,12 +522,12 @@ using (var imageData = File.OpenRead(imageFile))
 **Python**
 
 ```Python
-# 썸네일 생성
+# Generate a thumbnail
 with open(image_file, mode="rb") as image_data:
-    # 썸네일 데이터 가져오기
+    # Get thumbnail data
     thumbnail_stream = cv_client.generate_thumbnail_in_stream(100, 100, image_data, True)
 
-# 썸네일 이미지 저장
+# Save thumbnail image
 thumbnail_file_name = 'thumbnail.png'
 with open(thumbnail_file_name, "wb") as thumbnail_file:
     for chunk in thumbnail_stream:
@@ -536,7 +536,7 @@ with open(thumbnail_file_name, "wb") as thumbnail_file:
 print('Thumbnail saved in.', thumbnail_file_name)
 ```
     
-2. 변경 내용을 저장한 다음 **images** 이미지 폴더의 각 이미지 파일별로 프로그램을 한 번씩 실행합니다. 프로그램을 실행할 때마다 **Main** 함수의 파일 이름을 변경하고, 각 이미지에 대해 코드 파일과 같은 폴더에 생성되는 **thumbnail.jpg** 파일을 엽니다.
+2. 변경 내용을 저장한 다음 **images** 이미지 폴더의 각 이미지 파일별로 프로그램을 한 번씩 실행합니다. 프로그램을 실행할 때마다 각 이미지에 대해 코드 파일과 같은 폴더에 생성되는 **thumbnail.jpg** 파일을 엽니다.
 
 ## 자세한 정보
 
