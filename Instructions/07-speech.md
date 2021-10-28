@@ -77,7 +77,7 @@ Azure Cognitive Service인 **Speech** 서비스에서는 다음과 같은 음성
     **C#**
     
     ```C#
-    // 네임스페이스 가져오기
+    // Import namespaces
     using Microsoft.CognitiveServices.Speech;
     using Microsoft.CognitiveServices.Speech.Audio;
     ```
@@ -85,7 +85,7 @@ Azure Cognitive Service인 **Speech** 서비스에서는 다음과 같은 음성
     **Python**
     
     ```Python
-    # 네임스페이스 가져오기
+    # Import namespaces
     import azure.cognitiveservices.speech as speech_sdk
     ```
 
@@ -94,15 +94,18 @@ Azure Cognitive Service인 **Speech** 서비스에서는 다음과 같은 음성
     **C#**
     
     ```C#
-    // Speech 서비스 구성
+    // Configure speech service
     speechConfig = SpeechConfig.FromSubscription(cogSvcKey, cogSvcRegion);
     Console.WriteLine("Ready to use speech service in " + speechConfig.Region);
+    
+    // Configure voice
+    speechConfig.SpeechSynthesisVoiceName = "en-US-AriaNeural";
     ```
     
     **Python**
     
     ```Python
-    # Speech 서비스 구성
+    # Configure speech service
     speech_config = speech_sdk.SpeechConfig(cog_key, cog_region)
     print('Ready to use speech service in:', speech_config.region)
     ```
@@ -135,7 +138,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     **C#**
     
     ```C#
-    // 음성 인식 구성
+    // Configure speech recognition
     using AudioConfig audioConfig = AudioConfig.FromDefaultMicrophoneInput();
     using SpeechRecognizer speechRecognizer = new SpeechRecognizer(speechConfig, audioConfig);
     Console.WriteLine("Speak now...");
@@ -144,7 +147,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     **Python**
     
     ```Python
-    # 음성 인식 구성
+    # Configure speech recognition
     audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
     speech_recognizer = speech_sdk.SpeechRecognizer(speech_config, audio_config)
     print('Speak now...')
@@ -187,7 +190,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     **C#**
 
     ```C#
-    // 음성 인식 구성
+    // Configure speech recognition
     string audioFile = "time.wav";
     SoundPlayer wavPlayer = new SoundPlayer(audioFile);
     wavPlayer.Play();
@@ -198,7 +201,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     **Python**
 
     ```Python
-    # 음성 인식 구성
+    # Configure speech recognition
     audioFile = 'time.wav'
     playsound(audioFile)
     audio_config = speech_sdk.AudioConfig(filename=audioFile)
@@ -212,7 +215,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     **C#**
     
     ```C#
-    // 음성 입력 처리
+    // Process speech input
     SpeechRecognitionResult speech = await speechRecognizer.RecognizeOnceAsync();
     if (speech.Reason == ResultReason.RecognizedSpeech)
     {
@@ -234,7 +237,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     **Python**
     
     ```Python
-    # 음성 입력 처리
+    # Process speech input
     speech = speech_recognizer.recognize_once_async().get()
     if speech.reason == speech_sdk.ResultReason.RecognizedSpeech:
         command = speech.text
@@ -277,14 +280,14 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     **C#**
     
     ```C#
-    // 음성 합성 구성
+    // Configure speech synthesis
     using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
     ```
     
     **Python**
     
     ```Python
-    # 음성 합성 구성
+    # Configure speech synthesis
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
     
@@ -295,7 +298,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     **C#**
     
     ```C#
-    // 음성 출력 합성
+    // Synthesize spoken output
     SpeechSynthesisResult speak = await speechSynthesizer.SpeakTextAsync(responseText);
     if (speak.Reason != ResultReason.SynthesizingAudioCompleted)
     {
@@ -306,7 +309,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     **Python**
     
     ```Python
-    # 음성 출력 합성
+    # Synthesize spoken output
     speak = speech_synthesizer.speak_text_async(response_text).get()
     if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
         print(speak.reason)
@@ -339,7 +342,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
    **C#**
 
     ```C#
-    // 음성 합성 구성
+    // Configure speech synthesis
     speechConfig.SpeechSynthesisVoiceName = "en-GB-George"; // add this
     using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
     ```
@@ -347,7 +350,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     **Python**
     
     ```Python
-    # 음성 합성 구성
+    # Configure speech synthesis
     speech_config.speech_synthesis_voice_name = 'en-GB-George' # add this
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
@@ -377,7 +380,7 @@ SSML(Speech Synthesis Markup Language)을 사용하면 XML 기반 형식을 통�
    **C#**
 
     ```C#
-    // 음성 출력 합성
+    // Synthesize spoken output
     string responseSsml = $@"
         <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>
             <voice name='en-GB-Susan'>
@@ -396,7 +399,7 @@ SSML(Speech Synthesis Markup Language)을 사용하면 XML 기반 형식을 통�
     **Python**
     
     ```Python
-    # 음성 출력 합성
+    # Synthesize spoken output
     responseSsml = " \
         <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'> \
             <voice name='en-GB-Susan'> \
