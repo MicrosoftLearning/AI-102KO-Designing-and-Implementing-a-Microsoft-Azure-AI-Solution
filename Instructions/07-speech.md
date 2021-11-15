@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '음성 인식 및 합성'
     module: '모듈 4 - 음성 지원 애플리케이션 빌드'
@@ -343,7 +343,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
 
     ```C#
     // Configure speech synthesis
-    speechConfig.SpeechSynthesisVoiceName = "en-GB-George"; // add this
+    speechConfig.SpeechSynthesisVoiceName = "en-GB-RyanNeural"; // add this
     using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
     ```
     
@@ -351,7 +351,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     
     ```Python
     # Configure speech synthesis
-    speech_config.speech_synthesis_voice_name = 'en-GB-George' # add this
+    speech_config.speech_synthesis_voice_name = 'en-GB-RyanNeural' # add this
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
 
@@ -383,7 +383,7 @@ SSML(Speech Synthesis Markup Language)을 사용하면 XML 기반 형식을 통�
     // Synthesize spoken output
     string responseSsml = $@"
         <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'>
-            <voice name='en-GB-Susan'>
+            <voice name='en-GB-LibbyNeural'>
                 {responseText}
                 <break strength='weak'/>
                 Time to end this lab!
@@ -402,7 +402,7 @@ SSML(Speech Synthesis Markup Language)을 사용하면 XML 기반 형식을 통�
     # Synthesize spoken output
     responseSsml = " \
         <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='en-US'> \
-            <voice name='en-GB-Susan'> \
+            <voice name='en-GB-LibbyNeural'> \
                 {} \
                 <break strength='weak'/> \
                 Time to end this lab! \
