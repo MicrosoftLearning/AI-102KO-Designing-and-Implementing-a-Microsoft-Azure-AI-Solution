@@ -52,6 +52,8 @@ Cognitive Services 리소스를 만들면 인증 키 2개가 생성됩니다. �
     웹 브라우저 탭이 열리고 Azure에 로그인하라는 메시지가 표시됩니다. Azure에 로그인한 다음 브라우저 탭을 닫고 Visual Studio Code로 돌아옵니다.
 
     > **팁**: 구독이 여러 개이면 Cognitive Services 리소스가 포함된 구독에서 작업 중인지를 확인해야 합니다.  다음 명령을 사용하여 현재 구독을 확인합니다. 반환되는 JSON의 **id** 값이 구독의 고유 ID입니다.
+
+    > **경고**: `az login`에 대해 인증서 검증 실패 메시지가 표시될 경우 몇 분 정도 기다린 후 다시 시도해 보세요.
     >
     > ```
     > az account show
@@ -131,7 +133,7 @@ Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마�
     > **팁**: 구독 ID를 모르는 경우 **az account show** 명령을 실행하여 구독 정보를 검색합니다. 출력의 **id** 특성이 구독 ID입니다.
 
     ```
-    az ad sp create-for-rbac -n "https://<spName>" --role owner --scopes subscriptions/<subscriptionId>/resourceGroups/<resourceGroup>
+    az ad sp create-for-rbac -n "api://<spName>" --role owner --scopes subscriptions/<subscriptionId>/resourceGroups/<resourceGroup>
     ```
 
 이 명령의 출력에는 새 서비스 주체 관련 정보가 포함되어 있습니다. 출력은 다음과 같이 표시됩니다.
@@ -140,7 +142,7 @@ Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마�
     {
         "appId": "abcd12345efghi67890jklmn",
         "displayName": "ai-app",
-        "name": "https://ai-app",
+        "name": "http://ai-app",
         "password": "1a2b3c4d5e6f7g8h9i0j",
         "tenant": "1234abcd5678fghi90jklm"
     }
@@ -151,7 +153,7 @@ Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마�
 2. 새 서비스 주체에 Key Vault의 비밀 액세스 권한을 할당하려면 다음 Azure CLI 명령을 실행합니다. 이때 *&lt;keyVaultName&gt;* 은 Azure Key Vault 리소스의 이름으로, *&lt;spName&gt;* 은 서비스 주체를 만들 때 제공한 것과 같은 값으로 바꿉니다.
 
     ```
-    az keyvault set-policy -n <keyVaultName> --spn "https://<spName>" --secret-permissions get list
+    az keyvault set-policy -n <keyVaultName> --spn "api://<spName>" --secret-permissions get list
     ```
 
 ### 애플리케이션에서 서비스 주체 사용
