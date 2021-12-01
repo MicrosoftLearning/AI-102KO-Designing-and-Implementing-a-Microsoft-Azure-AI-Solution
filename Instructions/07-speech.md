@@ -281,6 +281,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     
     ```C#
     // Configure speech synthesis
+    speechConfig.SpeechSynthesisVoiceName = "en-GB-RyanNeural";
     using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
     ```
     
@@ -288,6 +289,7 @@ Cognitive Services 리소스에서 Speech 서비스용 **SpeechConfig**를 만�
     
     ```Python
     # Configure speech synthesis
+    speech_config.speech_synthesis_voice_name = "en-GB-RyanNeural"
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
     
