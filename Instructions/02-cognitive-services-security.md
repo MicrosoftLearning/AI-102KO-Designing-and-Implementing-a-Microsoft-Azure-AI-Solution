@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Cognitive Services 보안 관리'
     module: '모듈 2 - Cognitive Services를 사용하여 AI 앱 개발'
@@ -126,7 +126,7 @@ Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마�
 
 ### 서비스 주체 만들기
 
-키 자격 증명 모음의 비밀에 액세스하려면 애플리케이션이 비밀 액세스 권한이 있는 서비스 주체를 사용해야 합니다. 여기서는 Azure CLI(명령줄 인터페이스)를 사용하여 서비스 주체를 만든 다음 Azure Vault의 비밀 액세스 권한을 부여합니다.
+키 자격 증명 모음의 비밀에 액세스하려면 애플리케이션이 비밀 액세스 권한이 있는 서비스 주체를 사용해야 합니다. 여기서는 Azure CLI(명령줄 인터페이스)를 사용하여 서비스 주체를 만들고, 해당 개체 ID를 찾은 다음 Azure Vault의 비밀 액세스 권한을 부여합니다.
 
 1. Visual Studio Code로 돌아와 **02-cognitive-security** 폴더의 통합 터미널에서 다음 Azure CLI 명령을 실행합니다. 이때 *&lt;spName&gt;* 은 애플리케이션 ID에 적합한 이름(예: *ai-app*)으로 바꿉니다. 그리고 *&lt;subscriptionId&gt;* 및 *&lt;resourceGroup&gt;* 도 구독 ID, 그리고 Cognitive Services 및 키 자격 증명 모음 리소스가 포함된 리소스 그룹의 올바른 값으로 바꿉니다.
 
@@ -150,10 +150,16 @@ Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마�
 
 **appId**, **password** 및 **tenant** 값은 뒷부분에서 필요하므로 적어 두세요(이 터미널을 닫으면 암호를 검색할 수가 없으므로 값을 지금 적어 두어야 합니다. 나중에 필요한 값을 찾을 수 있도록 Visual Studio Code에서 새 텍스트 파일에 출력을 붙여넣을 수 있습니다).
 
-2. 새 서비스 주체에 Key Vault의 비밀 액세스 권한을 할당하려면 다음 Azure CLI 명령을 실행합니다. 이때 *&lt;keyVaultName&gt;* 은 Azure Key Vault 리소스의 이름으로, *&lt;spName&gt;* 은 서비스 주체를 만들 때 제공한 것과 같은 값으로 바꿉니다.
+2. 서비스 주체의 **개체 ID**를 가져오려면 다음 Azure CLI 명령을 실행합니다. 여기서 *&lt;appId&gt;*를 서비스 주체의 앱 ID 값으로 바꿉니다.
 
     ```
-    az keyvault set-policy -n <keyVaultName> --spn "api://<spName>" --secret-permissions get list
+    az ad sp show --id <appId> --query objectId --out tsv
+    ```
+
+3. 새 서비스 주체에 Key Vault의 비밀 액세스 권한을 할당하려면 다음 Azure CLI 명령을 실행합니다. 이때 *&lt;keyVaultName&gt;*은 Azure Key Vault 리소스의 이름으로, *&lt;objectId&gt;*는 서비스 주체의 개체 ID 값으로 바꿉니다.
+
+    ```
+    az keyvault set-policy -n <keyVaultName> --object-id <objectId> --secret-permissions get list
     ```
 
 ### 애플리케이션에서 서비스 주체 사용
