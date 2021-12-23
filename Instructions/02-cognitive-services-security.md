@@ -150,13 +150,13 @@ Cognitive Services 리소스용 키 목록이 반환됩니다. **key1**이 마�
 
 **appId**, **password** 및 **tenant** 값은 뒷부분에서 필요하므로 적어 두세요(이 터미널을 닫으면 암호를 검색할 수가 없으므로 값을 지금 적어 두어야 합니다. 나중에 필요한 값을 찾을 수 있도록 Visual Studio Code에서 새 텍스트 파일에 출력을 붙여넣을 수 있습니다).
 
-2. 서비스 주체의 **개체 ID**를 가져오려면 다음 Azure CLI 명령을 실행합니다. 여기서 *&lt;appId&gt;*를 서비스 주체의 앱 ID 값으로 바꿉니다.
+2. 서비스 주체의 **개체 ID**를 가져오려면 다음 Azure CLI 명령을 실행합니다. 여기서 *&lt;appId&gt;* 를 서비스 주체의 앱 ID 값으로 바꿉니다.
 
     ```
     az ad sp show --id <appId> --query objectId --out tsv
     ```
 
-3. 새 서비스 주체에 Key Vault의 비밀 액세스 권한을 할당하려면 다음 Azure CLI 명령을 실행합니다. 이때 *&lt;keyVaultName&gt;*은 Azure Key Vault 리소스의 이름으로, *&lt;objectId&gt;*는 서비스 주체의 개체 ID 값으로 바꿉니다.
+3. 새 서비스 주체에 Key Vault의 비밀 액세스 권한을 할당하려면 다음 Azure CLI 명령을 실행합니다. 이때 *&lt;keyVaultName&gt;* 은 Azure Key Vault 리소스의 이름으로, *&lt;objectId&gt;* 는 서비스 주체의 개체 ID 값으로 바꿉니다.
 
     ```
     az keyvault set-policy -n <keyVaultName> --object-id <objectId> --secret-permissions get list
