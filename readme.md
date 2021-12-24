@@ -1,4 +1,14 @@
-﻿# AI-102: AI 엔지니어
+**Important Notice!**
+
+This repo was replaced by a [new repo](https://github.com/MicrosoftLearning/AI-102-AIEngineer.ko-kr) on December 18th 2021. We're making this change to improve the localized version of this content and reduce the delta between English and localized content updates. 
+After a short interval, this repo will be archived.
+
+**Contributions**
+
+At this time, we are not accepting external contributions to this repo. If you have suggestions or spot any errors, please create a pull request or report an issue on the [new repo](https://github.com/MicrosoftLearning/AI-102-AIEngineer.ko-kr).
+
+
+# AI-102: AI 엔지니어
 
 이 리포지토리에는 Microsoft 공식 교육 과정 AI-102에서 사용되는 랩 지침과 파일이 포함되어 있습니다.
 
