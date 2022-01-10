@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: 'Bot Framework Composer를 사용하여 봇 만들기'
     module: '모듈 7 - 대화형 AI 및 Azure Bot Service'
@@ -211,7 +211,7 @@ Bot Framework Composer를 사용하여 봇을 만듭니다. 이 도구는 정기
 
 ```
 [Activity    
-    Text = ${TextInput_Prompt_Kz22lf_text()}    
+    Text = Enter your city.
     SuggestedActions = Cancel
 ]
 ```

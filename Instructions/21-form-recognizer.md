@@ -1,4 +1,4 @@
----
+﻿---
 lab:
     title: '양식에서 데이터 추출'
     module: '모듈 11 - 이미지 및 문서에서 텍스트 읽기'
@@ -100,7 +100,7 @@ setup
 
 > **중요**: 다음 작업을 계속 진행하기 전에 나중에 다시 검색할 수 있는 위치(예: Visual Studio Code의 새 텍스트 파일)에 SAS URI를 붙여넣습니다.
 
-15. Azure Portal에서 리소스 그룹을 새로 고쳐 방금 만든 Azure Storage 계정이 포함되어 있는지 확인합니다. 스토리지 계정을 열고 왼쪽 창에서 **Storage Explorer**를 선택합니다. 그런 다음 Storage Explorer에서 **Blob 컨테이너**를 확장하고 **sampleforms** 컨테이너를 선택하여 로컬 **21-custom-form/sample-forms** 폴더에서 파일이 업로드되었음을 확인합니다.
+15. Azure Portal에서 리소스 그룹을 새로 고쳐 방금 만든 Azure Storage 계정이 포함되어 있는지 확인합니다. 스토리지 계정을 열고 왼쪽 창에서 **스토리지 브라우저(미리 보기)**를 선택합니다. 그런 다음 스토리지 브라우저에서 **Blob 컨테이너**를 확장하고 **sampleforms** 컨테이너를 선택하여 로컬 **21-custom-form/sample-forms** 폴더에서 파일이 업로드되었음을 확인합니다.
 
 ## 레이블 *없이* 모델 학습시키기
 
@@ -231,7 +231,7 @@ python test-model.py
 **C#**
 
 ```C#
-// 모델 학습 
+// Train model 
 CustomFormModel model = await trainingClient
 .StartTrainingAsync(new Uri(trainingStorageUri), useTrainingLabels: true)
 .WaitForCompletionAsync();
@@ -240,7 +240,7 @@ CustomFormModel model = await trainingClient
 **Python**
 
 ```Python
-# 모델 학습 
+# Train model 
 poller = form_training_client.begin_training(trainingDataUrl, use_training_labels=True)
 model = poller.result()
 ```
