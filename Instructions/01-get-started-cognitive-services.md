@@ -21,7 +21,7 @@ lab:
 
 ## Cognitive Services 리소스 프로비전
 
-Azure Cognitive Services는 애플리케이션에 통합할 수 있는 인공 지능 기능이 캡슐화된 클라우드 기반 서비스입니다. 특정 API용 개별 Cognitive Services 리소스(예: **Text Analytics** 또는 **Computer Vision**)를 프로비전할 수도 있고, 엔드포인트와 키 하나를 통해 여러 Cognitive Services API에 액세스할 수 있는 일반 **Cognitive Services** 리소스를 프로비전할 수도 있습니다. 여기서는 단일 **Cognitive Services** 리소스를 사용합니다.
+Azure Cognitive Services는 애플리케이션에 통합할 수 있는 인공 지능 기능이 캡슐화된 클라우드 기반 서비스입니다. 특정 API용 개별 Cognitive Services 리소스(예: **Language** 또는 **Computer Vision**)를 프로비전할 수도 있고, 엔드포인트와 키 하나를 통해 여러 Cognitive Services API에 액세스할 수 있는 일반 **Cognitive Services** 리소스를 프로비전할 수도 있습니다. 여기서는 단일 **Cognitive Services** 리소스를 사용합니다.
 
 1. Azure Portal `https://portal.azure.com`을 열고 Azure 구독과 연결된 Microsoft 계정을 사용하여 로그인합니다.
 2. **&#65291;리소스 만들기** 단추를 선택하고 *cognitive services*를 검색한 후에 다음 설정을 사용하여 **Cognitive Services** 리소스를 만듭니다.
@@ -39,7 +39,7 @@ Azure Cognitive Services는 애플리케이션에 통합할 수 있는 인공 �
 
 ## REST 인터페이스 사용
 
-Cognitive Services API는 REST를 기반으로 하므로 HTTP를 통해 JSON 요청을 제출하여 API를 사용할 수 있습니다. 이 연습에서는 **Text Analytics** REST API를 사용해 언어 감지를 수행하는 콘솔 애플리케이션을 살펴봅니다. 하지만 Cognitive Services 리소스가 지원하는 모든 API에는 동일한 기본 원칙이 적용됩니다.
+Cognitive Services API는 REST를 기반으로 하므로 HTTP를 통해 JSON 요청을 제출하여 API를 사용할 수 있습니다. 이 연습에서는 **Language** REST API를 사용해 언어 감지를 수행하는 콘솔 애플리케이션을 살펴봅니다. 하지만 Cognitive Services 리소스가 지원하는 모든 API에는 동일한 기본 원칙이 적용됩니다.
 
 > **참고**: 이 연습에서는 **C#** 또는 **Python**의 REST API 사용을 선택할 수 있습니다. 아래 단계에서 선호하는 언어에 적합한 작업을 수행하세요.
 

@@ -6,9 +6,9 @@ lab:
 
 # 텍스트 분석
 
-**Text Analytics API**는 언어 감지, 감정 분석, 핵심 구 추출, 엔터티 인식 등의 텍스트 분석을 지원하는 Cognitive Service입니다.
+**Language** 서비스는 언어 감지, 감정 분석, 핵심 구 추출, 엔터티 인식 등의 텍스트 분석을 지원하는 Cognitive Service입니다.
 
-회사 웹 사이트로 제출된 호텔 리뷰를 처리하려는 여행사의 경우를 예로 들어 보겠습니다. 이 여행사는 Text Analytics API를 사용하여 각 리뷰를 작성한 언어, 리뷰의 감정(긍정적, 중립, 부정적), 리뷰에 설명되어 있는 주요 토픽을 나타낼 수 있는 핵심 구, 그리고 리뷰에 언급되어 있는 장소, 주요 건물, 사람 등의 명명된 엔터티를 확인할 수 있습니다.
+회사 웹 사이트로 제출된 호텔 리뷰를 처리하려는 여행사의 경우를 예로 들어 보겠습니다. 이 여행사는 Language 서비스를 사용하여 각 리뷰를 작성한 언어, 리뷰의 감정(긍정적, 중립, 부정적), 리뷰에 설명되어 있는 주요 토픽을 나타낼 수 있는 핵심 구, 그리고 리뷰에 언급되어 있는 장소, 주요 건물, 사람 등의 명명된 엔터티를 확인할 수 있습니다.
 
 ## 이 과정용 리포지토리 복제
 
@@ -36,9 +36,9 @@ lab:
 4. 배포가 완료될 때까지 기다렸다가 배포 세부 정보를 확인합니다.
 5. 리소스가 배포되면 해당 리소스로 이동하여 **키 및 엔드포인트** 페이지를 확인합니다. 다음 절차에서 이 페이지에 표시되는 키 중 하나와 엔드포인트가 필요합니다.
 
-## Text Analytics SDK 사용 준비
+## 텍스트 분석에 Language SDK를 사용하도록 준비
 
-이 연습에서는 Text Analytics SDK를 사용해 호텔 리뷰를 분석하는 부분 구현 클라이언트 애플리케이션을 완성합니다.
+이 연습에서는 Language 서비스 Text Analytics SDK를 사용해 호텔 리뷰를 분석하는 부분 구현 클라이언트 애플리케이션을 완성합니다.
 
 > **참고**: **C#** 또는 **Python**용 SDK 사용을 선택할 수 있습니다. 아래 단계에서 선호하는 언어에 적합한 작업을 수행하세요.
 
@@ -73,7 +73,7 @@ lab:
     **C#**
     
     ```C#
-    // 네임스페이스 가져오기
+    // import namespaces
     using Azure;
     using Azure.AI.TextAnalytics;
     ```
@@ -81,7 +81,7 @@ lab:
     **Python**
 
     ```Python
-    # 네임스페이스 가져오기
+    # import namespaces
     from azure.core.credentials import AzureKeyCredential
     from azure.ai.textanalytics import TextAnalyticsClient
     ```
@@ -91,7 +91,7 @@ lab:
     **C#**
 
     ```C#
-    // 엔드포인트와 키를 사용하여 클라이언트 만들기
+    // Create client using endpoint and key
     AzureKeyCredential credentials = new AzureKeyCredential(cogSvcKey);
     Uri endpoint = new Uri(cogSvcEndpoint);
     TextAnalyticsClient CogClient = new TextAnalyticsClient(endpoint, credentials);
@@ -100,7 +100,7 @@ lab:
     **Python**
 
     ```Python
-    # 엔드포인트와 키를 사용하여 클라이언트 만들기
+    # Create client using endpoint and key
     credential = AzureKeyCredential(cog_key)
     cog_client = TextAnalyticsClient(endpoint=cog_endpoint, credential=credential)
     ```
@@ -130,7 +130,7 @@ Text Analytics API용 클라이언트를 만들었으므로 해당 클라이언�
     **C#**
     
     ```C
-    // 언어 가져오기
+    // Get language
     DetectedLanguage detectedLanguage = CogClient.DetectLanguage(text);
     Console.WriteLine($"\nLanguage: {detectedLanguage.Name}");
     ```
@@ -138,7 +138,7 @@ Text Analytics API용 클라이언트를 만들었으므로 해당 클라이언�
     **Python**
     
     ```Python
-    # 언어 가져오기
+    # Get language
     detectedLanguage = cog_client.detect_language(documents=[text])[0]
     print('\nLanguage: {}'.format(detectedLanguage.primary_language.name))
     ```
@@ -170,7 +170,7 @@ Text Analytics API용 클라이언트를 만들었으므로 해당 클라이언�
     **C#**
     
     ```C
-    // 감정 가져오기
+    // Get sentiment
     DocumentSentiment sentimentAnalysis = CogClient.AnalyzeSentiment(text);
     Console.WriteLine($"\nSentiment: {sentimentAnalysis.Sentiment}");
     ```
@@ -178,7 +178,7 @@ Text Analytics API용 클라이언트를 만들었으므로 해당 클라이언�
     **Python**
     
     ```Python
-    # 감정 가져오기
+    # Get sentiment
     sentimentAnalysis = cog_client.analyze_sentiment(documents=[text])[0]
     print("\nSentiment: {}".format(sentimentAnalysis.sentiment))
     ```
@@ -208,7 +208,7 @@ Text Analytics API용 클라이언트를 만들었으므로 해당 클라이언�
     **C#**
 
     ```C
-    // 핵심 구 가져오기
+    // Get key phrases
     KeyPhraseCollection phrases = CogClient.ExtractKeyPhrases(text);
     if (phrases.Count > 0)
     {
@@ -223,7 +223,7 @@ Text Analytics API용 클라이언트를 만들었으므로 해당 클라이언�
     **Python**
     
     ```Python
-    # 핵심 구 가져오기
+    # Get key phrases
     phrases = cog_client.extract_key_phrases(documents=[text])[0].key_phrases
     if len(phrases) > 0:
         print("\nKey Phrases:")
@@ -256,7 +256,7 @@ Text Analytics API용 클라이언트를 만들었으므로 해당 클라이언�
     **C#**
     
     ```C
-    // 엔터티 가져오기
+    // Get entities
     CategorizedEntityCollection entities = CogClient.RecognizeEntities(text);
     if (entities.Count > 0)
     {
@@ -271,7 +271,7 @@ Text Analytics API용 클라이언트를 만들었으므로 해당 클라이언�
     **Python**
     
     ```Python
-    # 엔터티 가져오기
+    # Get entities
     entities = cog_client.recognize_entities(documents=[text])[0].entities
     if len(entities) > 0:
         print("\nEntities")
@@ -304,7 +304,7 @@ Text Analytics API는 범주화된 엔터티뿐 아니라 Wikipedia 등의 데�
     **C#**
     
     ```C
-    // 연결된 엔터티 가져오기
+    // Get linked entities
     LinkedEntityCollection linkedEntities = CogClient.RecognizeLinkedEntities(text);
     if (linkedEntities.Count > 0)
     {
@@ -319,7 +319,7 @@ Text Analytics API는 범주화된 엔터티뿐 아니라 Wikipedia 등의 데�
     **Python**
     
     ```Python
-    # 연결된 엔터티 가져오기
+    # Get linked entities
     entities = cog_client.recognize_linked_entities(documents=[text])[0].entities
     if len(entities) > 0:
         print("\nLinks")
@@ -345,4 +345,4 @@ Text Analytics API는 범주화된 엔터티뿐 아니라 Wikipedia 등의 데�
 
 ## 추가 정보
 
-**Text Analytics** 서비스를 사용하는 방법에 대한 자세한 내용은 [Text Analytics 설명서](https://docs.microsoft.com/azure/cognitive-services/text-analytics/)를 참조하세요.
+**Language** 서비스를 사용하는 방법에 대한 자세한 내용은 [Text Analytics 설명서](https://docs.microsoft.com/azure/cognitive-services/language-service/)를 참조하세요.
