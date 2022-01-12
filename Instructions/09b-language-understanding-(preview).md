@@ -49,7 +49,7 @@ Language 서비스에서는 *대화형 Language Understanding* 모델을 정의�
     4. 페이지 위쪽에서 **Language Studio**를 클릭하여 Language Studio 홈 페이지로 돌아옵니다.
 4. 포털 위쪽의 **새로 만들기** 메뉴에서 **대화형 Language Understanding**을 선택합니다.
 5. **프로젝트 만들기** 대화 상자의 **프로젝트 형식 선택** 페이지에서 **대화**를 선택하고 **다음**을 클릭합니다.
-6. **기본 정보 입력** 페이지에서 다음 세부 정보를 입력하고 **다음:**을 클릭합니다.
+6. **기본 정보 입력** 페이지에서 다음 세부 정보를 입력하고 **다음:** 을 클릭합니다.
     - **이름**: `Clock`
     - **설명**: `Natural language clock`
     - **발화 기본 언어**: 영어
@@ -151,7 +151,7 @@ Language 서비스에서는 *대화형 Language Understanding* 모델을 정의�
 
     `what's the time in New York?`
 
-9. 이 발화를 추가한 후 단어 ***New York**을 선택하여 **Location** 엔터티에 매핑합니다.
+9. 이 발화를 추가한 후 단어 ***New York***을 선택하여 **Location** 엔터티에 매핑합니다.
 
 10. **변경 내용 저장**을 클릭하여 새 발화를 저장합니다.
 
