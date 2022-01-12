@@ -1,4 +1,4 @@
-﻿---
+---
 lab:
     title: 'Language 서비스를 사용하여 Language Understanding 모델 만들기(미리 보기)'
 ---
